@@ -4,7 +4,8 @@
   "description": "Javascript client library for MAX Exchange API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
   },
   "keywords": [
     "max",
@@ -14,5 +15,18 @@
     "js"
   ],
   "author": "max@maicoin.com",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "debug": "^3.1.0",
+    "dotenv": "^6.0.0",
+    "querystring": "^0.2.0",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5",
+    "validate": "^4.4.1",
+    "xcase": "^2.0.1"
+  }
 }
