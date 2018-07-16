@@ -9,7 +9,8 @@
     "build": "webpack --config webpack.config.js",
     "max_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/index.js > docs/max.md",
     "rest_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/rest_v2.js > docs/rest_v2.md",
-    "docs": "npm run max_doc & npm run rest_doc"
+    "docs": "npm run max_doc & npm run rest_doc",
+    "release": "standard-version"
   },
   "keywords": [
     "max",
@@ -25,6 +26,7 @@
     "jsdoc": "^3.5.5",
     "jsdoc-to-markdown": "^4.0.1",
     "standard": "^11.0.1",
+    "standard-version": "^4.4.0",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8"
   },
