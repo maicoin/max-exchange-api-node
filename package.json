@@ -17,12 +17,14 @@
   "author": "max@maicoin.com",
   "license": "MIT",
   "devDependencies": {
+    "dotenv": "^6.0.0",
+    "jsdoc": "^3.5.5",
+    "jsdoc-to-markdown": "^4.0.1",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
     "debug": "^3.1.0",
-    "dotenv": "^6.0.0",
     "querystring": "^0.2.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
