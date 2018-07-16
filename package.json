@@ -1,9 +1,10 @@
 {
   "name": "max-exchange-api-js",
   "version": "0.0.1",
-  "description": "Javascript client library for MAX Exchange API",
+  "description": "Node.js client library for MAX Exchange API",
   "main": "index.js",
   "scripts": {
+    "lint": "standard --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "max_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/index.js > docs/max.md",
@@ -23,6 +24,7 @@
     "dotenv": "^6.0.0",
     "jsdoc": "^3.5.5",
     "jsdoc-to-markdown": "^4.0.1",
+    "standard": "^11.0.1",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8"
   },
@@ -31,6 +33,7 @@
     "querystring": "^0.2.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
+    "safer-buffer": "^2.1.2",
     "validate": "^4.4.1",
     "xcase": "^2.0.1"
   }
