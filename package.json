@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "max_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/index.js > docs/max.md",
+    "rest_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/rest_v2.js > docs/rest_v2.md",
+    "docs": "npm run max_doc & npm run rest_doc"
   },
   "keywords": [
     "max",
