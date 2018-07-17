@@ -1,5 +1,5 @@
 {
-  "name": "max-exchange-api-js",
+  "name": "max-exchange-api-node",
   "version": "0.0.1",
   "description": "Node.js client library for MAX Exchange API",
   "main": "index.js",

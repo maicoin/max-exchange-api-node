@@ -13,7 +13,7 @@ A node.js implementation of MAX exchange API
 ## Installation
 
 ```
-npm install max-exchange-api
+npm install max-exchange-api-node
 ```
 
 see `/docs` for MAX and RESTV2 methods.
@@ -23,7 +23,7 @@ see `/docs` for MAX and RESTV2 methods.
 MAX constructor will return a client manager to support REST API.
 
 ```js
-const MAX = require('max-exchange-api')
+const MAX = require('max-exchange-api-node')
 
 const max = new MAX({
   accessKey: 'YOUR_ACCESS_KEY',
