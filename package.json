@@ -1,10 +1,16 @@
 {
   "name": "max-exchange-api-js",
   "version": "0.0.1",
-  "description": "Javascript client library for MAX Exchange API",
+  "description": "Node.js client library for MAX Exchange API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "standard --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "max_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/index.js > docs/max.md",
+    "rest_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/rest_v2.js > docs/rest_v2.md",
+    "docs": "npm run max_doc & npm run rest_doc",
+    "release": "standard-version"
   },
   "keywords": [
     "max",
@@ -14,5 +20,23 @@
     "js"
   ],
   "author": "max@maicoin.com",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^6.0.0",
+    "jsdoc": "^3.5.5",
+    "jsdoc-to-markdown": "^4.0.1",
+    "standard": "^11.0.1",
+    "standard-version": "^4.4.0",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "debug": "^3.1.0",
+    "querystring": "^0.2.0",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5",
+    "safer-buffer": "^2.1.2",
+    "validate": "^4.4.1",
+    "xcase": "^2.0.1"
+  }
 }
