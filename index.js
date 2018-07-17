@@ -1,4 +1,4 @@
-const RestV2 = require('./transports/rest_v2')
+const RestV2 = require('./lib/transports/rest_v2')
 const SUPPORTED_REST_VERSIONS = [2]
 
 /**
