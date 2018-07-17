@@ -38,7 +38,11 @@ const rest = max.rest() // default version is 2
 const rest2 = max.rest(2) // the same client as rest
 
 // get current markets
-rest.markets().then((data) => {
-  console.log(data)
-})
+rest.markets()
+  .then((data) => {
+    console.log(data)
+  })
+  .catch((error) => {
+    console.log(error.message)
+  })
 ```
