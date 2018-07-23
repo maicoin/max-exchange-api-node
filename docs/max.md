@@ -21,7 +21,7 @@ Client interface to commnuicate with MAX exchange Rest API v2.
 
 <a name="MAX+rest"></a>
 
-### max.rest(version) ⇒ <code>RestV2</code>
+### maX.rest(version) ⇒ <code>RestV2</code>
 Returns a new Rest API class instance (cached by version)
 
 **Kind**: instance method of [<code>MAX</code>](#MAX)  

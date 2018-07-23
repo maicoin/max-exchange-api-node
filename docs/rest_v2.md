@@ -20,6 +20,7 @@ Access to MAX Rest API V2
     * [.deposits([options])](#RestV2+deposits) ⇒ <code>Promise</code>
     * [.deposit(options, txid)](#RestV2+deposit) ⇒ <code>Promise</code>
     * [.depositAddresses([options])](#RestV2+depositAddresses) ⇒ <code>Promise</code>
+    * [.generateDepositAddresses(options)](#RestV2+generateDepositAddresses) ⇒ <code>Promise</code>
     * [.withdrawals([options])](#RestV2+withdrawals) ⇒ <code>Promise</code>
     * [.withdrawal(options)](#RestV2+withdrawal) ⇒ <code>Promise</code>
     * [.orders(options)](#RestV2+orders) ⇒ <code>Promise</code>
@@ -175,6 +176,17 @@ Initialize a Restv2 class.
 | --- | --- | --- |
 | [options] | <code>Object</code> |  |
 | [options.currency] | <code>string</code> | unique currency id, check currencies() for available currencies |
+
+<a name="RestV2+generateDepositAddresses"></a>
+
+### restV2.generateDepositAddresses(options) ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2DepositAddresses  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> |  |
+| options.currency | <code>string</code> | unique currency id, check currencies() for available currencies |
 
 <a name="RestV2+withdrawals"></a>
 
