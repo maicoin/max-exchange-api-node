@@ -16,6 +16,7 @@ Access to MAX Rest API V2
     * [.marketTrades(options)](#RestV2+marketTrades) ⇒ <code>Promise</code>
     * [.k(options)](#RestV2+k) ⇒ <code>Promise</code>
     * [.timestamp(options)](#RestV2+timestamp) ⇒ <code>Promise</code>
+    * [.calibrateTime()](#RestV2+calibrateTime) ⇒ <code>Promise</code>
     * [.me()](#RestV2+me) ⇒ <code>Promise</code>
     * [.deposits([options])](#RestV2+deposits) ⇒ <code>Promise</code>
     * [.deposit(options, txid)](#RestV2+deposit) ⇒ <code>Promise</code>
@@ -134,6 +135,12 @@ Initialize a Restv2 class.
 | --- | --- |
 | options | <code>Object</code> | 
 
+<a name="RestV2+calibrateTime"></a>
+
+### restV2.calibrateTime() ⇒ <code>Promise</code>
+Calibrate local time with system time
+
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
 <a name="RestV2+me"></a>
 
 ### restV2.me() ⇒ <code>Promise</code>
