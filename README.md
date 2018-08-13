@@ -36,6 +36,7 @@ MAX object will cache client by versions.
 ``` js
 const rest = max.rest() // default version is 2
 const rest2 = max.rest(2) // the same client as rest
+const ws = max.ws()
 
 // get current markets
 rest.markets()
@@ -45,4 +46,24 @@ rest.markets()
   .catch((error) => {
     console.log(error.message)
   })
+
+
+// connect to websocket
+ws.open().then(() => {
+  ws.once('open', () => {
+    ws.subscribeTicker('btctwd') // subscribe to public channel
+  })
+
+  ws.once('challenged', () => {
+    ws.subscribeAccount() // subscribe to private channel
+  })
+
+  ws.on('ticker', (message) => {
+    console.log(message)
+  })
+
+  ws.on('account', (message) => {
+    console.log(message)
+  })
+})
 ```
