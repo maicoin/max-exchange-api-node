@@ -9,7 +9,8 @@
     "build": "webpack --config webpack.config.js",
     "max_doc": "node_modules/jsdoc-to-markdown/bin/cli.js index.js > docs/max.md",
     "rest_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/rest_v2.js > docs/rest_v2.md",
-    "docs": "npm run max_doc & npm run rest_doc",
+    "ws_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/ws.js > docs/ws.md",
+    "docs": "npm run max_doc & npm run rest_doc & npm run ws_doc",
     "release": "standard-version"
   },
   "repository": {
@@ -47,6 +48,7 @@
     "request-promise-native": "^1.0.5",
     "safer-buffer": "^2.1.2",
     "validate": "^4.4.1",
+    "ws": "^6.0.0",
     "xcase": "^2.0.1"
   }
 }

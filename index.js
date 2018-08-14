@@ -1,5 +1,6 @@
 const RestV2 = require('./lib/transports/rest_v2')
 const SUPPORTED_REST_VERSIONS = [2]
+const WSV1 = require('./lib/transports/ws')
 
 /**
  * Client interface to commnuicate with MAX exchange Rest API v2.
@@ -37,10 +38,29 @@ class MAX {
     let rest = this._readCache(this._restCacheKey(version))
 
     if (!rest) {
-      rest = this._writeCache(this._restCacheKey(version), new RestV2({ accessKey: this._accessKey, secretKey: this._secretKey }))
+      rest = this._writeCache(this._restCacheKey(version), new RestV2({
+        accessKey: this._accessKey, secretKey: this._secretKey
+      }))
     }
 
     return rest
+  }
+
+  /**
+   * Returns a new WebSocket API class instance
+   *
+   * @return {WSV1} transport
+   */
+  ws () {
+    let ws = this._readCache(this._wsCacheKey())
+
+    if (!ws) {
+      ws = this._writeCache(this._wsCacheKey(), new WSV1({
+        accessKey: this._accessKey, secretKey: this._secretKey
+      }))
+    }
+
+    return ws
   }
 
   /* Private Methods */
@@ -57,6 +77,10 @@ class MAX {
 
   _restCacheKey (version) {
     return `restV${version}`
+  }
+
+  _wsCacheKey (version = 1) {
+    return `wsV${version}`
   }
 }
 
