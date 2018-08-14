@@ -3,7 +3,7 @@
 A node.js implementation of MAX exchange API
 
 * REST API V2
-* Websocket API (TBD)
+* Websocket API
 
 ## Documentations
 
