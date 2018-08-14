@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/maicoin/max-exchange-api-node/compare/v0.1.1...v0.2.0) (2018-08-14)
+
+
+### Features
+
+* add user-agent in request header ([e51ca51](https://github.com/maicoin/max-exchange-api-node/commit/e51ca51))
+* add websocket api support ([f10f40e](https://github.com/maicoin/max-exchange-api-node/commit/f10f40e))
+* terminate bad ws connection ([df50367](https://github.com/maicoin/max-exchange-api-node/commit/df50367))
+
+
+
 <a name="0.1.1"></a>
 ## [0.1.1](https://github.com/maicoin/max-exchange-api-node/compare/v0.1.0...v0.1.1) (2018-07-23)
 
