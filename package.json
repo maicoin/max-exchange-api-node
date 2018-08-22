@@ -10,7 +10,7 @@
     "rest_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/rest_v2.js > docs/rest_v2.md",
     "ws_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/ws.js > docs/ws.md",
     "docs": "npm run max_doc & npm run rest_doc & npm run ws_doc",
-    "release": "standard-version",
+    "release": "npm lint && npm test && standard-version",
     "precommit": "lint-staged",
     "prepush": "npm test"
   },
