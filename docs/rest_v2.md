@@ -277,7 +277,7 @@ Calibrate local time with system time
 | options.side | <code>string</code> | 'sell' or 'buy' |
 | options.volume | <code>string</code> | total amount to sell/buy, an order could be partially executed |
 | [options.price] | <code>string</code> | price of a unit, required for limit order |
-| [options.ordType] | <code>string</code> | order type, 'limit' or 'market' |
+| [options.ord_type] | <code>string</code> | order type, 'limit' or 'market' |
 
 <a name="RestV2+placeOrders"></a>
 
@@ -293,7 +293,7 @@ Calibrate local time with system time
 | options.orders[].side | <code>string</code> | 'sell' or 'buy' |
 | options.orders[].volume | <code>string</code> | total amount to sell/buy, an order could be partially executed |
 | [options.orders[].price] | <code>string</code> | price of a unit, required for limit order |
-| [options.orders[].ordType] | <code>string</code> | order type, 'limit' or 'market' |
+| [options.orders[].ord_type] | <code>string</code> | order type, 'limit' or 'market' |
 
 <a name="RestV2+cancelOrders"></a>
 
