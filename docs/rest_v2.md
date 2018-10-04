@@ -3,7 +3,7 @@
 ## RestV2
 Access to MAX Rest API V2
 
-**Kind**: global class  
+**Kind**: global class
 
 * [RestV2](#RestV2)
     * [new RestV2(options)](#new_RestV2_new)
@@ -40,30 +40,30 @@ Initialize a Restv2 class.
 
 | Param | Type |
 | --- | --- |
-| options | <code>Object</code> | 
-| [options.accessKey] | <code>string</code> | 
-| [options.secretKey] | <code>string</code> | 
+| options | <code>Object</code> |
+| [options.accessKey] | <code>string</code> |
+| [options.secretKey] | <code>string</code> |
 
 <a name="RestV2+markets"></a>
 
 ### restV2.markets() ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Markets  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Markets
 <a name="RestV2+currencies"></a>
 
 ### restV2.currencies() ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Currencies  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Currencies
 <a name="RestV2+tickers"></a>
 
 ### restV2.tickers() ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Tickers  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Tickers
 <a name="RestV2+ticker"></a>
 
 ### restV2.ticker(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2TickersMarket  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2TickersMarket
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -73,8 +73,8 @@ Initialize a Restv2 class.
 <a name="RestV2+orderBook"></a>
 
 ### restV2.orderBook(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2OrderBook  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2OrderBook
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -86,8 +86,8 @@ Initialize a Restv2 class.
 <a name="RestV2+depth"></a>
 
 ### restV2.depth(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Depth  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Depth
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -98,8 +98,8 @@ Initialize a Restv2 class.
 <a name="RestV2+marketTrades"></a>
 
 ### restV2.marketTrades(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Trades  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Trades
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -114,8 +114,8 @@ Initialize a Restv2 class.
 <a name="RestV2+k"></a>
 
 ### restV2.k(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2K  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2K
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -128,29 +128,29 @@ Initialize a Restv2 class.
 <a name="RestV2+timestamp"></a>
 
 ### restV2.timestamp(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Timestamp  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/public/getApiV2Timestamp
 
 | Param | Type |
 | --- | --- |
-| options | <code>Object</code> | 
+| options | <code>Object</code> |
 
 <a name="RestV2+calibrateTime"></a>
 
 ### restV2.calibrateTime() ⇒ <code>Promise</code>
 Calibrate local time with system time
 
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
 <a name="RestV2+me"></a>
 
 ### restV2.me() ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2MembersMe  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2MembersMe
 <a name="RestV2+deposits"></a>
 
 ### restV2.deposits([options]) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Deposits  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Deposits
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -165,8 +165,8 @@ Calibrate local time with system time
 <a name="RestV2+deposit"></a>
 
 ### restV2.deposit(options, txid) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Deposit  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Deposit
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -176,8 +176,8 @@ Calibrate local time with system time
 <a name="RestV2+depositAddresses"></a>
 
 ### restV2.depositAddresses([options]) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2DepositAddress  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2DepositAddress
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -187,8 +187,8 @@ Calibrate local time with system time
 <a name="RestV2+generateDepositAddresses"></a>
 
 ### restV2.generateDepositAddresses(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2DepositAddresses  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2DepositAddresses
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -198,8 +198,8 @@ Calibrate local time with system time
 <a name="RestV2+withdrawals"></a>
 
 ### restV2.withdrawals([options]) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Withdrawals  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Withdrawals
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -214,8 +214,8 @@ Calibrate local time with system time
 <a name="RestV2+withdrawal"></a>
 
 ### restV2.withdrawal(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Withdrawal  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Withdrawal
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -225,8 +225,8 @@ Calibrate local time with system time
 <a name="RestV2+orders"></a>
 
 ### restV2.orders(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Orders  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Orders
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -240,8 +240,8 @@ Calibrate local time with system time
 <a name="RestV2+order"></a>
 
 ### restV2.order(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Order  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2Order
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -251,8 +251,8 @@ Calibrate local time with system time
 <a name="RestV2+trades"></a>
 
 ### restV2.trades(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2TradesMy  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2TradesMy
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -267,8 +267,8 @@ Calibrate local time with system time
 <a name="RestV2+placeOrder"></a>
 
 ### restV2.placeOrder(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2Orders  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2Orders
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -282,8 +282,8 @@ Calibrate local time with system time
 <a name="RestV2+placeOrders"></a>
 
 ### restV2.placeOrders(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2OrdersMulti  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2OrdersMulti
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -298,8 +298,8 @@ Calibrate local time with system time
 <a name="RestV2+cancelOrders"></a>
 
 ### restV2.cancelOrders(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2OrdersClear  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2OrdersClear
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -310,11 +310,10 @@ Calibrate local time with system time
 <a name="RestV2+cancelOrder"></a>
 
 ### restV2.cancelOrder(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2OrderDelete  
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)
+**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2OrderDelete
 
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>Object</code> |  |
 | options.id | <code>number</code> | unique order id |
-
