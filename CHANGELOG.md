@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+## [1.0.0](https://github.com/maicoin/max-exchange-api-node/compare/v0.2.1...v1.0.0) (2019-06-03)
+
+
+### Bug Fixes
+
+* fix wrong parameters for private get ([97cbb96](https://github.com/maicoin/max-exchange-api-node/commit/97cbb96))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/maicoin/max-exchange-api-node/compare/v0.2.0...v0.2.1) (2018-10-05)
 
