@@ -232,7 +232,7 @@ Calibrate local time with system time
 | --- | --- | --- | --- |
 | options | <code>Object</code> |  |  |
 | options.market | <code>string</code> |  | unique market id, check markets() for available markets. Ex: 'btctwd' |
-| [options.state] | <code>string</code> |  | order state filter |
+| [options.state] | <code>Array.&lt;String&gt;</code> |  | order state filter, Ex: ['wait', 'convert', 'done', 'cancel'] |
 | [options.limit] | <code>number</code> | <code>3</code> | returned results limit, maximum 100 |
 | [options.page] | <code>number</code> | <code>1</code> | specify the page of paginated results |
 | [options.orderBy] | <code>string</code> | <code>&quot;desc&quot;</code> | order in created time, 'desc' or 'asc' |
