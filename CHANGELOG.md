@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/maicoin/max-exchange-api-node/compare/v1.1.0...v1.2.0) (2020-05-06)
+
+
+### Features
+
+* add more supported APIs (accounts, trades of order) ([746b988](https://github.com/maicoin/max-exchange-api-node/commit/746b988))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/maicoin/max-exchange-api-node/compare/v1.0.0...v1.1.0) (2019-06-20)
 

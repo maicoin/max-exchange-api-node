@@ -18,6 +18,9 @@ Access to MAX Rest API V2
     * [.timestamp(options)](#RestV2+timestamp) ⇒ <code>Promise</code>
     * [.calibrateTime()](#RestV2+calibrateTime) ⇒ <code>Promise</code>
     * [.me()](#RestV2+me) ⇒ <code>Promise</code>
+    * [.profile()](#RestV2+profile) ⇒ <code>Promise</code>
+    * [.accounts()](#RestV2+accounts) ⇒ <code>Promise</code>
+    * [.account(currency)](#RestV2+account) ⇒ <code>Promise</code>
     * [.deposits([options])](#RestV2+deposits) ⇒ <code>Promise</code>
     * [.deposit(options, txid)](#RestV2+deposit) ⇒ <code>Promise</code>
     * [.depositAddresses([options])](#RestV2+depositAddresses) ⇒ <code>Promise</code>
@@ -27,6 +30,7 @@ Access to MAX Rest API V2
     * [.orders(options)](#RestV2+orders) ⇒ <code>Promise</code>
     * [.order(options)](#RestV2+order) ⇒ <code>Promise</code>
     * [.trades(options)](#RestV2+trades) ⇒ <code>Promise</code>
+    * [.tradesOfOrder(order)](#RestV2+tradesOfOrder) ⇒ <code>Promise</code>
     * [.placeOrder(options)](#RestV2+placeOrder) ⇒ <code>Promise</code>
     * [.placeOrders(options)](#RestV2+placeOrders) ⇒ <code>Promise</code>
     * [.cancelOrders(options)](#RestV2+cancelOrders) ⇒ <code>Promise</code>
@@ -146,6 +150,26 @@ Calibrate local time with system time
 ### restV2.me() ⇒ <code>Promise</code>
 **Kind**: instance method of [<code>RestV2</code>](#RestV2)  
 **See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2MembersMe  
+<a name="RestV2+profile"></a>
+
+### restV2.profile() ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2MembersProfile  
+<a name="RestV2+accounts"></a>
+
+### restV2.accounts() ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2MembersAccounts  
+<a name="RestV2+account"></a>
+
+### restV2.account(currency) ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2MembersAccountsPathCurrency  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| currency | <code>string</code> | unique currency id, check currencies() for available currencies |
+
 <a name="RestV2+deposits"></a>
 
 ### restV2.deposits([options]) ⇒ <code>Promise</code>
@@ -235,7 +259,7 @@ Calibrate local time with system time
 | [options.state] | <code>Array.&lt;String&gt;</code> |  | order state filter, Ex: ['wait', 'convert', 'done', 'cancel'] |
 | [options.limit] | <code>number</code> | <code>3</code> | returned results limit, maximum 100 |
 | [options.page] | <code>number</code> | <code>1</code> | specify the page of paginated results |
-| [options.orderBy] | <code>string</code> | <code>&quot;desc&quot;</code> | order in created time, 'desc' or 'asc' |
+| [options.orderBy] | <code>string</code> | <code>&quot;desc&quot;</code> | order in created time, can be 'desc', 'asc', 'desc_updated_at' or 'asc_updated_at' |
 
 <a name="RestV2+order"></a>
 
@@ -263,6 +287,16 @@ Calibrate local time with system time
 | [options.from] | <code>number</code> |  | trade id, set ot return trades created after the trade |
 | [options.to] | <code>number</code> |  | trade id, set to return trades created before the trade |
 | [options.orderBy] | <code>string</code> | <code>&quot;desc&quot;</code> | order the trades by created time, 'desc' or 'asc' |
+
+<a name="RestV2+tradesOfOrder"></a>
+
+### restV2.tradesOfOrder(order) ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2TradesMyOfOrder  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| order | <code>number</code> | id - unique id of order |
 
 <a name="RestV2+placeOrder"></a>
 
