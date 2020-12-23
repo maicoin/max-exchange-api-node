@@ -30,7 +30,7 @@ Access to MAX Rest API V2
     * [.orders(options)](#RestV2+orders) ⇒ <code>Promise</code>
     * [.order(options)](#RestV2+order) ⇒ <code>Promise</code>
     * [.trades(options)](#RestV2+trades) ⇒ <code>Promise</code>
-    * [.tradesOfOrder(order)](#RestV2+tradesOfOrder) ⇒ <code>Promise</code>
+    * [.tradesOfOrder(options)](#RestV2+tradesOfOrder) ⇒ <code>Promise</code>
     * [.placeOrder(options)](#RestV2+placeOrder) ⇒ <code>Promise</code>
     * [.placeOrders(options)](#RestV2+placeOrders) ⇒ <code>Promise</code>
     * [.cancelOrders(options)](#RestV2+cancelOrders) ⇒ <code>Promise</code>
@@ -256,7 +256,8 @@ Calibrate local time with system time
 | --- | --- | --- | --- |
 | options | <code>Object</code> |  |  |
 | options.market | <code>string</code> |  | unique market id, check markets() for available markets. Ex: 'btctwd' |
-| [options.state] | <code>Array.&lt;String&gt;</code> |  | order state filter, Ex: ['wait', 'convert', 'done', 'cancel'] |
+| [options.state] | <code>Array.&lt;String&gt;</code> |  | order state filter, Ex: ['wait', 'convert', 'done', 'cancel', 'finalizing'] |
+| [options.groupId] | <code>number</code> |  | filter order by group id |
 | [options.limit] | <code>number</code> | <code>3</code> | returned results limit, maximum 100 |
 | [options.page] | <code>number</code> | <code>1</code> | specify the page of paginated results |
 | [options.orderBy] | <code>string</code> | <code>&quot;desc&quot;</code> | order in created time, can be 'desc', 'asc', 'desc_updated_at' or 'asc_updated_at' |
@@ -270,7 +271,8 @@ Calibrate local time with system time
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>Object</code> |  |
-| options.id | <code>number</code> | unique order id |
+| [options.id] | <code>number</code> | unique order id |
+| [options.clientOid] | <code>string</code> | user specific order id in RFC 4122 format. only persist for 24 hours, required when order id is not given |
 
 <a name="RestV2+trades"></a>
 
@@ -290,13 +292,15 @@ Calibrate local time with system time
 
 <a name="RestV2+tradesOfOrder"></a>
 
-### restV2.tradesOfOrder(order) ⇒ <code>Promise</code>
+### restV2.tradesOfOrder(options) ⇒ <code>Promise</code>
 **Kind**: instance method of [<code>RestV2</code>](#RestV2)  
 **See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2TradesMyOfOrder  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| order | <code>number</code> | id - unique id of order |
+| options | <code>Object</code> |  |
+| [options.id] | <code>number</code> | unique id of order |
+| [options.clientOid] | <code>string</code> | user specific order id in RFC 4122 format. only persist for 24 hours, required when order id is not given |
 
 <a name="RestV2+placeOrder"></a>
 
@@ -311,7 +315,10 @@ Calibrate local time with system time
 | options.side | <code>string</code> | 'sell' or 'buy' |
 | options.volume | <code>string</code> | total amount to sell/buy, an order could be partially executed |
 | [options.price] | <code>string</code> | price of a unit, required for limit order |
-| [options.ordType] | <code>string</code> | order type, 'limit' or 'market' |
+| [options.stopPrice] | <code>string</code> | price of a unit, required for stop limit & stop market orders |
+| [options.ordType] | <code>string</code> | order type, 'limit', 'market', 'stop_limit', 'stop_market' or 'post_only' |
+| [options.groupId] | <code>number</code> | group id |
+| [options.clientOid] | <code>string</code> | user specific order id in RFC 4122 format. only persist for 24 hours |
 
 <a name="RestV2+placeOrders"></a>
 
@@ -327,7 +334,10 @@ Calibrate local time with system time
 | options.orders[].side | <code>string</code> | 'sell' or 'buy' |
 | options.orders[].volume | <code>string</code> | total amount to sell/buy, an order could be partially executed |
 | [options.orders[].price] | <code>string</code> | price of a unit, required for limit order |
-| [options.orders[].ordType] | <code>string</code> | order type, 'limit' or 'market' |
+| [options.orders[].stopPrice] | <code>string</code> | price of a unit, required for stop limit  & stop market orders |
+| [options.orders[].ordType] | <code>string</code> | order type, 'limit', 'market', 'stop_limit', 'stop_market' or 'post_only' |
+| [options.orders[].clientOid] | <code>string</code> | user specific order id in RFC 4122 format. only persist for 24 hours |
+| [options.groupId] | <code>number</code> | group id of orders |
 
 <a name="RestV2+cancelOrders"></a>
 
@@ -340,6 +350,7 @@ Calibrate local time with system time
 | options | <code>Object</code> |  |
 | [options.market] | <code>string</code> | specify market, ex: 'btctwd'. Cancel all markets if not set. |
 | [options.side] | <code>string</code> | 'sell' or 'buy'. Cancel both sides if not set. |
+| [options.groupId] | <code>number</code> | group id |
 
 <a name="RestV2+cancelOrder"></a>
 
@@ -350,5 +361,6 @@ Calibrate local time with system time
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>Object</code> |  |
-| options.id | <code>number</code> | unique order id |
+| [options.id] | <code>number</code> | unique order id |
+| [options.clientOid] | <code>string</code> | user specific order id in RFC 4122 format. only persist for 24 hours, required when order id is not given |
 
