@@ -8,5 +8,8 @@ book.onUpdate((book) => {
   book.pretty()
 })
 
+ws.on('error', (errors) => {
+  console.error(errors)
+})
 // ws.on('raw', (body) => console.log(body) )
 ws.connect()

@@ -10,4 +10,8 @@ ws.on('kline.snapshot', (kline) => { console.log(kline) })
 ws.on('kline.update', (kline) => { console.log(kline) })
 
 ws.on('raw', (body) => console.log(body))
+ws.on('error', (errors) => {
+  console.error(errors)
+})
+
 ws.connect()

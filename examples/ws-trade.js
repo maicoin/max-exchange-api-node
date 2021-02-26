@@ -9,4 +9,8 @@ ws.on('trade.snapshot', (e) => { console.log(e) })
 ws.on('trade.update', (e) => { console.log(e) })
 
 ws.on('raw', (body) => console.log(body))
+ws.on('error', (errors) => {
+  console.error(errors)
+})
+
 ws.connect()
