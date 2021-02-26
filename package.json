@@ -8,7 +8,7 @@
     "test": "jest",
     "max_doc": "node_modules/jsdoc-to-markdown/bin/cli.js index.js > docs/max.md",
     "rest_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/rest_v2.js > docs/rest_v2.md",
-    "ws_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/ws.js > docs/ws.md",
+    "ws_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/websocket.js > docs/ws.md",
     "docs": "npm run max_doc & npm run rest_doc",
     "release": "npm run lint && npm test && standard-version",
     "precommit": "lint-staged",
@@ -43,14 +43,17 @@
     "standard-version": "^8.0.1"
   },
   "dependencies": {
+    "bintree": "^1.0.0",
+    "bintrees": "^1.0.2",
     "debug": "^3.1.0",
+    "decimal.js": "^10.2.1",
     "project-version": "^1.1.0",
     "qs": "^6.7.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
     "safer-buffer": "^2.1.2",
     "validate": "^4.4.1",
-    "ws": "^6.0.0",
+    "ws": "^7.4.3",
     "xcase": "^2.0.1"
   },
   "lint-staged": {
