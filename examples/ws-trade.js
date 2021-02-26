@@ -1,4 +1,3 @@
-
 const WebSocketAPI = require('../lib/transports/websocket')
 
 const ws = new WebSocketAPI({ accessKey: '', secretKey: '' })
