@@ -44,13 +44,14 @@
   },
   "dependencies": {
     "debug": "^3.1.0",
+    "decimal.js": "^10.2.1",
     "project-version": "^1.1.0",
     "qs": "^6.7.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
     "safer-buffer": "^2.1.2",
     "validate": "^4.4.1",
-    "ws": "^6.0.0",
+    "ws": "^7.4.3",
     "xcase": "^2.0.1"
   },
   "lint-staged": {
