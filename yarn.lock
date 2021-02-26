@@ -553,6 +553,16 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
+bintree@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/bintree/-/bintree-1.0.0.tgz#2a55e0631d7ba164c85d12d0296cdd848d122604"
+  integrity sha1-KlXgYx17oWTIXRLQKWzdhI0SJgQ=
+
+bintrees@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/bintrees/-/bintrees-1.0.2.tgz#49f896d6e858a4a499df85c38fb399b9aff840f8"
+  integrity sha1-SfiW1uhYpKSZ34XDj7OZua/4QPg=
+
 bluebird@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
