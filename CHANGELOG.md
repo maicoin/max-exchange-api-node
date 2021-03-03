@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/maicoin/max-exchange-api-node/compare/v1.2.0...v2.0.0) (2021-03-03)
+
+
+### Chores
+
+* remove old websocket API support ([ed73592](https://github.com/maicoin/max-exchange-api-node/commit/ed73592))
+
+
+### Features
+
+* add more supported ord_types and order states ([7adb045](https://github.com/maicoin/max-exchange-api-node/commit/7adb045))
+* support group_id & client_oid for orders ([aadf0bc](https://github.com/maicoin/max-exchange-api-node/commit/aadf0bc))
+* update tradesOfOrder interface ([342e1e2](https://github.com/maicoin/max-exchange-api-node/commit/342e1e2))
+* support new websocket API ([document](https://maicoin.github.io/max-websocket-docs/))
+
+
+### BREAKING CHANGES
+
+* wss://max-ws.maicoin.com is no longer supported
+* now you need to pass an object to tradesOfOrder method
+instead of an integer
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/maicoin/max-exchange-api-node/compare/v1.1.0...v1.2.0) (2020-05-06)
 

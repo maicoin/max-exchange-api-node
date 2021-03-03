@@ -9,6 +9,7 @@ A node.js implementation of MAX exchange API
 
 * [REST API Introduction](https://max.maicoin.com/documents/api_v2)
 * [REST API End Points](https://max.maicoin.com/documents/api_list)
+* [WebSocket API Documentation](https://maicoin.github.io/max-websocket-docs/)
 
 ## Installation
 
@@ -16,7 +17,9 @@ A node.js implementation of MAX exchange API
 npm install max-exchange-api-node
 ```
 
-see `/docs` for MAX and RESTV2 methods.
+see `/docs` for MAX and RESTV2, WebSocketAPI methods.
+
+see `/examples` for WebSocket Usages.
 
 ## Usage
 
@@ -55,4 +58,21 @@ rest.orders({ market: 'maxtwd', state: ['wait', 'convert', 'done'] })
     console.log(error.message)
   })
 })
+```
+
+Example for subscribing orderbook from websocket API
+
+```js
+const ws = max.ws()
+const book = new WebSocketBook(ws, 'btctwd', 10)
+
+book.onUpdate((book) => {
+  book.pretty()
+})
+
+ws.on('error', (errors) => {
+  console.error(errors)
+})
+// ws.on('raw', (body) => console.log(body) )
+ws.connect()
 ```
