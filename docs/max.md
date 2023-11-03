@@ -8,7 +8,7 @@ Client interface to commnuicate with MAX exchange Rest API v2.
 * [MAX](#MAX)
     * [new MAX(options)](#new_MAX_new)
     * [.rest(version)](#MAX+rest) ⇒ <code>RestV2</code>
-    * [.ws()](#MAX+ws) ⇒ <code>WSV1</code>
+    * [.ws()](#MAX+ws) ⇒ <code>WebSocket</code>
 
 <a name="new_MAX_new"></a>
 
@@ -34,8 +34,8 @@ Returns a new Rest API class instance (cached by version)
 
 <a name="MAX+ws"></a>
 
-### maX.ws() ⇒ <code>WSV1</code>
+### maX.ws() ⇒ <code>WebSocket</code>
 Returns a new WebSocket API class instance
 
 **Kind**: instance method of [<code>MAX</code>](#MAX)  
-**Returns**: <code>WSV1</code> - transport  
+**Returns**: <code>WebSocket</code> - transport  

@@ -32,7 +32,6 @@ Access to MAX Rest API V2
     * [.trades(options)](#RestV2+trades) ⇒ <code>Promise</code>
     * [.tradesOfOrder(options)](#RestV2+tradesOfOrder) ⇒ <code>Promise</code>
     * [.placeOrder(options)](#RestV2+placeOrder) ⇒ <code>Promise</code>
-    * [.placeOrders(options)](#RestV2+placeOrders) ⇒ <code>Promise</code>
     * [.cancelOrders(options)](#RestV2+cancelOrders) ⇒ <code>Promise</code>
     * [.cancelOrder(options)](#RestV2+cancelOrder) ⇒ <code>Promise</code>
 
@@ -319,25 +318,6 @@ Calibrate local time with system time
 | [options.ordType] | <code>string</code> | order type, 'limit', 'market', 'stop_limit', 'stop_market' or 'post_only' |
 | [options.groupId] | <code>number</code> | group id |
 | [options.clientOid] | <code>string</code> | user specific order id in RFC 4122 format. only persist for 24 hours |
-
-<a name="RestV2+placeOrders"></a>
-
-### restV2.placeOrders(options) ⇒ <code>Promise</code>
-**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
-**See**: https://max.maicoin.com/documents/api_list#!/private/postApiV2OrdersMulti  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>Object</code> |  |
-| options.market | <code>string</code> | unique market id, check markets() for available markets. Ex: 'btctwd' |
-| options.orders | <code>Array.&lt;Object&gt;</code> | array of orders detail |
-| options.orders[].side | <code>string</code> | 'sell' or 'buy' |
-| options.orders[].volume | <code>string</code> | total amount to sell/buy, an order could be partially executed |
-| [options.orders[].price] | <code>string</code> | price of a unit, required for limit order |
-| [options.orders[].stopPrice] | <code>string</code> | price of a unit, required for stop limit  & stop market orders |
-| [options.orders[].ordType] | <code>string</code> | order type, 'limit', 'market', 'stop_limit', 'stop_market' or 'post_only' |
-| [options.orders[].clientOid] | <code>string</code> | user specific order id in RFC 4122 format. only persist for 24 hours |
-| [options.groupId] | <code>number</code> | group id of orders |
 
 <a name="RestV2+cancelOrders"></a>
 
