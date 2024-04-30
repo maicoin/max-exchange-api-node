@@ -27,6 +27,9 @@ Access to MAX Rest API V2
     * [.generateDepositAddresses(options)](#RestV2+generateDepositAddresses) ⇒ <code>Promise</code>
     * [.withdrawals([options])](#RestV2+withdrawals) ⇒ <code>Promise</code>
     * [.withdrawal(options)](#RestV2+withdrawal) ⇒ <code>Promise</code>
+    * [.createTwdWithdrawal(options)](#RestV2+createTwdWithdrawal) ⇒ <code>Promise</code>
+    * [.createCryptoWithdrawal(options)](#RestV2+createCryptoWithdrawal) ⇒ <code>Promise</code>
+    * [.withdrawAddresses(options)](#RestV2+withdrawAddresses) ⇒ <code>Promise</code>
     * [.orders(options)](#RestV2+orders) ⇒ <code>Promise</code>
     * [.order(options)](#RestV2+order) ⇒ <code>Promise</code>
     * [.trades(options)](#RestV2+trades) ⇒ <code>Promise</code>
@@ -34,6 +37,7 @@ Access to MAX Rest API V2
     * [.placeOrder(options)](#RestV2+placeOrder) ⇒ <code>Promise</code>
     * [.cancelOrders(options)](#RestV2+cancelOrders) ⇒ <code>Promise</code>
     * [.cancelOrder(options)](#RestV2+cancelOrder) ⇒ <code>Promise</code>
+    * [.internalTransfers(options)](#RestV2+internalTransfers) ⇒ <code>Promise</code>
 
 <a name="new_RestV2_new"></a>
 
@@ -245,6 +249,43 @@ Calibrate local time with system time
 | options | <code>Object</code> |  |
 | options.uuid | <code>string</code> | unique withdraw id |
 
+<a name="RestV2+createTwdWithdrawal"></a>
+
+### restV2.createTwdWithdrawal(options) ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**See**: https://max.maicoin.com/documents/api_list/v2#!/private/postApiV2WithdrawalTwd  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> |  |
+| options.amount | <code>string</code> | withdraw amount in TWD |
+
+<a name="RestV2+createCryptoWithdrawal"></a>
+
+### restV2.createCryptoWithdrawal(options) ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**See**: https://max.maicoin.com/documents/api_list/v2#!/private/postApiV2Withdrawal  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> |  |
+| options.currency | <code>string</code> | unique currency id |
+| options.withdraw_address_uuid | <code>string</code> | unique withdraw address id |
+| options.amount | <code>string</code> | withdraw amount |
+
+<a name="RestV2+withdrawAddresses"></a>
+
+### restV2.withdrawAddresses(options) ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2WithdrawAddresses  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| options | <code>Object</code> |  |  |
+| options.currency | <code>string</code> |  | unique currency id |
+| [options.limit] | <code>number</code> | <code>3</code> | returned results limit, maximum 100 |
+| [options.page] | <code>number</code> | <code>1</code> | specify the page of paginated results |
+
 <a name="RestV2+orders"></a>
 
 ### restV2.orders(options) ⇒ <code>Promise</code>
@@ -343,4 +384,20 @@ Calibrate local time with system time
 | options | <code>Object</code> |  |
 | [options.id] | <code>number</code> | unique order id |
 | [options.clientOid] | <code>string</code> | user specific order id in RFC 4122 format. only persist for 24 hours, required when order id is not given |
+
+<a name="RestV2+internalTransfers"></a>
+
+### restV2.internalTransfers(options) ⇒ <code>Promise</code>
+**Kind**: instance method of [<code>RestV2</code>](#RestV2)  
+**See**: https://max.maicoin.com/documents/api_list#!/private/getApiV2InternalTransfers  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| options | <code>Object</code> |  |  |
+| options.side | <code>string</code> |  | 'in' or 'out', default as 'in' |
+| [options.currency] | <code>string</code> |  | unique currency id |
+| [options.from] | <code>number</code> |  | target period start (Epoch time in seconds) |
+| [options.to] | <code>number</code> |  | target period end (Epoch time in seconds) |
+| [options.limit] | <code>number</code> | <code>50</code> | returned results limit, maximum 1000 |
+| [options.page] | <code>number</code> | <code>1</code> | specify the page of paginated results |
 
