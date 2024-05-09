@@ -9,7 +9,7 @@
     "max_doc": "node_modules/jsdoc-to-markdown/bin/cli.js index.js > docs/max.md",
     "rest_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/rest_v2.js > docs/rest_v2.md",
     "ws_doc": "node_modules/jsdoc-to-markdown/bin/cli.js lib/transports/websocket.js > docs/ws.md",
-    "docs": "npm run max_doc & npm run rest_doc",
+    "docs": "npm run max_doc & npm run rest_doc & npm rum ws_doc",
     "release": "npm run lint && npm test && standard-version",
     "precommit": "lint-staged",
     "prepush": "npm test"
