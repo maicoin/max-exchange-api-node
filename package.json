@@ -39,7 +39,7 @@
     "jsdoc": "^3.6.4",
     "jsdoc-to-markdown": "^8.0.0",
     "lint-staged": "^15.2.7",
-    "standard": "^11.0.1",
+    "standard": "^17.1.0",
     "standard-version": "^9.5.0"
   },
   "dependencies": {
