@@ -1,10 +1,10 @@
-import Decimal from 'decimal.js';
+import Decimal from 'decimal.js/decimal.mjs';
 import crypto from 'crypto';
 import WebSocket from 'ws';
 import { EventEmitter } from 'events';
-import { WEBSOCKET_URL } from '../config';
-import { Debt, ErrorResponse, FilterType, IndexPrice, MarketStatus, Order, OrderBookEvent, Subscription, TradeEvent, UserBalance, UserTrade, WebSocketAPIOptions, WebSocketEvents } from './types';
-import { Trade } from './types';
+import { WEBSOCKET_URL } from '../config.js';
+import type { Debt, ErrorResponse, FilterType, IndexPrice, MarketStatus, Order, OrderBookEvent, Subscription, TradeEvent, UserBalance, UserTrade, WebSocketAPIOptions, WebSocketEvents } from './types.js';
+import { Trade } from './types.js';
 
 class WebSocketAPI extends EventEmitter {
   on<K extends keyof WebSocketEvents>(eventName: K, listener: (arg: WebSocketEvents[K]) => void): this {

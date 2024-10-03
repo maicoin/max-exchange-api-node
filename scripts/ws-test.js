@@ -1,4 +1,4 @@
-import { WebSocket } from '../dist/index.mjs'
+import { WebSocket } from '../dist/index.js'
 
 const ws = new WebSocket({
   accessKey: process.env.MAX_ACCESSKEY_PROD,

@@ -1,4 +1,5 @@
-import Decimal from 'decimal.js';
+import Decimal from 'decimal.js/decimal.mjs';
+
 
 export type FilterType = 'mwallet_order' | 'mwallet_trade' | 'mwallet_account' | 'ad_ratio' | 'borrowing' | 'order' | 'trade' | 'account';
 

@@ -1,16 +1,25 @@
 import { z } from 'zod';
-import RestHandler from './rest';
-import { Account, AdRatio, BorrowingLimits, BorrowingInterestRates, BorrowingTransfer, Currency, Debt, Deposit, FundSource, IndexPrice, Interest, InternalTransfer, Liquidation, LiquidationDetail, ManualRepayment, Market, Order, PublicTrade, Reward, Ticker, Timestamp, Trade, UserInfo, Withdrawal, Depth } from './types';
-import { CancelAllOrdersParamsSchema, CancelOrderParamsSchema, FetchOrdersParamsSchema, GetAccountsParamsSchema, GetDepositParamsSchema, GetDepositsParamsSchema, GetDepthParamsSchema, GetInterestsParamsSchema, GetInternalTransfersParamsSchema, GetKLineParamsSchema, GetLiquidationDetailParamsSchema, GetLiquidationsParamsSchema, GetLoansParamsSchema, GetOrderHistoryParamsSchema, GetOrderParamsSchema, GetOrderTradesParamsSchema, GetPublicTradesParamsSchema, GetRepaymentsParamsSchema, GetRewardsParamsSchema, GetTickerParamsSchema, GetTickersParamsSchema, GetTradesParamsSchema, GetTransfersParamsSchema, GetWithdrawAddressesParamsSchema, GetWithdrawalParamsSchema, GetWithdrawalsParamsSchema, HistoricalIndexPricesParamsSchema, SubmitLoanParamsSchema, SubmitOrderParamsSchema, SubmitRepaymentParamsSchema, SubmitTWDWithdrawalParamsSchema, SubmitWithdrawalParamsSchema, TransferBetweenWalletsParamsSchema, WalletType, WalletTypeSchema } from './schema';
-import { BASE_URL } from '../config';
+import RestHandler from './rest.js';
+import type { Account, AdRatio, BorrowingLimits, BorrowingInterestRates, BorrowingTransfer, Currency, Debt, Deposit, FundSource, IndexPrice, Interest, InternalTransfer, Liquidation, LiquidationDetail, ManualRepayment, Market, Order, PublicTrade, Reward, Ticker, Timestamp, Trade, UserInfo, Withdrawal, Depth } from './types.js';
+import { CancelAllOrdersParamsSchema, CancelOrderParamsSchema, FetchOrdersParamsSchema, GetAccountsParamsSchema, GetDepositParamsSchema, GetDepositsParamsSchema, GetDepthParamsSchema, GetInterestsParamsSchema, GetInternalTransfersParamsSchema, GetKLineParamsSchema, GetLiquidationDetailParamsSchema, GetLiquidationsParamsSchema, GetLoansParamsSchema, GetOrderHistoryParamsSchema, GetOrderParamsSchema, GetOrderTradesParamsSchema, GetPublicTradesParamsSchema, GetRepaymentsParamsSchema, GetRewardsParamsSchema, GetTickerParamsSchema, GetTickersParamsSchema, GetTradesParamsSchema, GetTransfersParamsSchema, GetWithdrawAddressesParamsSchema, GetWithdrawalParamsSchema, GetWithdrawalsParamsSchema, HistoricalIndexPricesParamsSchema, SubmitLoanParamsSchema, SubmitOrderParamsSchema, SubmitRepaymentParamsSchema, SubmitTWDWithdrawalParamsSchema, SubmitWithdrawalParamsSchema, TransferBetweenWalletsParamsSchema, WalletType, WalletTypeSchema } from './schema.js';
+import { BASE_URL } from '../config.js';
 
+/**
+ * MaxSDK class for interacting with the MAX API.
+ */
 class MaxSDK {
   #restHandler: RestHandler;
+
+  /**
+   * Creates an instance of MaxSDK.
+   * @param {string} accessKey - The access key for API authentication.
+   * @param {string} secretKey - The secret key for API authentication.
+   * @param {string} [url=BASE_URL] - The base URL for the API.
+   */
   constructor(accessKey: string, secretKey: string, url = BASE_URL) {
     this.#restHandler = new RestHandler(url, '/api/v3', accessKey, secretKey);
   }
 
-  /* USER REGION */
   /**
    * Get user information.
    * @returns {Promise<UserInfo>} A promise that resolves to a UserInfo object.

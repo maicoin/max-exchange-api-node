@@ -1,4 +1,4 @@
-import { Rest} from '../dist/index.mjs';
+import { Rest} from '../dist/index.js';
 
 const RESET = '\x1b[0m';
 const BRIGHT = '\x1b[1m';
