@@ -4,3 +4,4 @@
 .eslintrc.json
 .DS_STORE
 /dist
+/docs

@@ -1,0 +1,16 @@
+{
+    "plugin": [
+        "typedoc-plugin-markdown"
+    ],
+    "entryPoints": [
+        "src/index.ts", "src/rest/types.ts", "src/ws/types.ts"
+    ],
+    "out": "./docs",
+    "disableSources": true,
+    "exclude": [
+        "**/*.spec.ts",
+        "**/node_modules/**",
+        "**/events.d.ts",
+        "**/eventemitter.d.ts"
+    ]
+}
