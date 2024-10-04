@@ -456,7 +456,7 @@ class WebSocketAPI extends EventEmitter {
         executedVolume: new Decimal(o.ev),
         state: o.S,
         market: o.M,
-        tradeCount: o.tc,
+        tradesCount: o.tc,
         createdAt: new Date(o.T),
         updatedAt: new Date(o.TU),
         groupId: o.gi,
