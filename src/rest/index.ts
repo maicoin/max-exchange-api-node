@@ -3,6 +3,7 @@ import RestHandler from './rest.js';
 import type { Account, AdRatio, BorrowingLimits, BorrowingInterestRates, BorrowingTransfer, Currency, Debt, Deposit, FundSource, IndexPrice, Interest, InternalTransfer, Liquidation, LiquidationDetail, ManualRepayment, Market, Order, PublicTrade, Reward, Ticker, Timestamp, Trade, UserInfo, Withdrawal, Depth } from './types.js';
 import { CancelAllOrdersParamsSchema, CancelOrderParamsSchema, FetchOrdersParamsSchema, GetAccountsParamsSchema, GetDepositParamsSchema, GetDepositsParamsSchema, GetDepthParamsSchema, GetInterestsParamsSchema, GetInternalTransfersParamsSchema, GetKLineParamsSchema, GetLiquidationDetailParamsSchema, GetLiquidationsParamsSchema, GetLoansParamsSchema, GetOrderHistoryParamsSchema, GetOrderParamsSchema, GetOrderTradesParamsSchema, GetPublicTradesParamsSchema, GetRepaymentsParamsSchema, GetRewardsParamsSchema, GetTickerParamsSchema, GetTickersParamsSchema, GetTradesParamsSchema, GetTransfersParamsSchema, GetWithdrawAddressesParamsSchema, GetWithdrawalParamsSchema, GetWithdrawalsParamsSchema, HistoricalIndexPricesParamsSchema, SubmitLoanParamsSchema, SubmitOrderParamsSchema, SubmitRepaymentParamsSchema, SubmitTWDWithdrawalParamsSchema, SubmitWithdrawalParamsSchema, TransferBetweenWalletsParamsSchema, WalletType, WalletTypeSchema } from './schema.js';
 import { BASE_URL } from '../config.js';
+import { MAXOptions } from '../types.js';
 
 /**
  * MaxSDK class for interacting with the MAX API.
@@ -12,12 +13,11 @@ class MaxSDK {
 
   /**
    * Creates an instance of MaxSDK.
-   * @param {string} accessKey - The access key for API authentication.
-   * @param {string} secretKey - The secret key for API authentication.
+   * @param {MAXOptions} options - options for the Rest API.
    * @param {string} [url=BASE_URL] - The base URL for the API.
    */
-  constructor(accessKey: string, secretKey: string, url = BASE_URL) {
-    this.#restHandler = new RestHandler(url, '/api/v3', accessKey, secretKey);
+  constructor(options: MAXOptions, url: string = BASE_URL) {
+    this.#restHandler = new RestHandler(url, '/api/v3', options.accessKey, options.secretKey);
   }
 
   /**
@@ -344,8 +344,6 @@ class MaxSDK {
     const validatedParams = GetOrderTradesParamsSchema.parse(params);
     return this.#restHandler.get<Trade[]>('/order/trades', validatedParams);
   }
-
-  /* TRANSACTION REGION */
 
   /**
    * Create a transaction between your spot wallet and m-wallet.

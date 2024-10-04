@@ -32,7 +32,7 @@ class WebSocketAPI extends EventEmitter {
    * Create a new WebSocketAPI instance.
    * @param options - The options for the WebSocket API.
    */
-  constructor(options: WebSocketAPIOptions = {}) {
+  constructor(options: WebSocketAPIOptions) {
     super();
     const {
       accessKey = '',
@@ -187,6 +187,7 @@ class WebSocketAPI extends EventEmitter {
     try {
       const obj = JSON.parse(body.toString());
       this.emit('raw', obj);
+      // TODO eventType replace
       const { e: eventType, c: channel, M: market, T: timestamp } = obj;
 
       switch (`${channel || ''}.${eventType}`) {

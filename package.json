@@ -35,6 +35,7 @@
     "change-case": "^5.4.4",
     "crypto": "^1.0.1",
     "decimal.js": "^10.4.3",
+    "memoize": "^10.0.0",
     "ws": "^8.18.0"
   },
   "devDependencies": {

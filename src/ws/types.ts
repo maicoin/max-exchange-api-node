@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js/decimal.mjs';
+import { MAXOptions } from '../types.js';
 
 
 export type FilterType = 'mwallet_order' | 'mwallet_trade' | 'mwallet_account' | 'ad_ratio' | 'borrowing' | 'order' | 'trade' | 'account';
@@ -18,9 +19,7 @@ export interface Subscription {
   resolution?: string;
 }
 
-export interface WebSocketAPIOptions {
-  accessKey?: string;
-  secretKey?: string;
+export interface WebSocketAPIOptions extends MAXOptions{
   autoReconnect?: boolean;
   reconnectInterval?: number;
   maxReconnectAttempts?: number;
