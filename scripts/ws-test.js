@@ -1,8 +1,8 @@
 import { WebSocket } from '../dist/index.js'
 
 const ws = new WebSocket({
-  accessKey: process.env.MAX_ACCESSKEY_PROD,
-  secretKey: process.env.MAX_SECRET_PROD,
+  accessKey: process.env.MAX_API_KEY_PROD,
+  secretKey: process.env.MAX_API_SECRET_PROD,
 });
 
 // Subscribe to multiple channels
