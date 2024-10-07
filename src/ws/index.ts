@@ -1,10 +1,12 @@
 import Decimal from 'decimal.js/decimal.mjs';
 import crypto from 'crypto';
 import WebSocket from 'ws';
+import { z } from 'zod';
 import { EventEmitter } from 'events';
 import { WEBSOCKET_URL } from '../config.js';
-import type { Debt, ErrorResponse, FilterType, IndexPrice, MarketStatus, Order, OrderBookEvent, Subscription, TradeEvent, UserBalance, UserTrade, WebSocketAPIOptions, WebSocketEvents } from './types.js';
+import type { Debt, ErrorResponse, IndexPrice, MarketStatus, Order, OrderBookEvent, Subscription, TradeEvent, UserBalance, UserTrade, WebSocketAPIOptions, WebSocketEvents } from './types.js';
 import { Trade } from './types.js';
+import { ChannelSchema, FilterTypeSchema, SubscriptionSchema, SubscriptionOptionalParam, FilterType } from './schema.js';
 
 class WebSocketAPI extends EventEmitter {
   on<K extends keyof WebSocketEvents>(eventName: K, listener: (arg: WebSocketEvents[K]) => void): this {
@@ -114,23 +116,29 @@ class WebSocketAPI extends EventEmitter {
    * @param market - The market to subscribe to.
    * @param options - Additional options for the subscription.
    */
-  public subscribe(channel: 'book' | 'trade' | 'kline' | 'ticker' | 'market_status' | 'pool_quota' | 'user', market: string, options: { depth?: number; resolution?: string } = {}): void {
-    const subscription: Subscription = { channel, market, ...options };
+  public subscribe(
+    channel: z.infer<typeof ChannelSchema>,
+    market: string,
+    options: SubscriptionOptionalParam = {}): void {
+    const subscription = SubscriptionSchema.parse({ channel, market, ...options });
     this.#subscriptions.push(subscription);
 
     if (this.#ws && this.#ws.readyState === WebSocket.OPEN) {
       this.#sendSubscriptions('sub');
     }
   }
-
   /**
    * Unsubscribe from a specific channel for a given market.
    * @param channel - The channel to unsubscribe from.
    * @param market - The market to unsubscribe from.
    * @param options - Additional options for the unsubscription.
    */
-  public unsubscribe(channel: string, market: string, options: { depth?: number; resolution?: string } = {}): void {
-    const subscription: Subscription = { channel, market, ...options };
+  public unsubscribe(
+    channel: z.infer<typeof ChannelSchema>,
+    market: string,
+    options: SubscriptionOptionalParam = {}
+  ): void {
+    const subscription = SubscriptionSchema.parse({ channel, market, ...options });
     this.#subscriptions = this.#subscriptions.filter(sub =>
       JSON.stringify(sub) !== JSON.stringify(subscription)
     );
@@ -148,7 +156,7 @@ class WebSocketAPI extends EventEmitter {
    * @param filters - An array of filter types to apply.
    */
   public setFilters(filters: FilterType[]): void {
-    this.#filters = filters;
+    this.#filters = z.array(FilterTypeSchema).parse(filters);
   }
 
 

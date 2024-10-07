@@ -2,7 +2,7 @@ import Decimal from 'decimal.js/decimal.mjs';
 import { MAXOptions } from '../types.js';
 
 
-export type FilterType = 'mwallet_order' | 'mwallet_trade' | 'mwallet_account' | 'ad_ratio' | 'borrowing' | 'order' | 'trade' | 'account';
+// export type FilterType = 'mwallet_order' | 'mwallet_trade' | 'mwallet_account' | 'ad_ratio' | 'borrowing' | 'order' | 'trade' | 'account';
 
 export interface ErrorResponse {
   e: string;
