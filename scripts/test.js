@@ -230,7 +230,7 @@ const sections = [
 ];
 
 async function runExample(sectionNames) {
-  const maxV3 = new Rest(process.env.MAX_ACCESSKEY, process.env.MAX_SECRET);
+  const maxV3 = new Rest(process.env.MAX_API_KEY, process.env.MAX_API_SECRET);
   const errors = [];
   const emptyResponses = [];
   async function runSection(section) {

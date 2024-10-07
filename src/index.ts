@@ -17,7 +17,7 @@ class MAX {
   }
 
   @memoizeDecorator()
-  rest(version: RestVersion = 2): Rest {
+  _restful(version: RestVersion = 2): Rest {
     if (!SUPPORTED_REST_VERSIONS.includes(version)) {
       throw new Error(`Version ${version} is not supported, default version is 2.`);
     }
@@ -28,11 +28,19 @@ class MAX {
   }
 
   @memoizeDecorator()
-  ws(): WebSocket {
+  _websocket(): WebSocket {
     return new WebSocket({
       accessKey: this.#accessKey,
       secretKey: this.#secretKey
     });
+  }
+
+  get rest() {
+    return this._restful();
+  }
+
+  get ws() {
+    return this._websocket();
   }
 }
 
