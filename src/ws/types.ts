@@ -2,7 +2,7 @@ import Decimal from 'decimal.js/decimal.mjs';
 import { MAXOptions } from '../types.js';
 
 
-export type FilterType = 'mwallet_order' | 'mwallet_trade' | 'mwallet_account' | 'ad_ratio' | 'borrowing' | 'order' | 'trade' | 'account';
+// export type FilterType = 'mwallet_order' | 'mwallet_trade' | 'mwallet_account' | 'ad_ratio' | 'borrowing' | 'order' | 'trade' | 'account';
 
 export interface ErrorResponse {
   e: string;
@@ -45,22 +45,22 @@ export interface WebSocketEvents {
   'market_status.update': MarketStatusEvent;
   'pool_quota.snapshot': PoolQuotaEvent;
   'pool_quota.update': PoolQuotaEvent;
-  'user.order_snapshot': UserOrderEvent;
-  'user.order_update': UserOrderEvent;
-  'user.mwallet_order_snapshot': UserOrderEvent;
-  'user.mwallet_order_update': UserOrderEvent;
-  'user.trade_snapshot': UserTradeEvent;
-  'user.trade_update': UserTradeEvent;
-  'user.mwallet_trade_snapshot': UserTradeEvent;
-  'user.mwallet_trade_update': UserTradeEvent;
-  'user.account_snapshot': UserAccountEvent;
-  'user.account_update': UserAccountEvent;
-  'user.mwallet_account_snapshot': UserAccountEvent;
-  'user.mwallet_account_update': UserAccountEvent;
-  'user.ad_ratio_snapshot': UserAdRatioEvent;
-  'user.ad_ratio_update': UserAdRatioEvent;
-  'user.borrowing_snapshot': UserBorrowingEvent;
-  'user.borrowing_update': UserBorrowingEvent;
+  'user.order.snapshot': UserOrderEvent;
+  'user.order.update': UserOrderEvent;
+  'user.mwallet.order.snapshot': UserOrderEvent;
+  'user.mwallet.order.update': UserOrderEvent;
+  'user.trade.snapshot': UserTradeEvent;
+  'user.trade.update': UserTradeEvent;
+  'user.mwallet.trade.snapshot': UserTradeEvent;
+  'user.mwallet.trade.update': UserTradeEvent;
+  'user.account.snapshot': UserAccountEvent;
+  'user.account.update': UserAccountEvent;
+  'user.mwallet.account.snapshot': UserAccountEvent;
+  'user.mwallet.account.update': UserAccountEvent;
+  'user.adRatio.snapshot': UserAdRatioEvent;
+  'user.adRatio.update': UserAdRatioEvent;
+  'user.borrowing.snapshot': UserBorrowingEvent;
+  'user.borrowing.update': UserBorrowingEvent;
   'raw': any; // For raw message data
 }
 
