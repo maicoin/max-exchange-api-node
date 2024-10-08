@@ -1,8 +1,6 @@
 import Decimal from 'decimal.js/decimal.mjs';
 import { MAXOptions } from '../types.js';
-
-
-// export type FilterType = 'mwallet_order' | 'mwallet_trade' | 'mwallet_account' | 'ad_ratio' | 'borrowing' | 'order' | 'trade' | 'account';
+import { PriceVolume } from '../rest/types.js';
 
 export interface ErrorResponse {
   e: string;
@@ -65,10 +63,7 @@ export interface WebSocketEvents {
 }
 
 
-export interface PriceVolume {
-  price: Decimal;
-  volume: Decimal;
-}
+
 // Define event data types
 export interface OrderBookEvent {
   market: string;
@@ -118,15 +113,15 @@ export interface TickerEvent {
   high: Decimal;
   low: Decimal;
   close: Decimal;
-  volume: Decimal;
-  volumeInBTC: Decimal;
-  time: Date;
+  vol: Decimal;
+  volInBtc: Decimal;
+  at: Date;
 }
 
 // done
 export interface MarketStatus {
   id: string;
-  status: string;
+  status: string; // active, suspended or cancel-only
   baseUnit: string;
   baseUnitPrecision: number;
   minBaseAmount: Decimal;
@@ -153,22 +148,21 @@ export interface PoolQuotaEvent {
 // done
 export interface Order {
   id: number;
-  side: string;
-  ordType: string;
-  price: Decimal;
-  stopPrice: Decimal;
+  side: string; // bid | ask
+  ordType: string; // limit, market, stop_limit, stop_market, post_only or ioc_limit
+  price: Decimal | null;
+  stopPrice: Decimal | null;
   avgPrice: Decimal;
   volume: Decimal;
   remainingVolume: Decimal;
   executedVolume: Decimal;
   state: string;
   market: string;
-  tradeCount: number;
+  tradesCount: number;
   createdAt: Date;
   updatedAt: Date;
-  groupId: number;
-  clientOid: string;
-  //wallet_type: string; 
+  groupId: number | null;
+  clientOid: string | null;
 }
 
 // done
@@ -181,7 +175,7 @@ export interface UserOrderEvent {
 export interface UserTrade {
   id: number;
   market: string;
-  side: string;
+  side: string; // bid or ask
   price: Decimal;
   volume: Decimal;
   fee: Decimal | null;
@@ -192,15 +186,6 @@ export interface UserTrade {
   updatedAt: Date;
   maker: boolean;
   orderId: number;
-
-
-  // wallet_type: string;
-  // self_trade_bid_fee: Decimal | null;
-  // self_trade_bid_fee_currency: string | null;
-  // self_trade_bid_fee_discounted: boolean | null;
-  // self_trade_bid_order_id: number | null;
-  // liquidity: string;
-
 }
 
 // done

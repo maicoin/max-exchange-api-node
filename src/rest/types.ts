@@ -47,7 +47,7 @@ export interface Order {
   clientOid: string | null;
   groupId: number | null;
   side: 'buy' | 'sell';
-  state: string;
+  state: string; // Possible values: 'wait', 'done', 'cancel', 'convert'
   ordType: string;
   price: Decimal | null;
   stopPrice: Decimal | null;
@@ -90,7 +90,7 @@ export interface BorrowingTransfer {
   currency: string;
   amount: Decimal;
   createdAt: Date;
-  state: string; // processing/failed/canceled/done
+  state: string; // Possible values: processing, failed, canceled, done
 }
 
 export interface ManualRepayment {
@@ -108,7 +108,7 @@ export interface Liquidation {
   adRatio: Decimal;
   expectedAdRatio: Decimal;
   createdAt: Date;
-  state: string;
+  state: string; // Possible values: processing, liquidated
 }
 
 export interface LiquidationDetail extends Liquidation {
@@ -145,7 +145,7 @@ export interface Interest {
 
 export interface Market {
   id: string;
-  status: string;
+  status: string; // Possible values: suspended, cancel-only, active
   baseUnit: string;
   baseUnitPrecision: number;
   minBaseAmount: Decimal;
@@ -225,7 +225,7 @@ export interface Withdrawal {
   label: string;
   txid: string | null;
   createdAt: Date;
-  state: string;
+  state: string; // Possible values: processing, failed, canceled, done
   transactionType: string;
 }
 
@@ -238,7 +238,7 @@ export interface Deposit {
   txid: string;
   createdAt: Date;
   confirmations: number;
-  state: string; // processing/failed/canceled/done
+  state: string; // Possible values: processing, failed, canceled, done
   stateReason: string;
 }
 
@@ -249,7 +249,7 @@ export interface InternalTransfer {
   createdAt: Date;
   from: string;
   to: string;
-  state: string; // processing/failed/canceled/done
+  state: string; // Possible values: processing, failed, canceled, done
 }
 
 export interface Reward {
@@ -290,15 +290,15 @@ export type BorrowingInterestRates = {
   [currency: string]: InterestRates;
 };
 
-export interface PriceLevel {
+export interface PriceVolume {
   price: Decimal;
-  amount: Decimal;
+  volume: Decimal;
 }
 
 export interface Depth {
   timestamp: Date;
   lastUpdateVersion: number;
   lastUpdateId: number;
-  asks: PriceLevel[];
-  bids: PriceLevel[];
+  asks: PriceVolume[];
+  bids: PriceVolume[];
 }

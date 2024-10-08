@@ -406,9 +406,9 @@ class WebSocketAPI extends EventEmitter {
       high: new Decimal(data.tk.H),
       low: new Decimal(data.tk.L),
       close: new Decimal(data.tk.C),
-      volume: new Decimal(data.tk.v),
-      volumeInBTC: new Decimal(data.tk.V),
-      time: new Date(data.T)
+      vol: new Decimal(data.tk.v),
+      volInBtc: new Decimal(data.tk.V),
+      at: new Date(data.T)
     });
   }
 
