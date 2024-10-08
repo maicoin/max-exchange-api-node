@@ -196,8 +196,9 @@ class WebSocketAPI extends EventEmitter {
       const obj = JSON.parse(body.toString());
       this.emit('raw', obj);
       // TODO eventType replace
-      const { e: eventType, c: channel, M: market, T: timestamp } = obj;
-
+      const { e, c: channel, M: market, T: timestamp } = obj;
+      const eventType = e.replace('ad_ration', 'adRatio').replace('_', '.');
+      console.log(eventType);
       switch (`${channel || ''}.${eventType}`) {
         case '.error':
           this.#handleErrorEvent(obj);
@@ -233,30 +234,30 @@ class WebSocketAPI extends EventEmitter {
         case 'pool_quota.update':
           this.#handlePoolQuotaEvent(eventType, obj);
           break;
-        case 'user.order_snapshot':
-        case 'user.order_update':
-        case 'user.mwallet_order_snapshot':
-        case 'user.mwallet_order_update':
+        case 'user.order.snapshot':
+        case 'user.order.update':
+        case 'user.mwallet.order.snapshot':
+        case 'user.mwallet.order.update':
           this.#handleUserOrderEvent(eventType, obj);
           break;
-        case 'user.trade_snapshot':
-        case 'user.trade_update':
-        case 'user.mwallet_trade_snapshot':
-        case 'user.mwallet_trade_update':
+        case 'user.trade.snapshot':
+        case 'user.trade.update':
+        case 'user.mwallet.trade.snapshot':
+        case 'user.mwallet.trade.update':
           this.#handleUserTradeEvent(eventType, obj);
           break;
-        case 'user.account_snapshot':
-        case 'user.account_update':
-        case 'user.mwallet_account_snapshot':
-        case 'user.mwallet_account_update':
+        case 'user.account.snapshot':
+        case 'user.account.update':
+        case 'user.mwallet.account.snapshot':
+        case 'user.mwallet.account.update':
           this.#handleUserAccountEvent(eventType, obj);
           break;
-        case 'user.ad_ratio_snapshot':
-        case 'user.ad_ratio_update':
+        case 'user.adRatio.snapshot':
+        case 'user.adRatio.update':
           this.#handleUserAdRatioEvent(eventType, obj);
           break;
-        case 'user.borrowing_snapshot':
-        case 'user.borrowing_update':
+        case 'user.borrowing.snapshot':
+        case 'user.borrowing.update':
           this.#handleUserBorrowingEvent(eventType, obj);
           break;
         default:
@@ -405,12 +406,14 @@ class WebSocketAPI extends EventEmitter {
       high: new Decimal(data.tk.H),
       low: new Decimal(data.tk.L),
       close: new Decimal(data.tk.C),
-      volume: new Decimal(data.tk.v),
-      volumeInBTC: new Decimal(data.tk.V),
-      time: new Date(data.T)
+      vol: new Decimal(data.tk.v),
+      volInBtc: new Decimal(data.tk.V),
+      at: new Date(data.T)
     });
   }
 
+
+  // TODO check case
   #handleMarketStatusEvent(eventType: 'update' | 'snapshot', data: any): void {
     this.emit(`market_status.${eventType}`, {
       marketStatuses: data.ms.map((ms: any): MarketStatus => ({
@@ -428,6 +431,7 @@ class WebSocketAPI extends EventEmitter {
     });
   }
 
+  // TODO check case
   #handlePoolQuotaEvent(eventType: 'update' | 'snapshot', data: any): void {
     this.emit(`pool_quota.${eventType}`, {
       currency: data.qta.cu,
@@ -437,7 +441,7 @@ class WebSocketAPI extends EventEmitter {
     });
   }
 
-  #handleUserOrderEvent(eventType: 'order_snapshot' | 'order_update' | 'mwallet_order_snapshot' | 'mwallet_order_update', data: any): void {
+  #handleUserOrderEvent(eventType: 'order.snapshot' | 'order.update' | 'mwallet.order.snapshot' | 'mwallet.order.update', data: any): void {
     this.emit(`user.${eventType}`, {
       time: new Date(data.T),
       orders: data.o.map((o: any): Order => ({
@@ -461,7 +465,7 @@ class WebSocketAPI extends EventEmitter {
     });
   }
 
-  #handleUserTradeEvent(eventType: 'trade_snapshot' | 'trade_update' | 'mwallet_trade_snapshot' | 'mwallet_trade_update', data: any): void {
+  #handleUserTradeEvent(eventType: 'trade.snapshot' | 'trade.update' | 'mwallet.trade.snapshot' | 'mwallet.trade.update', data: any): void {
     this.emit(`user.${eventType}`, {
       time: new Date(data.T),
       trades: data.t.map((t: any): UserTrade => ({
@@ -482,7 +486,7 @@ class WebSocketAPI extends EventEmitter {
     });
   }
 
-  #handleUserAccountEvent(eventType: 'account_snapshot' | 'account_update' | 'mwallet_account_snapshot' | 'mwallet_account_update', data: any): void {
+  #handleUserAccountEvent(eventType: 'account.snapshot' | 'account.update' | 'mwallet.account.snapshot' | 'mwallet.account.update', data: any): void {
     this.emit(`user.${eventType}`,
       {
         time: new Date(data.T),
@@ -496,7 +500,7 @@ class WebSocketAPI extends EventEmitter {
       });
   }
 
-  #handleUserAdRatioEvent(eventType: 'ad_ratio_snapshot' | 'ad_ratio_update', data: any): void {
+  #handleUserAdRatioEvent(eventType: 'adRatio.snapshot' | 'adRatio.update', data: any): void {
     this.emit(`user.${eventType}`, {
       adRatio: new Decimal(data.ad.ad),
       assetInUsdt: new Decimal(data.ad.as),
@@ -510,7 +514,7 @@ class WebSocketAPI extends EventEmitter {
     });
   }
 
-  #handleUserBorrowingEvent(eventType: 'borrowing_snapshot' | 'borrowing_update', data: any): void {
+  #handleUserBorrowingEvent(eventType: 'borrowing.snapshot' | 'borrowing.update', data: any): void {
     this.emit(`user.${eventType}`, {
       time: new Date(data.T),
       debts: data.db.map((d: any): Debt => ({

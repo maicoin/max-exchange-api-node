@@ -1,4 +1,4 @@
-import { Rest} from '../dist/index.js';
+import { MAX } from '../dist/index.js';
 
 const RESET = '\x1b[0m';
 const BRIGHT = '\x1b[1m';
@@ -35,7 +35,7 @@ const sections = [
   {
     name: 'closedOrders',
     run: async (maxV3) => {
-      return await maxV3.getCloseOrders('spot', { market: 'btctwd' });
+      return await maxV3.getClosedOrders('spot', { market: 'btctwd' });
     }
   },
   {
@@ -230,7 +230,8 @@ const sections = [
 ];
 
 async function runExample(sectionNames) {
-  const maxV3 = new Rest(process.env.MAX_API_KEY, process.env.MAX_API_SECRET);
+  const { rest: maxV3 } = new MAX({ accessKey: process.env.MAX_API_KEY, secretKey: process.env.MAX_API_SECRET });
+
   const errors = [];
   const emptyResponses = [];
   async function runSection(section) {

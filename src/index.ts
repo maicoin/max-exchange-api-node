@@ -1,4 +1,3 @@
-import { memoizeDecorator } from 'memoize';
 import Rest from './rest/index.js';
 import WebSocket from './ws/index.js';
 import { WebSocketBook } from './ws/book.js';
@@ -10,37 +9,34 @@ type RestVersion = typeof SUPPORTED_REST_VERSIONS[number];
 class MAX {
   #accessKey: string;
   #secretKey: string;
+  #rest: Rest | null;
+  #ws: WebSocket | null;
 
   constructor(options: MAXOptions) {
     this.#accessKey = options.accessKey;
     this.#secretKey = options.secretKey;
+    this.#rest = null;
+    this.#ws = null;
   }
 
-  @memoizeDecorator()
-  _restful(version: RestVersion = 2): Rest {
-    if (!SUPPORTED_REST_VERSIONS.includes(version)) {
-      throw new Error(`Version ${version} is not supported, default version is 2.`);
+  get rest(): Rest {
+    if (!this.#rest) {
+      this.#rest = new Rest({
+        accessKey: this.#accessKey,
+        secretKey: this.#secretKey
+      });
     }
-    return new Rest({
-      accessKey: this.#accessKey,
-      secretKey: this.#secretKey
-    });
-  }
-
-  @memoizeDecorator()
-  _websocket(): WebSocket {
-    return new WebSocket({
-      accessKey: this.#accessKey,
-      secretKey: this.#secretKey
-    });
-  }
-
-  get rest() {
-    return this._restful();
+    return this.#rest;
   }
 
   get ws() {
-    return this._websocket();
+    if (!this.#ws) {
+      this.#ws = new WebSocket({
+        accessKey: this.#accessKey,
+        secretKey: this.#secretKey
+      });
+    }
+    return this.#ws;
   }
 }
 

@@ -1,8 +1,6 @@
 import Decimal from 'decimal.js/decimal.mjs';
 import { MAXOptions } from '../types.js';
-
-
-// export type FilterType = 'mwallet_order' | 'mwallet_trade' | 'mwallet_account' | 'ad_ratio' | 'borrowing' | 'order' | 'trade' | 'account';
+import { PriceVolume } from '../rest/types.js';
 
 export interface ErrorResponse {
   e: string;
@@ -13,10 +11,10 @@ export interface ErrorResponse {
 }
 
 export interface Subscription {
-  channel: string;
+  channel: string; // Possible values: "book", "trade", "kline", "ticker", "market_status", "pool_quota"
   market: string;
-  depth?: number;
-  resolution?: string;
+  depth?: number; // Possible values: 1, 5, 10, 20, 50
+  resolution?: string; // Possible values: "1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"
 }
 
 export interface WebSocketAPIOptions extends MAXOptions{
@@ -45,30 +43,25 @@ export interface WebSocketEvents {
   'market_status.update': MarketStatusEvent;
   'pool_quota.snapshot': PoolQuotaEvent;
   'pool_quota.update': PoolQuotaEvent;
-  'user.order_snapshot': UserOrderEvent;
-  'user.order_update': UserOrderEvent;
-  'user.mwallet_order_snapshot': UserOrderEvent;
-  'user.mwallet_order_update': UserOrderEvent;
-  'user.trade_snapshot': UserTradeEvent;
-  'user.trade_update': UserTradeEvent;
-  'user.mwallet_trade_snapshot': UserTradeEvent;
-  'user.mwallet_trade_update': UserTradeEvent;
-  'user.account_snapshot': UserAccountEvent;
-  'user.account_update': UserAccountEvent;
-  'user.mwallet_account_snapshot': UserAccountEvent;
-  'user.mwallet_account_update': UserAccountEvent;
-  'user.ad_ratio_snapshot': UserAdRatioEvent;
-  'user.ad_ratio_update': UserAdRatioEvent;
-  'user.borrowing_snapshot': UserBorrowingEvent;
-  'user.borrowing_update': UserBorrowingEvent;
+  'user.order.snapshot': UserOrderEvent;
+  'user.order.update': UserOrderEvent;
+  'user.mwallet.order.snapshot': UserOrderEvent;
+  'user.mwallet.order.update': UserOrderEvent;
+  'user.trade.snapshot': UserTradeEvent;
+  'user.trade.update': UserTradeEvent;
+  'user.mwallet.trade.snapshot': UserTradeEvent;
+  'user.mwallet.trade.update': UserTradeEvent;
+  'user.account.snapshot': UserAccountEvent;
+  'user.account.update': UserAccountEvent;
+  'user.mwallet.account.snapshot': UserAccountEvent;
+  'user.mwallet.account.update': UserAccountEvent;
+  'user.adRatio.snapshot': UserAdRatioEvent;
+  'user.adRatio.update': UserAdRatioEvent;
+  'user.borrowing.snapshot': UserBorrowingEvent;
+  'user.borrowing.update': UserBorrowingEvent;
   'raw': any; // For raw message data
 }
 
-
-export interface PriceVolume {
-  price: Decimal;
-  volume: Decimal;
-}
 // Define event data types
 export interface OrderBookEvent {
   market: string;
@@ -80,27 +73,24 @@ export interface OrderBookEvent {
   version: number;
 }
 
-// done
 export interface Trade {
   price: Decimal;
   volume: Decimal;
-  side: string;
+  side: string; // Possible values: "up", "down"
   createdAt: Date;
 }
 
-// done
 export interface TradeEvent {
   market: string;
   trades: Trade[];
   time: Date;
 }
 
-// done
 export interface KlineEvent {
   market: string;
   startTime: Date;
   endTime: Date;
-  resolution: string; // TODO check
+  resolution: string; // Possible values: "1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"
   open: Decimal;
   high: Decimal;
   low: Decimal;
@@ -111,22 +101,20 @@ export interface KlineEvent {
   time: Date;
 }
 
-// done
 export interface TickerEvent {
   market: string;
   open: Decimal;
   high: Decimal;
   low: Decimal;
   close: Decimal;
-  volume: Decimal;
-  volumeInBTC: Decimal;
-  time: Date;
+  vol: Decimal;
+  volInBtc: Decimal;
+  at: Date;
 }
 
-// done
 export interface MarketStatus {
   id: string;
-  status: string;
+  status: string; // Possible values: "active", "suspended", "cancel-only"
   baseUnit: string;
   baseUnitPrecision: number;
   minBaseAmount: Decimal;
@@ -136,13 +124,11 @@ export interface MarketStatus {
   mWalletSupported: boolean;
 }
 
-// done
 export interface MarketStatusEvent {
   marketStatuses: MarketStatus[];
   time: Date;
 }
 
-// done
 export interface PoolQuotaEvent {
   currency: string;
   available: Decimal;
@@ -150,38 +136,34 @@ export interface PoolQuotaEvent {
   time: Date;
 }
 
-// done
 export interface Order {
   id: number;
-  side: string;
-  ordType: string;
-  price: Decimal;
-  stopPrice: Decimal;
+  side: string; // Possible values: "bid", "ask"
+  ordType: string; // Possible values: "limit", "market", "stop_limit", "stop_market", "post_only", "ioc_limit"
+  price: Decimal | null;
+  stopPrice: Decimal | null;
   avgPrice: Decimal;
   volume: Decimal;
   remainingVolume: Decimal;
   executedVolume: Decimal;
-  state: string;
+  state: string; // Possible values: "wait", "done", "cancel"
   market: string;
-  tradeCount: number;
+  tradesCount: number;
   createdAt: Date;
   updatedAt: Date;
-  groupId: number;
-  clientOid: string;
-  //wallet_type: string; 
+  groupId: number | null;
+  clientOid: string | null;
 }
 
-// done
 export interface UserOrderEvent {
   orders: Order[];
   time: Date;
 }
 
-// done
 export interface UserTrade {
   id: number;
   market: string;
-  side: string;
+  side: string; // Possible values: "bid", "ask"
   price: Decimal;
   volume: Decimal;
   fee: Decimal | null;
@@ -192,24 +174,13 @@ export interface UserTrade {
   updatedAt: Date;
   maker: boolean;
   orderId: number;
-
-
-  // wallet_type: string;
-  // self_trade_bid_fee: Decimal | null;
-  // self_trade_bid_fee_currency: string | null;
-  // self_trade_bid_fee_discounted: boolean | null;
-  // self_trade_bid_order_id: number | null;
-  // liquidity: string;
-
 }
 
-// done
 export interface UserTradeEvent {
   trades: UserTrade[];
   time: Date;
 }
 
-// done
 export interface UserBalance {
   currency: string;
   available: Decimal;
@@ -218,19 +189,16 @@ export interface UserBalance {
   updatedAt: Date;
 }
 
-// done
 export interface UserAccountEvent {
   time: Date;
   balances: UserBalance[];
 }
 
-// done
 export interface IndexPrice {
   market: string;
   price: Decimal;
 }
 
-// done
 export interface UserAdRatioEvent {
   adRatio: Decimal;
   assetInUsdt: Decimal;
@@ -240,7 +208,6 @@ export interface UserAdRatioEvent {
   time: Date;
 }
 
-// done
 export interface Debt {
   currency: string;
   debtPrincipal: Decimal;
@@ -248,7 +215,6 @@ export interface Debt {
   updatedAt: Date;
 }
 
-// done
 export interface UserBorrowingEvent {
   time: Date;
   debts: Debt[];
