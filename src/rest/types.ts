@@ -1,168 +1,160 @@
+import { Decimal } from 'decimal.js';
+
 export interface IndexPrice {
-  timestamp: string;
-  price: string;
+  timestamp: Date;
+  price: Decimal;
 }
 
-// done
+export interface IndexPrices {
+  [currency: string]: Decimal;
+}
+
 export interface FundSource {
   uuid: string;
   currency: string;
   networkProtocol: string | null;
   address: string;
   extraLabel: string;
-  createdAt: number;
+  createdAt: Date;
   isInternal: boolean;
 }
 
-// done
 export interface Trade {
   id: number;
   orderId: number;
-  walletType: string;
-  price: string;
-  volume: string;
-  funds: string;
+  walletType: 'spot' | 'm';
+  price: Decimal;
+  volume: Decimal;
+  funds: Decimal;
   market: string;
   marketName: string;
-  side: string;
-  fee: string | null;
+  side: 'bid' | 'ask' | 'self-trade';
+  fee: Decimal | null;
   feeCurrency: string | null;
   feeDiscounted: boolean | null;
-  selfTradeBidFee: string | null;
+  selfTradeBidFee: Decimal | null;
   selfTradeBidFeeCurrency: string | null;
   selfTradeBidFeeDiscounted: boolean | null;
   selfTradeBidOrderId: number | null;
-  liquidity: string;
-  createdAt: number;
+  liquidity: 'maker' | 'taker';
+  createdAt: Date;
 }
 
-// done
 export interface Order {
   id: number;
-  walletType: string;
+  walletType: 'spot' | 'm';
   market: string;
   clientOid: string | null;
   groupId: number | null;
   side: 'buy' | 'sell';
   state: string;
   ordType: string;
-  price: string | null;
-  stopPrice: string | null;
-  avgPrice: string;
-  volume: string;
-  remainingVolume: string;
-  executedVolume: string;
+  price: Decimal | null;
+  stopPrice: Decimal | null;
+  avgPrice: Decimal;
+  volume: Decimal;
+  remainingVolume: Decimal;
+  executedVolume: Decimal;
   tradesCount: number;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-// done
 export interface Account {
   currency: string;
-  balance: string;
-  locked: string;
-  staked: string | null;
-  principal?: string;
-  interest?: string;
+  balance: Decimal;
+  locked: Decimal;
+  staked: Decimal | null;
+  principal?: Decimal;
+  interest?: Decimal;
 }
 
-// TODO check optional
 export interface AdRatio {
-  adRatio: string;
-  assetInUsdt: string;
-  debtInUsdt: string;
+  adRatio: Decimal;
+  assetInUsdt: Decimal;
+  debtInUsdt: Decimal;
 }
 
-// done
 export interface Debt {
   sn: string;
   currency: string;
-  amount: string;
+  amount: Decimal;
   state: string;
-  createdAt: number;
-  interestRate: string;
+  createdAt: Date;
+  interestRate: Decimal;
 }
 
-// done
 export interface BorrowingTransfer {
   sn: string;
   side: string;
   currency: string;
-  amount: string;
-  createdAt: number;
-  state: string;
+  amount: Decimal;
+  createdAt: Date;
+  state: string; // processing/failed/canceled/done
 }
 
-// done
 export interface ManualRepayment {
   currency: string;
-  amount: string;
-  principal: string;
-  interest: string;
+  amount: Decimal;
+  principal: Decimal;
+  interest: Decimal;
   state: string;
   sn: string;
-  createdAt: number;
+  createdAt: Date;
 }
 
-// done
 export interface Liquidation {
   sn: string;
-  adRatio: string;
-  expectedAdRatio: string;
-  createdAt: number;
+  adRatio: Decimal;
+  expectedAdRatio: Decimal;
+  createdAt: Date;
   state: string;
 }
 
-// done
 export interface LiquidationDetail extends Liquidation {
   repayments: Repayment[];
   liquidations: ForcedLiquidation[];
 }
 
-// done
 export interface Repayment {
   currency: string;
-  amount: string;
-  principal: string;
-  interest: string;
+  amount: Decimal;
+  principal: Decimal;
+  interest: Decimal;
+  sn: string,
   state: string;
 }
 
-// done
 export interface ForcedLiquidation {
   market: string;
   type: string;
-  price: string;
-  volume: string;
-  fee: string;
+  price: Decimal;
+  volume: Decimal;
+  fee: Decimal;
   feeCurrency: string;
   repayment: Repayment;
 }
 
-// done
 export interface Interest {
   currency: string;
-  amount: string;
-  interestRate: string;
-  principal: string;
-  createdAt: number;
+  amount: Decimal;
+  interestRate: Decimal;
+  principal: Decimal;
+  createdAt: Date;
 }
 
-// checked
 export interface Market {
   id: string;
   status: string;
   baseUnit: string;
   baseUnitPrecision: number;
-  minBaseAmount: number;
+  minBaseAmount: Decimal;
   quoteUnit: string;
   quoteUnitPrecision: number;
-  minQuoteAmount: number;
+  minQuoteAmount: Decimal;
   mWalletSupported: boolean;
 }
 
-// done
 export interface Currency {
   currency: string;
   type: string;
@@ -170,114 +162,105 @@ export interface Currency {
   mWalletSupported: boolean;
   mWalletMortgageable: boolean;
   mWalletBorrowable: boolean;
-  minBorrowAmount: string;
+  minBorrowAmount: Decimal | null;
   networks: CurrencyNetwork[];
   staking: Staking | null;
 }
 
-// TODO check null
 export interface CurrencyNetwork {
   tokenContractAddress: string | null;
   precision: number;
   id: string;
   networkProtocol: string;
   depositConfirmations: number;
-  withdrawalFee: number;
-  minWithdrawalAmount: number;
+  withdrawalFee: Decimal;
+  minWithdrawalAmount: Decimal;
   withdrawalEnabled: boolean;
   depositEnabled: boolean;
   needMemo: boolean;
 }
 
-// done
 export interface Staking {
   stakeFlag: boolean;
   unstakeFlag: boolean;
 }
 
 export interface Timestamp {
-  timestamp: number;
+  timestamp: Date;
 }
 
-// TODO check null
 export interface PublicTrade {
   id: number;
-  price: string;
-  volume: string;
-  funds: string;
+  price: Decimal;
+  volume: Decimal;
+  funds: Decimal;
   market: string;
   side: 'bid' | 'ask';
-  createdAt: number;
+  createdAt: Date;
 }
 
-// done
 export interface Ticker {
   market: string;
-  at: number;
-  buy: string;
-  buyVol: string;
-  sell: string;
-  sellVol: string;
-  open: string;
-  low: string;
-  high: string;
-  last: string;
-  vol: string;
-  volInBtc: string;
+  at: Date;
+  buy: Decimal;
+  buyVol: Decimal;
+  sell: Decimal;
+  sellVol: Decimal;
+  open: Decimal;
+  low: Decimal;
+  high: Decimal;
+  last: Decimal;
+  vol: Decimal;
+  volInBtc: Decimal;
 }
 
-// done
 export interface Withdrawal {
   uuid: string;
   currency: string;
   networkProtocol: string | null;
-  amount: string;
-  fee: string;
+  amount: Decimal;
+  fee: Decimal;
   feeCurrency: string;
   toAddress: string;
   label: string;
   txid: string | null;
-  createdAt: number;
+  createdAt: Date;
   state: string;
   transactionType: string;
 }
 
-// TODO check optional
 export interface Deposit {
   uuid: string;
   currency: string;
   networkProtocol: string;
-  amount: string;
+  amount: Decimal;
   toAddress: string;
   txid: string;
-  createdAt: number;
+  createdAt: Date;
   confirmations: number;
-  state: string;
+  state: string; // processing/failed/canceled/done
   stateReason: string;
 }
 
-// done
 export interface InternalTransfer {
   uuid: string;
   currency: string;
-  amount: string;
-  createdAt: number;
+  amount: Decimal;
+  createdAt: Date;
   from: string;
   to: string;
-  state: string;
+  state: string; // processing/failed/canceled/done
 }
 
-// done
 export interface Reward {
   uuid: string;
   currency: string;
-  amount: string;
-  createdAt: number;
+  amount: Decimal;
+  createdAt: Date;
   type: string;
   note: string;
 }
 
-// TODO check optional
 export interface UserInfo {
   email: string;
   level: number;
@@ -286,39 +269,34 @@ export interface UserInfo {
   nextVipLevel: VipLevel | null;
 }
 
-// done
 export interface VipLevel {
   level: number;
-  minimumTradingVolume: number;
-  minimumStakingVolume: number;
-  makerFee: number;
-  takerFee: number;
+  minimumTradingVolume: Decimal;
+  minimumStakingVolume: Decimal;
+  makerFee: Decimal;
+  takerFee: Decimal;
 }
 
 export type BorrowingLimits = {
-  [currency: string]: string;
+  [currency: string]: Decimal;
 };
 
-// done
 export type InterestRates = {
-  hourlyInterestRate: string;
-  nextHourlyInterestRate: string;
+  hourlyInterestRate: Decimal;
+  nextHourlyInterestRate: Decimal;
 };
 
-// done
 export type BorrowingInterestRates = {
   [currency: string]: InterestRates;
 };
 
-// done
 export interface PriceLevel {
-  price: string;
-  amount: string;
+  price: Decimal;
+  amount: Decimal;
 }
 
-// done
 export interface Depth {
-  timestamp: number;
+  timestamp: Date;
   lastUpdateVersion: number;
   lastUpdateId: number;
   asks: PriceLevel[];
