@@ -11,10 +11,10 @@ export interface ErrorResponse {
 }
 
 export interface Subscription {
-  channel: string;
+  channel: string; // Possible values: "book", "trade", "kline", "ticker", "market_status", "pool_quota"
   market: string;
-  depth?: number;
-  resolution?: string;
+  depth?: number; // Possible values: 1, 5, 10, 20, 50
+  resolution?: string; // Possible values: "1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"
 }
 
 export interface WebSocketAPIOptions extends MAXOptions{
@@ -62,8 +62,6 @@ export interface WebSocketEvents {
   'raw': any; // For raw message data
 }
 
-
-
 // Define event data types
 export interface OrderBookEvent {
   market: string;
@@ -75,27 +73,24 @@ export interface OrderBookEvent {
   version: number;
 }
 
-// done
 export interface Trade {
   price: Decimal;
   volume: Decimal;
-  side: string;
+  side: string; // Possible values: "up", "down"
   createdAt: Date;
 }
 
-// done
 export interface TradeEvent {
   market: string;
   trades: Trade[];
   time: Date;
 }
 
-// done
 export interface KlineEvent {
   market: string;
   startTime: Date;
   endTime: Date;
-  resolution: string; // TODO check
+  resolution: string; // Possible values: "1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"
   open: Decimal;
   high: Decimal;
   low: Decimal;
@@ -106,7 +101,6 @@ export interface KlineEvent {
   time: Date;
 }
 
-// done
 export interface TickerEvent {
   market: string;
   open: Decimal;
@@ -118,10 +112,9 @@ export interface TickerEvent {
   at: Date;
 }
 
-// done
 export interface MarketStatus {
   id: string;
-  status: string; // active, suspended or cancel-only
+  status: string; // Possible values: "active", "suspended", "cancel-only"
   baseUnit: string;
   baseUnitPrecision: number;
   minBaseAmount: Decimal;
@@ -131,13 +124,11 @@ export interface MarketStatus {
   mWalletSupported: boolean;
 }
 
-// done
 export interface MarketStatusEvent {
   marketStatuses: MarketStatus[];
   time: Date;
 }
 
-// done
 export interface PoolQuotaEvent {
   currency: string;
   available: Decimal;
@@ -145,18 +136,17 @@ export interface PoolQuotaEvent {
   time: Date;
 }
 
-// done
 export interface Order {
   id: number;
-  side: string; // bid | ask
-  ordType: string; // limit, market, stop_limit, stop_market, post_only or ioc_limit
+  side: string; // Possible values: "bid", "ask"
+  ordType: string; // Possible values: "limit", "market", "stop_limit", "stop_market", "post_only", "ioc_limit"
   price: Decimal | null;
   stopPrice: Decimal | null;
   avgPrice: Decimal;
   volume: Decimal;
   remainingVolume: Decimal;
   executedVolume: Decimal;
-  state: string;
+  state: string; // Possible values: "wait", "done", "cancel"
   market: string;
   tradesCount: number;
   createdAt: Date;
@@ -165,17 +155,15 @@ export interface Order {
   clientOid: string | null;
 }
 
-// done
 export interface UserOrderEvent {
   orders: Order[];
   time: Date;
 }
 
-// done
 export interface UserTrade {
   id: number;
   market: string;
-  side: string; // bid or ask
+  side: string; // Possible values: "bid", "ask"
   price: Decimal;
   volume: Decimal;
   fee: Decimal | null;
@@ -188,13 +176,11 @@ export interface UserTrade {
   orderId: number;
 }
 
-// done
 export interface UserTradeEvent {
   trades: UserTrade[];
   time: Date;
 }
 
-// done
 export interface UserBalance {
   currency: string;
   available: Decimal;
@@ -203,19 +189,16 @@ export interface UserBalance {
   updatedAt: Date;
 }
 
-// done
 export interface UserAccountEvent {
   time: Date;
   balances: UserBalance[];
 }
 
-// done
 export interface IndexPrice {
   market: string;
   price: Decimal;
 }
 
-// done
 export interface UserAdRatioEvent {
   adRatio: Decimal;
   assetInUsdt: Decimal;
@@ -225,7 +208,6 @@ export interface UserAdRatioEvent {
   time: Date;
 }
 
-// done
 export interface Debt {
   currency: string;
   debtPrincipal: Decimal;
@@ -233,7 +215,6 @@ export interface Debt {
   updatedAt: Date;
 }
 
-// done
 export interface UserBorrowingEvent {
   time: Date;
   debts: Debt[];
