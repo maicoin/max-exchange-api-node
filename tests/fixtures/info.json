@@ -1,0 +1,19 @@
+{
+    "email": "user@example.com",
+    "level": 2,
+    "m_wallet_enabled": true,
+    "current_vip_level": {
+        "level": 1,
+        "minimum_trading_volume": 3000000,
+        "minimum_staking_volume": 500,
+        "maker_fee": 0.00036,
+        "taker_fee": 0.00135
+    },
+    "next_vip_level": {
+        "level": 2,
+        "minimum_trading_volume": 10000000,
+        "minimum_staking_volume": 3000,
+        "maker_fee": 0.00028000000000000003,
+        "taker_fee": 0.0012
+    }
+}

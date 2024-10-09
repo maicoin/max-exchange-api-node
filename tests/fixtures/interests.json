@@ -1,0 +1,72 @@
+[
+    {
+        "currency": "ltc",
+        "amount": "0.00000242",
+        "interest_rate": "0.00001",
+        "principal": "0.242211",
+        "created_at": 1728010817000
+    },
+    {
+        "currency": "link",
+        "amount": "0.0000001",
+        "interest_rate": "0.0001",
+        "principal": "0.001",
+        "created_at": 1728010817000
+    },
+    {
+        "currency": "eth",
+        "amount": "0.00000047",
+        "interest_rate": "0.00000114155",
+        "principal": "0.413",
+        "created_at": 1728010816000
+    },
+    {
+        "currency": "btc",
+        "amount": "0.00000001",
+        "interest_rate": "0.00000114155",
+        "principal": "0.01635608",
+        "created_at": 1728010816000
+    },
+    {
+        "currency": "usdt",
+        "amount": "0.00068219",
+        "interest_rate": "0.000006021119",
+        "principal": "113.30000012",
+        "created_at": 1728010816000
+    },
+    {
+        "currency": "ltc",
+        "amount": "0.00000242",
+        "interest_rate": "0.00001",
+        "principal": "0.242211",
+        "created_at": 1728007214000
+    },
+    {
+        "currency": "link",
+        "amount": "0.0000001",
+        "interest_rate": "0.0001",
+        "principal": "0.001",
+        "created_at": 1728007214000
+    },
+    {
+        "currency": "eth",
+        "amount": "0.00000047",
+        "interest_rate": "0.00000114155",
+        "principal": "0.413",
+        "created_at": 1728007214000
+    },
+    {
+        "currency": "btc",
+        "amount": "0.00000001",
+        "interest_rate": "0.00000114155",
+        "principal": "0.01635608",
+        "created_at": 1728007214000
+    },
+    {
+        "currency": "usdt",
+        "amount": "0.00068219",
+        "interest_rate": "0.000006021119",
+        "principal": "113.30000012",
+        "created_at": 1728007214000
+    }
+]

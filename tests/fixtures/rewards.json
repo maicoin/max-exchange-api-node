@@ -1,0 +1,18 @@
+[
+    {
+        "uuid": "00000000-0000-0000-0000-000000000028",
+        "currency": "eth",
+        "amount": "0.15593491",
+        "created_at": 1727985650630,
+        "type": "savings_interest",
+        "note": "2024-10-03 閒置資產收益 Yield Reward"
+    },
+    {
+        "uuid": "00000000-0000-0000-0000-000000000029",
+        "currency": "btc",
+        "amount": "0.1558007",
+        "created_at": 1727985650605,
+        "type": "savings_interest",
+        "note": "2024-10-03 閒置資產收益 Yield Reward"
+    }
+]

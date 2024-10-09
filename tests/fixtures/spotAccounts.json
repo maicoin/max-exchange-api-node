@@ -1,0 +1,308 @@
+[
+    {
+        "currency": "twd",
+        "balance": "558023980.20030641",
+        "locked": "6469092.0",
+        "staked": null
+    },
+    {
+        "currency": "btc",
+        "balance": "4739.24964425",
+        "locked": "0.01003",
+        "staked": null
+    },
+    {
+        "currency": "eth",
+        "balance": "7114.84243169",
+        "locked": "0.4023",
+        "staked": "110.05"
+    },
+    {
+        "currency": "ltc",
+        "balance": "7291.340786",
+        "locked": "0.00181",
+        "staked": null
+    },
+    {
+        "currency": "mith",
+        "balance": "104.19438",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "bch",
+        "balance": "10427.79313673",
+        "locked": "0.0001983",
+        "staked": null
+    },
+    {
+        "currency": "usdt",
+        "balance": "6353272.5166938",
+        "locked": "304.90396835",
+        "staked": null
+    },
+    {
+        "currency": "trx",
+        "balance": "90000015633.4282",
+        "locked": "0.20011",
+        "staked": null
+    },
+    {
+        "currency": "cccx",
+        "balance": "5850.65214",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "eos",
+        "balance": "26.87258",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "pal",
+        "balance": "100012.87185",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "bat",
+        "balance": "0.0",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "zrx",
+        "balance": "0.0",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "gnt",
+        "balance": "0.9995",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "knc",
+        "balance": "0.0",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "omg",
+        "balance": "0.000000495687689",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "twdt",
+        "balance": "1153625.30989",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "xrp",
+        "balance": "964754.649325",
+        "locked": "0.00023",
+        "staked": null
+    },
+    {
+        "currency": "fmf",
+        "balance": "3.0",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "max",
+        "balance": "725778.09524333",
+        "locked": "49035.84255228",
+        "staked": "20342.15710518"
+    },
+    {
+        "currency": "seele",
+        "balance": "0.0",
+        "locked": "1.0",
+        "staked": null
+    },
+    {
+        "currency": "bcnt",
+        "balance": "900.268013",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "sand",
+        "balance": "12316.94099123",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "usdc",
+        "balance": "17012.0579209",
+        "locked": "0.02012",
+        "staked": null
+    },
+    {
+        "currency": "link",
+        "balance": "1102.27993032",
+        "locked": "0.002",
+        "staked": null
+    },
+    {
+        "currency": "yfi",
+        "balance": "1.00701919",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "grt",
+        "balance": "146.97818",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "doge",
+        "balance": "2853.1070125",
+        "locked": "11.999",
+        "staked": null
+    },
+    {
+        "currency": "comp",
+        "balance": "905.19823",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "dot",
+        "balance": "934.72936356",
+        "locked": "0.02",
+        "staked": "30.0"
+    },
+    {
+        "currency": "ada",
+        "balance": "820.91477376",
+        "locked": "1.001",
+        "staked": "203.0"
+    },
+    {
+        "currency": "sol",
+        "balance": "100.4475561",
+        "locked": "0.0",
+        "staked": "7.0"
+    },
+    {
+        "currency": "shib",
+        "balance": "4668875.25",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "gala",
+        "balance": "97.0",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "mana",
+        "balance": "100.0",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "alice",
+        "balance": "100.10762",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "pol",
+        "balance": "1001011.29345351",
+        "locked": "0.0",
+        "staked": "0.7"
+    },
+    {
+        "currency": "rly",
+        "balance": "102.0",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "looks",
+        "balance": "10.420675",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "mask",
+        "balance": "5.45",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "loot",
+        "balance": "27.30524104",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "ape",
+        "balance": "27.754848",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "xtz",
+        "balance": "0.08105",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "gmt",
+        "balance": "102.31291",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "gst",
+        "balance": "1202.474375",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "bnb",
+        "balance": "898.12657005",
+        "locked": "0.0001",
+        "staked": null
+    },
+    {
+        "currency": "ens",
+        "balance": "0.000525",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "etc",
+        "balance": "0.82915229",
+        "locked": "0.0001",
+        "staked": null
+    },
+    {
+        "currency": "arb",
+        "balance": "359.5886",
+        "locked": "199.4",
+        "staked": null
+    },
+    {
+        "currency": "ton",
+        "balance": "23.19303549",
+        "locked": "0.0",
+        "staked": null
+    },
+    {
+        "currency": "avax",
+        "balance": "1.1",
+        "locked": "0.0",
+        "staked": null
+    }
+]

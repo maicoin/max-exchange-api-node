@@ -1,0 +1,58 @@
+[
+    {
+        "sn": "00000000-0000-0000-0000-000000000045",
+        "currency": "usdt",
+        "amount": "2.0",
+        "state": "interest_generated",
+        "created_at": 1666076127000,
+        "interest_rate": "0.000006021119"
+    },
+    {
+        "sn": "00000000-0000-0000-0000-000000000046",
+        "currency": "usdt",
+        "amount": "60.0",
+        "state": "interest_generated",
+        "created_at": 1666076064000,
+        "interest_rate": "0.000006021119"
+    },
+    {
+        "sn": "00000000-0000-0000-0000-000000000047",
+        "currency": "usdt",
+        "amount": "0.1",
+        "state": "interest_generated",
+        "created_at": 1657182815000,
+        "interest_rate": "0.000006021119"
+    },
+    {
+        "sn": "00000000-0000-0000-0000-000000000048",
+        "currency": "usdt",
+        "amount": "0.1",
+        "state": "interest_generated",
+        "created_at": 1648028644000,
+        "interest_rate": "0.00000570776"
+    },
+    {
+        "sn": "00000000-0000-0000-0000-000000000049",
+        "currency": "usdt",
+        "amount": "1.0",
+        "state": "interest_generated",
+        "created_at": 1640248223000,
+        "interest_rate": "0.001"
+    },
+    {
+        "sn": "00000000-0000-0000-0000-000000000050",
+        "currency": "usdt",
+        "amount": "0.10000012",
+        "state": "interest_generated",
+        "created_at": 1638523659000,
+        "interest_rate": "0.001"
+    },
+    {
+        "sn": "00000000-0000-0000-0000-000000000051",
+        "currency": "usdt",
+        "amount": "50.0",
+        "state": "interest_generated",
+        "created_at": 1638431538000,
+        "interest_rate": "0.001"
+    }
+]

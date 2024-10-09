@@ -1,0 +1,58 @@
+[
+    {
+        "uuid": "00000000-0000-0000-0000-000000000001",
+        "currency": "btc",
+        "network_protocol": "bitcoin",
+        "amount": "0.00015",
+        "fee": "0.41878905",
+        "fee_currency": "max",
+        "to_address": "0x0000...0001",
+        "label": "a test",
+        "txid": "00000000-0000-0000-0000-000000000002",
+        "created_at": 1723794779327,
+        "state": "done",
+        "transaction_type": "external"
+    },
+    {
+        "uuid": "00000000-0000-0000-0000-000000000003",
+        "currency": "btc",
+        "network_protocol": "bsc-bep20",
+        "amount": "0.00001",
+        "fee": "0.01433163",
+        "fee_currency": "max",
+        "to_address": "0x0000...0002",
+        "label": "b test",
+        "txid": "00000000-0000-0000-0000-000000000004",
+        "created_at": 1720583331389,
+        "state": "done",
+        "transaction_type": "external"
+    },
+    {
+        "uuid": "00000000-0000-0000-0000-000000000005",
+        "currency": "btc",
+        "network_protocol": "bsc-bep20",
+        "amount": "0.000002",
+        "fee": "0.00402873",
+        "fee_currency": "max",
+        "to_address": "0x0000...0003",
+        "label": "c test",
+        "txid": "00000000-0000-0000-0000-000000000006",
+        "created_at": 1681440027897,
+        "state": "done",
+        "transaction_type": "external"
+    },
+    {
+        "uuid": "00000000-0000-0000-0000-000000000007",
+        "currency": "btc",
+        "network_protocol": "bitcoin",
+        "amount": "0.00001",
+        "fee": "0.10126716",
+        "fee_currency": "max",
+        "to_address": "0x0000...0004",
+        "label": "d test",
+        "txid": null,
+        "created_at": 1629699250431,
+        "state": "failed",
+        "transaction_type": "external"
+    }
+]

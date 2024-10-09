@@ -1,0 +1,20 @@
+[
+    {
+        "uuid": "00000000-0000-0000-0000-000000000043",
+        "currency": "btc",
+        "network_protocol": null,
+        "address": "user@example.com",
+        "extra_label": "user1",
+        "created_at": 1535437397517,
+        "is_internal": true
+    },
+    {
+        "uuid": "00000000-0000-0000-0000-000000000044",
+        "currency": "btc",
+        "network_protocol": null,
+        "address": "user@example.com",
+        "extra_label": "user2",
+        "created_at": 1547099126698,
+        "is_internal": true
+    }
+]
