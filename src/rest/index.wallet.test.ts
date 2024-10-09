@@ -6,7 +6,7 @@ import type { Account, AdRatio, Debt } from './types.js';
 import type { ManualRepayment, Liquidation, LiquidationDetail, Interest, FundSource } from './types.js';
 import { ZodError } from 'zod';
 import { camelCase } from 'change-case/keys';
-import Decimal from 'decimal.js/decimal.mjs';
+import { Decimal } from 'decimal.js';
 import { convertToAccount, convertToAdRatio, convertToDebt, convertToFundSource, convertToInterest, convertToManualRepayment } from './converter.js';
 
 vi.mock('./rest');

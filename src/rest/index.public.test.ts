@@ -6,7 +6,7 @@ import type { Timestamp } from './types.js';
 import type { Depth, Ticker } from './types.js';
 import { ZodError } from 'zod';
 import { camelCase } from 'change-case/keys';
-import Decimal from 'decimal.js/decimal.mjs';
+import { Decimal } from 'decimal.js';
 import { convertToBorrowingLimits, convertToCurrency, convertToIndexPrices, convertToInterestRate, convertToKLine, convertToMarket, convertToPublicTrade, convertToTicker } from './converter.js';
 
 vi.mock('./rest');

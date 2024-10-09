@@ -2,10 +2,16 @@
   "name": "max-exchange-api-node",
   "version": "3.0.0",
   "description": "Node.js client library for MAX Exchange API",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
     "test": "vitest src",
     "build": "tsup ./src/index.ts --minify",
@@ -32,9 +38,6 @@
     "url": "https://github.com/maicoin/max-exchange-api-node/issues"
   },
   "dependencies": {
-    "ccxt": "^4.4.3",
-    "change-case": "^5.4.4",
-    "crypto": "^1.0.1",
     "decimal.js": "^10.4.3",
     "ws": "^8.18.0"
   },
@@ -45,6 +48,7 @@
     "@typescript-eslint/parser": "^4.31.0",
     "@vitest/coverage-v8": "2.1.2",
     "bintrees": "^1.0.2",
+    "change-case": "^5.4.4",
     "eslint": "^7.32.0",
     "tsup": "^8.2.4",
     "typedoc": "^0.26.7",
@@ -55,12 +59,5 @@
   },
   "files": [
     "dist"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
-    }
-  }
+  ]
 }

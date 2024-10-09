@@ -1,4 +1,4 @@
-import Decimal from 'decimal.js/decimal.mjs';
+import { Decimal } from 'decimal.js';
 import { MAXOptions } from '../types.js';
 import { PriceVolume } from '../rest/types.js';
 

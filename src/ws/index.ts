@@ -1,4 +1,4 @@
-import Decimal from 'decimal.js/decimal.mjs';
+import { Decimal } from 'decimal.js';
 import crypto from 'crypto';
 import WebSocket from 'ws';
 import { z } from 'zod';

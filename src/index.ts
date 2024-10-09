@@ -40,4 +40,4 @@ class MAX {
   }
 }
 
-export { MAX, WebSocketBook, Rest };
+export { MAX, WebSocketBook };

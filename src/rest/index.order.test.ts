@@ -5,7 +5,7 @@ import RestHandler from './rest.js';
 import type { Order } from './types.js';
 import { ZodError } from 'zod';
 import { camelCase } from 'change-case/keys';
-import Decimal from 'decimal.js/decimal.mjs';
+import { Decimal } from 'decimal.js';
 import { convertToOrder } from './converter.js';
 
 vi.mock('./rest');

@@ -8,7 +8,7 @@ import type { Withdrawal, Deposit, Reward } from './types.js';
 import { ZodError } from 'zod';
 import { camelCase } from 'change-case/keys';
 import { GetInternalTransfersParams, GetRepaymentsParams, GetRewardsParams, GetTransfersParams, TransferBetweenWalletsParams } from './schema.js';
-import Decimal from 'decimal.js/decimal.mjs';
+import { Decimal } from 'decimal.js';
 import { convertToBorrowingTransfer, convertToDeposit, convertToInternalTransfer, convertToTrade, convertToWithdrawal } from './converter.js';
 
 vi.mock('./rest');
