@@ -92,7 +92,7 @@ ws.on('close', (event) => {
 });
 
 // Optional: Log all raw messages
-ws.on('raw', (body) => {
+ws.on('raw', () => {
   //console.log('Raw message:', body);
 });
 

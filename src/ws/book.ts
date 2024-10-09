@@ -67,15 +67,16 @@ export default class Book {
   pretty(): void {
     let item: PriceVolume | null;
     const askIt = this.#asks.iterator();
+    console.clear();
     while ((item = askIt.prev()) !== null) {
-      console.log('ask ', item.price);
+      console.log('ask ', item.price.toFixed(2), ' ', item.volume.toFixed(8));
     }
 
     console.log('------------------', 'spread', this.spread().toFixed(2), '-------------------');
 
     const bidIt = this.#bids.iterator();
     while ((item = bidIt.prev()) !== null) {
-      console.log('bid ', item.price);
+      console.log('bid ', item.price.toFixed(2), ' ', item.volume.toFixed(8));
     }
   }
 }
@@ -93,8 +94,8 @@ class WebSocketBook extends Book {
     this.#market = market;
     this.#ws = ws;
     this.#ws.subscribe('book', market, { depth });
-    this.#ws.on('book.snapshot', this.handleSnapshot.bind(this));
-    this.#ws.on('book.update', this.handleUpdate.bind(this));
+    this.#ws.on('book.snapshot', this.handleSnapshot);
+    this.#ws.on('book.update', this.handleUpdate);
     this.#onUpdates = [];
   }
 
@@ -102,12 +103,12 @@ class WebSocketBook extends Book {
     this.#onUpdates.push(cb);
   }
 
-  handleUpdate(e: OrderBookEvent): void {
+  handleUpdate = (e: OrderBookEvent): void => {
     this.update(e);
     this.#onUpdates.forEach((cb) => cb(this));
   }
 
-  handleSnapshot(e: OrderBookEvent): void {
+  handleSnapshot = (e: OrderBookEvent): void => {
     this.load(e);
     this.#onUpdates.forEach((cb) => cb(this));
   }
