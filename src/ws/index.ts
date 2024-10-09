@@ -1,12 +1,29 @@
-import { Decimal } from 'decimal.js';
 import crypto from 'crypto';
+import { EventEmitter } from 'events';
+
+import { Decimal } from 'decimal.js';
+// eslint-disable-next-line import/no-named-as-default
 import WebSocket from 'ws';
 import { z } from 'zod';
-import { EventEmitter } from 'events';
+
+
 import { WEBSOCKET_URL } from '../config.js';
-import type { Debt, ErrorResponse, IndexPrice, MarketStatus, Order, OrderBookEvent, Subscription, TradeEvent, UserBalance, UserTrade, WebSocketAPIOptions, WebSocketEvents } from './types.js';
-import { Trade } from './types.js';
+
 import { ChannelSchema, FilterTypeSchema, SubscriptionSchema, SubscriptionOptionalParam, FilterType } from './schema.js';
+import type {
+  Debt,
+  ErrorResponse,
+  IndexPrice,
+  MarketStatus,
+  Order,
+  OrderBookEvent,
+  Subscription,
+  UserBalance,
+  UserTrade,
+  WebSocketAPIOptions,
+  WebSocketEvents,
+} from './types.js';
+import { Trade } from './types.js';
 
 class WebSocketAPI extends EventEmitter {
   on<K extends keyof WebSocketEvents>(eventName: K, listener: (arg: WebSocketEvents[K]) => void): this {
@@ -18,16 +35,27 @@ class WebSocketAPI extends EventEmitter {
   }
 
   #accessKey: string;
+
   #secretKey: string;
+
   #subscriptions: Subscription[];
+
   #pingInterval: NodeJS.Timeout | null;
+
   #ws: WebSocket | null;
+
   #filters: FilterType[];
+
   #orderbooks: { [market: string]: any };
+
   #autoReconnect: boolean;
+
   #reconnectInterval: number;
+
   #maxReconnectAttempts: number;
+
   #reconnectAttempts: number;
+
   #isReconnecting: boolean;
 
   /**
@@ -36,13 +64,7 @@ class WebSocketAPI extends EventEmitter {
    */
   constructor(options: WebSocketAPIOptions) {
     super();
-    const {
-      accessKey = '',
-      secretKey = '',
-      autoReconnect = false,
-      reconnectInterval = 5000,
-      maxReconnectAttempts = 5
-    } = options;
+    const { accessKey = '', secretKey = '', autoReconnect = false, reconnectInterval = 5000, maxReconnectAttempts = 5 } = options;
     this.#accessKey = accessKey;
     this.#secretKey = secretKey;
     this.#subscriptions = [];
@@ -116,38 +138,40 @@ class WebSocketAPI extends EventEmitter {
    * @param market - The market to subscribe to.
    * @param options - Additional options for the subscription.
    */
-  public subscribe(
-    channel: z.infer<typeof ChannelSchema>,
-    market: string,
-    options: SubscriptionOptionalParam = {}): void {
-    const subscription = SubscriptionSchema.parse({ channel, market, ...options });
+  public subscribe(channel: z.infer<typeof ChannelSchema>, market: string, options: SubscriptionOptionalParam = {}): void {
+    const subscription = SubscriptionSchema.parse({
+      channel,
+      market,
+      ...options,
+    });
     this.#subscriptions.push(subscription);
 
     if (this.#ws && this.#ws.readyState === WebSocket.OPEN) {
       this.#sendSubscriptions('sub');
     }
   }
+
   /**
    * Unsubscribe from a specific channel for a given market.
    * @param channel - The channel to unsubscribe from.
    * @param market - The market to unsubscribe from.
    * @param options - Additional options for the unsubscription.
    */
-  public unsubscribe(
-    channel: z.infer<typeof ChannelSchema>,
-    market: string,
-    options: SubscriptionOptionalParam = {}
-  ): void {
-    const subscription = SubscriptionSchema.parse({ channel, market, ...options });
-    this.#subscriptions = this.#subscriptions.filter(sub =>
-      JSON.stringify(sub) !== JSON.stringify(subscription)
-    );
+  public unsubscribe(channel: z.infer<typeof ChannelSchema>, market: string, options: SubscriptionOptionalParam = {}): void {
+    const subscription = SubscriptionSchema.parse({
+      channel,
+      market,
+      ...options,
+    });
+    this.#subscriptions = this.#subscriptions.filter((sub) => JSON.stringify(sub) !== JSON.stringify(subscription));
 
     if (this.#ws && this.#ws.readyState === WebSocket.OPEN) {
-      this.#ws.send(JSON.stringify({
-        action: 'unsub',
-        subscriptions: [subscription]
-      }));
+      this.#ws.send(
+        JSON.stringify({
+          action: 'unsub',
+          subscriptions: [subscription],
+        })
+      );
     }
   }
 
@@ -158,7 +182,6 @@ class WebSocketAPI extends EventEmitter {
   public setFilters(filters: FilterType[]): void {
     this.#filters = z.array(FilterTypeSchema).parse(filters);
   }
-
 
   #sendSubscriptions(action: string): void {
     if (this.#subscriptions.length > 0 && this.#ws && this.#ws.readyState === WebSocket.OPEN) {
@@ -183,7 +206,7 @@ class WebSocketAPI extends EventEmitter {
       action: 'auth',
       apiKey: this.#accessKey,
       nonce,
-      signature
+      signature,
     };
     if (this.#filters.length > 0) {
       authMessage.filters = this.#filters;
@@ -196,9 +219,8 @@ class WebSocketAPI extends EventEmitter {
       const obj = JSON.parse(body.toString());
       this.emit('raw', obj);
       // TODO eventType replace
-      const { e, c: channel, M: market, T: timestamp } = obj;
+      const { e, c: channel } = obj;
       const eventType = e.replace('ad_ration', 'adRatio').replace('_', '.');
-      console.log(eventType);
       switch (`${channel || ''}.${eventType}`) {
         case '.error':
           this.#handleErrorEvent(obj);
@@ -296,20 +318,20 @@ class WebSocketAPI extends EventEmitter {
     this.emit('error', {
       message: errorMessage,
       code: errorCode,
-      time: new Date(data.T)
+      time: new Date(data.T),
     });
   }
 
   #handleAuthenticatedEvent(data: any): void {
     this.emit('authenticated', {
-      time: new Date(data.T)
+      time: new Date(data.T),
     });
   }
 
   #handleSubscriptionEvent(eventType: 'subscribed' | 'unsubscribed', data: any): void {
     this.emit(`.${eventType}`, {
       subscriptions: data.s,
-      time: new Date(data.T)
+      time: new Date(data.T),
     });
   }
 
@@ -318,31 +340,35 @@ class WebSocketAPI extends EventEmitter {
       market: data.M,
       bids: data.b.map(([p, v]: string[]) => ({
         price: new Decimal(p),
-        volume: new Decimal(v)
+        volume: new Decimal(v),
       })),
       asks: data.a.map(([p, v]: string[]) => ({
         price: new Decimal(p),
-        volume: new Decimal(v)
+        volume: new Decimal(v),
       })),
       time: new Date(data.T),
       firstUpdateId: data.fi,
       lastUpdateId: data.li,
-      version: data.v
+      version: data.v,
     };
 
     this.emit(`book.${eventType}`, book);
 
     if (eventType === 'snapshot') {
       this.#orderbooks[data.M] = {
-        bids: new Map(book.bids.map(b => [b.price.toString(), b])),
-        asks: new Map(book.asks.map(a => [a.price.toString(), a])),
+        bids: new Map(book.bids.map((b) => [b.price.toString(), b])),
+        asks: new Map(book.asks.map((a) => [a.price.toString(), a])),
         lastUpdateId: book.lastUpdateId,
-        version: book.version
+        version: book.version,
       };
     } else if (eventType === 'update') {
       const localBook = this.#orderbooks[data.M];
       if (localBook) {
-        if (localBook.version === book.version && book.firstUpdateId <= localBook.lastUpdateId + 1 && book.lastUpdateId >= localBook.lastUpdateId + 1) {
+        if (
+          localBook.version === book.version &&
+          book.firstUpdateId <= localBook.lastUpdateId + 1 &&
+          book.lastUpdateId >= localBook.lastUpdateId + 1
+        ) {
           this.#updateOrderBook(localBook.bids, book.bids);
           this.#updateOrderBook(localBook.asks, book.asks);
           localBook.lastUpdateId = book.lastUpdateId;
@@ -358,7 +384,7 @@ class WebSocketAPI extends EventEmitter {
     }
   }
 
-  #updateOrderBook(bookSide: Map<string, { price: Decimal, volume: Decimal }>, updates: { price: Decimal, volume: Decimal }[]): void {
+  #updateOrderBook(bookSide: Map<string, { price: Decimal; volume: Decimal }>, updates: { price: Decimal; volume: Decimal }[]): void {
     for (const update of updates) {
       const priceStr = update.price.toString();
       if (update.volume.isZero()) {
@@ -372,13 +398,15 @@ class WebSocketAPI extends EventEmitter {
   #handleTradeEvent(eventType: 'update' | 'snapshot', data: any): void {
     this.emit(`trade.${eventType}`, {
       market: data.M,
-      trades: data.t.map((t: any): Trade => ({
-        price: new Decimal(t.p),
-        volume: new Decimal(t.v),
-        side: t.tr,
-        createdAt: new Date(t.T)
-      })),
-      time: new Date(data.T)
+      trades: data.t.map(
+        (t: any): Trade => ({
+          price: new Decimal(t.p),
+          volume: new Decimal(t.v),
+          side: t.tr,
+          createdAt: new Date(t.T),
+        })
+      ),
+      time: new Date(data.T),
     });
   }
 
@@ -395,7 +423,7 @@ class WebSocketAPI extends EventEmitter {
       volume: new Decimal(data.k.v),
       lastTradeId: data.k.ti,
       closed: data.k.x,
-      time: new Date(data.T)
+      time: new Date(data.T),
     });
   }
 
@@ -408,26 +436,27 @@ class WebSocketAPI extends EventEmitter {
       close: new Decimal(data.tk.C),
       vol: new Decimal(data.tk.v),
       volInBtc: new Decimal(data.tk.V),
-      at: new Date(data.T)
+      at: new Date(data.T),
     });
   }
-
 
   // TODO check case
   #handleMarketStatusEvent(eventType: 'update' | 'snapshot', data: any): void {
     this.emit(`market_status.${eventType}`, {
-      marketStatuses: data.ms.map((ms: any): MarketStatus => ({
-        id: ms.M,
-        status: ms.st,
-        baseUnit: ms.bu,
-        baseUnitPrecision: ms.bup,
-        minBaseAmount: new Decimal(ms.mba),
-        quoteUnit: ms.qu,
-        quoteUnitPrecision: ms.qup,
-        minQuoteAmount: new Decimal(ms.mqa),
-        mWalletSupported: ms.mws
-      })),
-      time: new Date(data.T)
+      marketStatuses: data.ms.map(
+        (ms: any): MarketStatus => ({
+          id: ms.M,
+          status: ms.st,
+          baseUnit: ms.bu,
+          baseUnitPrecision: ms.bup,
+          minBaseAmount: new Decimal(ms.mba),
+          quoteUnit: ms.qu,
+          quoteUnitPrecision: ms.qup,
+          minQuoteAmount: new Decimal(ms.mqa),
+          mWalletSupported: ms.mws,
+        })
+      ),
+      time: new Date(data.T),
     });
   }
 
@@ -437,67 +466,75 @@ class WebSocketAPI extends EventEmitter {
       currency: data.qta.cu,
       available: new Decimal(data.qta.av),
       updatedAt: new Date(data.qta.TU),
-      time: new Date(data.T)
+      time: new Date(data.T),
     });
   }
 
   #handleUserOrderEvent(eventType: 'order.snapshot' | 'order.update' | 'mwallet.order.snapshot' | 'mwallet.order.update', data: any): void {
     this.emit(`user.${eventType}`, {
       time: new Date(data.T),
-      orders: data.o.map((o: any): Order => ({
-        id: o.i,
-        side: o.sd,
-        ordType: o.ot,
-        price: new Decimal(o.p),
-        stopPrice: new Decimal(o.sp),
-        avgPrice: new Decimal(o.ap),
-        volume: new Decimal(o.v),
-        remainingVolume: new Decimal(o.rv),
-        executedVolume: new Decimal(o.ev),
-        state: o.S,
-        market: o.M,
-        tradesCount: o.tc,
-        createdAt: new Date(o.T),
-        updatedAt: new Date(o.TU),
-        groupId: o.gi,
-        clientOid: o.ci
-      }))
+      orders: data.o.map(
+        (o: any): Order => ({
+          id: o.i,
+          side: o.sd,
+          ordType: o.ot,
+          price: new Decimal(o.p),
+          stopPrice: new Decimal(o.sp),
+          avgPrice: new Decimal(o.ap),
+          volume: new Decimal(o.v),
+          remainingVolume: new Decimal(o.rv),
+          executedVolume: new Decimal(o.ev),
+          state: o.S,
+          market: o.M,
+          tradesCount: o.tc,
+          createdAt: new Date(o.T),
+          updatedAt: new Date(o.TU),
+          groupId: o.gi,
+          clientOid: o.ci,
+        })
+      ),
     });
   }
 
   #handleUserTradeEvent(eventType: 'trade.snapshot' | 'trade.update' | 'mwallet.trade.snapshot' | 'mwallet.trade.update', data: any): void {
     this.emit(`user.${eventType}`, {
       time: new Date(data.T),
-      trades: data.t.map((t: any): UserTrade => ({
-        id: t.i,
-        market: t.M,
-        side: t.sd,
-        price: new Decimal(t.p),
-        volume: new Decimal(t.v),
-        fee: t.f ? new Decimal(t.f) : null,
-        feeCurrency: t.fc,
-        feeDiscounted: t.fd,
-        funds: new Decimal(t.fn),
-        createdAt: new Date(t.T),
-        updatedAt: new Date(t.TU),
-        maker: t.m,
-        orderId: t.oi,
-      }))
+      trades: data.t.map(
+        (t: any): UserTrade => ({
+          id: t.i,
+          market: t.M,
+          side: t.sd,
+          price: new Decimal(t.p),
+          volume: new Decimal(t.v),
+          fee: t.f ? new Decimal(t.f) : null,
+          feeCurrency: t.fc,
+          feeDiscounted: t.fd,
+          funds: new Decimal(t.fn),
+          createdAt: new Date(t.T),
+          updatedAt: new Date(t.TU),
+          maker: t.m,
+          orderId: t.oi,
+        })
+      ),
     });
   }
 
-  #handleUserAccountEvent(eventType: 'account.snapshot' | 'account.update' | 'mwallet.account.snapshot' | 'mwallet.account.update', data: any): void {
-    this.emit(`user.${eventType}`,
-      {
-        time: new Date(data.T),
-        balances: data.B.map((b: any): UserBalance => ({
+  #handleUserAccountEvent(
+    eventType: 'account.snapshot' | 'account.update' | 'mwallet.account.snapshot' | 'mwallet.account.update',
+    data: any
+  ): void {
+    this.emit(`user.${eventType}`, {
+      time: new Date(data.T),
+      balances: data.B.map(
+        (b: any): UserBalance => ({
           currency: b.cu,
           available: new Decimal(b.av),
           locked: new Decimal(b.l),
           staked: b.stk ? new Decimal(b.stk) : null,
-          updatedAt: new Date(b.TU)
-        }))
-      });
+          updatedAt: new Date(b.TU),
+        })
+      ),
+    });
   }
 
   #handleUserAdRatioEvent(eventType: 'adRatio.snapshot' | 'adRatio.update', data: any): void {
@@ -505,10 +542,12 @@ class WebSocketAPI extends EventEmitter {
       adRatio: new Decimal(data.ad.ad),
       assetInUsdt: new Decimal(data.ad.as),
       debtInUsdt: new Decimal(data.ad.db),
-      indexPrices: data.ad.idxp.map((ip: any): IndexPrice => ({
-        market: ip.M,
-        price: new Decimal(ip.p)
-      })),
+      indexPrices: data.ad.idxp.map(
+        (ip: any): IndexPrice => ({
+          market: ip.M,
+          price: new Decimal(ip.p),
+        })
+      ),
       updatedAt: new Date(data.ad.TU),
       time: new Date(data.T),
     });
@@ -517,12 +556,14 @@ class WebSocketAPI extends EventEmitter {
   #handleUserBorrowingEvent(eventType: 'borrowing.snapshot' | 'borrowing.update', data: any): void {
     this.emit(`user.${eventType}`, {
       time: new Date(data.T),
-      debts: data.db.map((d: any): Debt => ({
-        currency: d.cu,
-        debtPrincipal: new Decimal(d.dbp),
-        debtInterest: new Decimal(d.dbi),
-        updatedAt: new Date(d.TU)
-      }))
+      debts: data.db.map(
+        (d: any): Debt => ({
+          currency: d.cu,
+          debtPrincipal: new Decimal(d.dbp),
+          debtInterest: new Decimal(d.dbi),
+          updatedAt: new Date(d.TU),
+        })
+      ),
     });
   }
 

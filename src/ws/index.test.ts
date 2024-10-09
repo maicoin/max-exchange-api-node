@@ -1,21 +1,21 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
-import WebSocketAPI from './index.js';
+// eslint-disable-next-line import/no-named-as-default
 import WebSocket from 'ws';
 import { z } from 'zod';
 
+import WebSocketAPI from './index.js';
+
 // Mock WebSocket
-vi.mock('ws', () => {
-  return {
-    default: vi.fn(() => ({
-      on: vi.fn(),
-      send: vi.fn(),
-      close: vi.fn(),
-      readyState: WebSocket.OPEN,
-    })),
-    OPEN: 1,
-    CLOSED: 3,
-  };
-});
+vi.mock('ws', () => ({
+  default: vi.fn(() => ({
+    on: vi.fn(),
+    send: vi.fn(),
+    close: vi.fn(),
+    readyState: WebSocket.OPEN,
+  })),
+  OPEN: 1,
+  CLOSED: 3,
+}));
 
 describe('WebSocketAPI', () => {
   let api: WebSocketAPI;
@@ -47,18 +47,22 @@ describe('WebSocketAPI', () => {
 
     it('should send correct subscription message for book channel', () => {
       api.subscribe('book', 'btcusd', { depth: 5 });
-      expect(mockWs.send).toHaveBeenCalledWith(JSON.stringify({
-        action: 'sub',
-        subscriptions: [{ channel: 'book', market: 'btcusd', depth: 5 }]
-      }));
+      expect(mockWs.send).toHaveBeenCalledWith(
+        JSON.stringify({
+          action: 'sub',
+          subscriptions: [{ channel: 'book', market: 'btcusd', depth: 5 }],
+        })
+      );
     });
 
     it('should send correct subscription message for trade channel', () => {
       api.subscribe('trade', 'btcusd');
-      expect(mockWs.send).toHaveBeenCalledWith(JSON.stringify({
-        action: 'sub',
-        subscriptions: [{ channel: 'trade', market: 'btcusd' }]
-      }));
+      expect(mockWs.send).toHaveBeenCalledWith(
+        JSON.stringify({
+          action: 'sub',
+          subscriptions: [{ channel: 'trade', market: 'btcusd' }],
+        })
+      );
     });
   });
 
@@ -73,23 +77,25 @@ describe('WebSocketAPI', () => {
 
     it('should send correct unsubscription message', () => {
       api.unsubscribe('book', 'btcusd', { depth: 5 });
-      expect(mockWs.send).toHaveBeenCalledWith(JSON.stringify({
-        action: 'unsub',
-        subscriptions: [{ channel: 'book', market: 'btcusd', depth: 5 }]
-      }));
+      expect(mockWs.send).toHaveBeenCalledWith(
+        JSON.stringify({
+          action: 'unsub',
+          subscriptions: [{ channel: 'book', market: 'btcusd', depth: 5 }],
+        })
+      );
     });
   });
 
-//   describe('setFilters', () => {
-//     it('should validate filter types', () => {
-//       expect(() => api.setFilters(['invalid_filter' as any])).toThrow(z.ZodError);
-//     });
+  //   describe('setFilters', () => {
+  //     it('should validate filter types', () => {
+  //       expect(() => api.setFilters(['invalid_filter' as any])).toThrow(z.ZodError);
+  //     });
 
-//     // it('should set valid filters', () => {
-//     //   api.setFilters(['order', 'trade']);
-//     //   expect((api as any).#filters).toEqual(['order', 'trade']);
-//     // });
-//   });
+  //     // it('should set valid filters', () => {
+  //     //   api.setFilters(['order', 'trade']);
+  //     //   expect((api as any).#filters).toEqual(['order', 'trade']);
+  //     // });
+  //   });
 
   describe('connect', () => {
     it('should create a WebSocket connection', () => {
@@ -104,7 +110,7 @@ describe('WebSocketAPI', () => {
     });
 
     it('should send authentication message when connected', () => {
-      const openHandler = mockWs.on.mock.calls.find(call => call[0] === 'open')[1];
+      const openHandler = mockWs.on.mock.calls.find((call) => call[0] === 'open')[1];
       openHandler();
       expect(mockWs.send).toHaveBeenCalledWith(expect.stringContaining('"action":"auth"'));
     });

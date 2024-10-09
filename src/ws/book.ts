@@ -1,23 +1,26 @@
 import { RBTree } from 'bintrees';
-import WebSocketAPI from './index.js';
-import { OrderBookEvent } from './types.js';
+
 import { PriceVolume } from '../rest/types.js';
+
+import { OrderBookEvent } from './types.js';
+
+import WebSocketAPI from './index.js';
 
 function comparePriceEntry(a: PriceVolume, b: PriceVolume): number {
   return a.price.toNumber() - b.price.toNumber();
 }
 
-class Book {
-  private _bids: RBTree<PriceVolume>;
-  private _asks: RBTree<PriceVolume>;
+export default class Book {
+  #bids: RBTree<PriceVolume>;
+  #asks: RBTree<PriceVolume>;
 
   constructor() {
-    this._bids = new RBTree<PriceVolume>(comparePriceEntry);
-    this._asks = new RBTree<PriceVolume>(comparePriceEntry);
+    this.#bids = new RBTree<PriceVolume>(comparePriceEntry);
+    this.#asks = new RBTree<PriceVolume>(comparePriceEntry);
   }
 
-  private _priceVolumeUpdater(pvs: RBTree<PriceVolume>): (pv: PriceVolume) => void {
-    return function(pv: PriceVolume): void {
+  #priceVolumeUpdater(pvs: RBTree<PriceVolume>): (pv: PriceVolume) => void {
+    return function (pv: PriceVolume): void {
       if (pv.volume.toNumber() === 0) {
         pvs.remove(pv);
       } else {
@@ -32,27 +35,27 @@ class Book {
   }
 
   reset(): void {
-    this._bids = new RBTree<PriceVolume>(comparePriceEntry);
-    this._asks = new RBTree<PriceVolume>(comparePriceEntry);
+    this.#bids = new RBTree<PriceVolume>(comparePriceEntry);
+    this.#asks = new RBTree<PriceVolume>(comparePriceEntry);
   }
 
-  load(snapshot: { bids: PriceVolume[], asks: PriceVolume[] }): void {
+  load(snapshot: { bids: PriceVolume[]; asks: PriceVolume[] }): void {
     this.reset();
-    snapshot.bids.forEach((pv) => this._bids.insert(pv));
-    snapshot.asks.forEach((pv) => this._asks.insert(pv));
+    snapshot.bids.forEach((pv) => this.#bids.insert(pv));
+    snapshot.asks.forEach((pv) => this.#asks.insert(pv));
   }
 
-  update(update: { asks: PriceVolume[], bids: PriceVolume[] }): void {
-    update.asks.forEach(this._priceVolumeUpdater(this._asks));
-    update.bids.forEach(this._priceVolumeUpdater(this._bids));
+  update(update: { asks: PriceVolume[]; bids: PriceVolume[] }): void {
+    update.asks.forEach(this.#priceVolumeUpdater(this.#asks));
+    update.bids.forEach(this.#priceVolumeUpdater(this.#bids));
   }
 
   bestAsk(): PriceVolume | null {
-    return this._asks.min() || null;
+    return this.#asks.min() || null;
   }
 
   bestBid(): PriceVolume | null {
-    return this._bids.max() || null;
+    return this.#bids.max() || null;
   }
 
   spread(): number {
@@ -63,49 +66,50 @@ class Book {
 
   pretty(): void {
     let item: PriceVolume | null;
-    const askIt = this._asks.iterator();
+    const askIt = this.#asks.iterator();
     while ((item = askIt.prev()) !== null) {
       console.log('ask ', item.price);
     }
 
     console.log('------------------', 'spread', this.spread().toFixed(2), '-------------------');
 
-    const bidIt = this._bids.iterator();
+    const bidIt = this.#bids.iterator();
     while ((item = bidIt.prev()) !== null) {
       console.log('bid ', item.price);
     }
   }
 }
 
-
 class WebSocketBook extends Book {
-  private market: string;
-  private _ws: WebSocketAPI;
-  private _onUpdates: ((book: WebSocketBook) => void)[];
+  #market: string;
+
+  #ws: WebSocketAPI;
+
+  #onUpdates: ((book: WebSocketBook) => void)[];
 
   constructor(ws: WebSocketAPI, market: string, depth: number | undefined = undefined) {
     super();
 
-    this.market = market;
-    this._ws = ws;
-    this._ws.subscribe('book', market, { depth });
-    this._ws.on('book.snapshot', this.handleSnapshot.bind(this));
-    this._ws.on('book.update', this.handleUpdate.bind(this));
-    this._onUpdates = [];
+    this.#market = market;
+    this.#ws = ws;
+    this.#ws.subscribe('book', market, { depth });
+    this.#ws.on('book.snapshot', this.handleSnapshot.bind(this));
+    this.#ws.on('book.update', this.handleUpdate.bind(this));
+    this.#onUpdates = [];
   }
 
   onUpdate(cb: (book: WebSocketBook) => void): void {
-    this._onUpdates.push(cb);
+    this.#onUpdates.push(cb);
   }
 
   handleUpdate(e: OrderBookEvent): void {
     this.update(e);
-    this._onUpdates.forEach((cb) => cb(this));
+    this.#onUpdates.forEach((cb) => cb(this));
   }
 
   handleSnapshot(e: OrderBookEvent): void {
     this.load(e);
-    this._onUpdates.forEach((cb) => cb(this));
+    this.#onUpdates.forEach((cb) => cb(this));
   }
 }
 

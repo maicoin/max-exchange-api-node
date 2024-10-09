@@ -1,6 +1,7 @@
 import { Decimal } from 'decimal.js';
-import { MAXOptions } from '../types.js';
+
 import { PriceVolume } from '../rest/types.js';
+import { MAXOptions } from '../types.js';
 
 export interface ErrorResponse {
   e: string;
@@ -17,49 +18,10 @@ export interface Subscription {
   resolution?: string; // Possible values: "1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"
 }
 
-export interface WebSocketAPIOptions extends MAXOptions{
+export interface WebSocketAPIOptions extends MAXOptions {
   autoReconnect?: boolean;
   reconnectInterval?: number;
   maxReconnectAttempts?: number;
-}
-
-// Define event types
-export interface WebSocketEvents {
-  'open': void;
-  'close': CloseEvent;
-  'error': Error | { message: string; code: number | null; time: Date };
-  'authenticated': { time: Date };
-  '.subscribed': { subscriptions: Subscription[]; time: Date };
-  '.unsubscribed': { subscriptions: Subscription[]; time: Date };
-  'book.snapshot': OrderBookEvent;
-  'book.update': OrderBookEvent;
-  'trade.snapshot': TradeEvent;
-  'trade.update': TradeEvent;
-  'kline.snapshot': KlineEvent;
-  'kline.update': KlineEvent;
-  'ticker.snapshot': TickerEvent;
-  'ticker.update': TickerEvent;
-  'market_status.snapshot': MarketStatusEvent;
-  'market_status.update': MarketStatusEvent;
-  'pool_quota.snapshot': PoolQuotaEvent;
-  'pool_quota.update': PoolQuotaEvent;
-  'user.order.snapshot': UserOrderEvent;
-  'user.order.update': UserOrderEvent;
-  'user.mwallet.order.snapshot': UserOrderEvent;
-  'user.mwallet.order.update': UserOrderEvent;
-  'user.trade.snapshot': UserTradeEvent;
-  'user.trade.update': UserTradeEvent;
-  'user.mwallet.trade.snapshot': UserTradeEvent;
-  'user.mwallet.trade.update': UserTradeEvent;
-  'user.account.snapshot': UserAccountEvent;
-  'user.account.update': UserAccountEvent;
-  'user.mwallet.account.snapshot': UserAccountEvent;
-  'user.mwallet.account.update': UserAccountEvent;
-  'user.adRatio.snapshot': UserAdRatioEvent;
-  'user.adRatio.update': UserAdRatioEvent;
-  'user.borrowing.snapshot': UserBorrowingEvent;
-  'user.borrowing.update': UserBorrowingEvent;
-  'raw': any; // For raw message data
 }
 
 // Define event data types
@@ -218,4 +180,43 @@ export interface Debt {
 export interface UserBorrowingEvent {
   time: Date;
   debts: Debt[];
+}
+
+// Define event types
+export interface WebSocketEvents {
+  open: void;
+  close: CloseEvent;
+  error: Error | { message: string; code: number | null; time: Date };
+  authenticated: { time: Date };
+  '.subscribed': { subscriptions: Subscription[]; time: Date };
+  '.unsubscribed': { subscriptions: Subscription[]; time: Date };
+  'book.snapshot': OrderBookEvent;
+  'book.update': OrderBookEvent;
+  'trade.snapshot': TradeEvent;
+  'trade.update': TradeEvent;
+  'kline.snapshot': KlineEvent;
+  'kline.update': KlineEvent;
+  'ticker.snapshot': TickerEvent;
+  'ticker.update': TickerEvent;
+  'market_status.snapshot': MarketStatusEvent;
+  'market_status.update': MarketStatusEvent;
+  'pool_quota.snapshot': PoolQuotaEvent;
+  'pool_quota.update': PoolQuotaEvent;
+  'user.order.snapshot': UserOrderEvent;
+  'user.order.update': UserOrderEvent;
+  'user.mwallet.order.snapshot': UserOrderEvent;
+  'user.mwallet.order.update': UserOrderEvent;
+  'user.trade.snapshot': UserTradeEvent;
+  'user.trade.update': UserTradeEvent;
+  'user.mwallet.trade.snapshot': UserTradeEvent;
+  'user.mwallet.trade.update': UserTradeEvent;
+  'user.account.snapshot': UserAccountEvent;
+  'user.account.update': UserAccountEvent;
+  'user.mwallet.account.snapshot': UserAccountEvent;
+  'user.mwallet.account.update': UserAccountEvent;
+  'user.adRatio.snapshot': UserAdRatioEvent;
+  'user.adRatio.update': UserAdRatioEvent;
+  'user.borrowing.snapshot': UserBorrowingEvent;
+  'user.borrowing.update': UserBorrowingEvent;
+  raw: any; // For raw message data
 }

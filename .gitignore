@@ -1,7 +1,6 @@
 .env
 /.env.local
 /node_modules
-.eslintrc.json
 .DS_STORE
 /dist
 /docs
