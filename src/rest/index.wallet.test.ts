@@ -1,13 +1,23 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import MaxSDK from './index.js';
-import { MAXOptions } from '../types.js';
-import RestHandler from './rest.js';
-import type { Account, AdRatio, Debt } from './types.js';
-import type { ManualRepayment, Liquidation, LiquidationDetail, Interest, FundSource } from './types.js';
-import { ZodError } from 'zod';
 import { camelCase } from 'change-case/keys';
 import { Decimal } from 'decimal.js';
-import { convertToAccount, convertToAdRatio, convertToDebt, convertToFundSource, convertToInterest, convertToManualRepayment } from './converter.js';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { ZodError } from 'zod';
+
+
+import { MAXOptions } from '../types.js';
+
+import {
+  convertToAccount,
+  convertToAdRatio,
+  convertToDebt,
+  convertToFundSource,
+  convertToInterest,
+  convertToManualRepayment,
+} from './converter.js';
+import RestHandler from './rest.js';
+import type { Debt, ManualRepayment } from './types.js';
+
+import MaxSDK from './index.js';
 
 vi.mock('./rest');
 
@@ -31,16 +41,16 @@ describe('MaxSDK Wallet Methods', () => {
   describe('getAccounts', () => {
     it('should return accounts with correct structure', async () => {
       const params = { currency: 'btc' };
-      const mockAccounts: any = await import('../../tests/fixtures/spotAccounts.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockAccounts: any = await import('../../tests/fixtures/spotAccounts.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
       mockRestHandler.get.mockResolvedValue(mockAccounts);
 
       const result = await maxSDK.getAccounts('spot', params);
 
       expect(result).toEqual(mockAccounts.map(convertToAccount));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(account => {
+      result.forEach((account) => {
         expect(account).toHaveProperty('currency');
         expect(account).toHaveProperty('balance');
         expect(account).toHaveProperty('locked');
@@ -76,9 +86,7 @@ describe('MaxSDK Wallet Methods', () => {
 
   describe('getAdRatio', () => {
     it('should return AD ratio with correct structure', async () => {
-      const mockAdRatio: any = await import('../../tests/fixtures/adRatio.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockAdRatio: any = await import('../../tests/fixtures/adRatio.json').then((result) => camelCase(result.default, Infinity));
 
       mockRestHandler.get.mockResolvedValue(mockAdRatio);
 
@@ -133,7 +141,7 @@ describe('MaxSDK Wallet Methods', () => {
       expect(typeof result.sn).toBe('string');
       expect(typeof result.currency).toBe('string');
       expect(result.amount instanceof Decimal).toBe(true);
-        
+
       // expect(typeof result.amount).toBe('string');
       expect(typeof result.state).toBe('string');
       // expect(typeof result.createdAt).toBe('number');
@@ -167,16 +175,14 @@ describe('MaxSDK Wallet Methods', () => {
         limit: 10,
       };
 
-      const mockLoans: any = await import('../../tests/fixtures/loans.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockLoans: any = await import('../../tests/fixtures/loans.json').then((result) => camelCase(result.default, Infinity));
       mockRestHandler.get.mockResolvedValue(mockLoans);
 
       const result = await maxSDK.getLoans(params);
 
       expect(result).toEqual(mockLoans.map(convertToDebt));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(loan => {
+      result.forEach((loan) => {
         expect(loan).toHaveProperty('sn');
         expect(loan).toHaveProperty('currency');
         expect(loan).toHaveProperty('amount');
@@ -247,7 +253,7 @@ describe('MaxSDK Wallet Methods', () => {
       expect(result.principal instanceof Decimal).toBe(true);
       expect(result.interest instanceof Decimal).toBe(true);
       expect(result.createdAt instanceof Date).toBe(true);
-    
+
       expect(typeof result.currency).toBe('string');
       expect(typeof result.state).toBe('string');
       expect(typeof result.sn).toBe('string');
@@ -271,7 +277,6 @@ describe('MaxSDK Wallet Methods', () => {
     });
   });
 
-
   describe('getRepayments', () => {
     it('should return repayments with correct structure', async () => {
       const params = {
@@ -279,9 +284,9 @@ describe('MaxSDK Wallet Methods', () => {
         limit: 10,
       };
 
-      const mockRepayments: any = await import('../../tests/fixtures/repayments.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockRepayments: any = await import('../../tests/fixtures/repayments.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockRepayments);
 
@@ -289,7 +294,7 @@ describe('MaxSDK Wallet Methods', () => {
 
       expect(result).toEqual(mockRepayments.map(convertToManualRepayment));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(repayment => {
+      result.forEach((repayment) => {
         expect(repayment).toHaveProperty('currency');
         expect(repayment).toHaveProperty('amount');
         expect(repayment).toHaveProperty('principal');
@@ -302,7 +307,7 @@ describe('MaxSDK Wallet Methods', () => {
         expect(repayment.principal instanceof Decimal).toBe(true);
         expect(repayment.interest instanceof Decimal).toBe(true);
         expect(repayment.createdAt instanceof Date).toBe(true);
-      
+
         expect(typeof repayment.currency).toBe('string');
         expect(typeof repayment.state).toBe('string');
         expect(typeof repayment.sn).toBe('string');
@@ -460,9 +465,7 @@ describe('MaxSDK Wallet Methods', () => {
         limit: 10,
       };
 
-      const mockInterests: any = await import('../../tests/fixtures/interests.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockInterests: any = await import('../../tests/fixtures/interests.json').then((result) => camelCase(result.default, Infinity));
 
       mockRestHandler.get.mockResolvedValue(mockInterests);
 
@@ -470,7 +473,7 @@ describe('MaxSDK Wallet Methods', () => {
 
       expect(result).toEqual(mockInterests.map(convertToInterest));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(interest => {
+      result.forEach((interest) => {
         expect(interest).toHaveProperty('currency');
         expect(interest).toHaveProperty('amount');
         expect(interest).toHaveProperty('interestRate');
@@ -478,9 +481,9 @@ describe('MaxSDK Wallet Methods', () => {
         expect(interest).toHaveProperty('createdAt');
         expect(typeof interest.currency).toBe('string');
         expect(interest.amount instanceof Decimal).toBe(true);
-        expect(interest.interestRate instanceof Decimal).toBe(true); 
-        expect(interest.principal instanceof Decimal).toBe(true);  
-        expect(interest.createdAt instanceof Date).toBe(true); 
+        expect(interest.interestRate instanceof Decimal).toBe(true);
+        expect(interest.principal instanceof Decimal).toBe(true);
+        expect(interest.createdAt instanceof Date).toBe(true);
       });
     });
 
@@ -509,9 +512,9 @@ describe('MaxSDK Wallet Methods', () => {
         limit: 10,
       };
 
-      const mockWithdrawAddresses: any = await import('../../tests/fixtures/withdrawAddress.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockWithdrawAddresses: any = await import('../../tests/fixtures/withdrawAddress.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockWithdrawAddresses);
 
@@ -519,7 +522,7 @@ describe('MaxSDK Wallet Methods', () => {
 
       expect(result).toEqual(mockWithdrawAddresses.map(convertToFundSource));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(address => {
+      result.forEach((address) => {
         expect(address).toHaveProperty('uuid');
         expect(address).toHaveProperty('currency');
         expect(address).toHaveProperty('networkProtocol');

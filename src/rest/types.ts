@@ -107,17 +107,12 @@ export interface Liquidation {
   state: string; // Possible values: processing, liquidated
 }
 
-export interface LiquidationDetail extends Liquidation {
-  repayments: Repayment[];
-  liquidations: ForcedLiquidation[];
-}
-
 export interface Repayment {
   currency: string;
   amount: Decimal;
   principal: Decimal;
   interest: Decimal;
-  sn: string,
+  sn: string;
   state: string;
 }
 
@@ -129,6 +124,11 @@ export interface ForcedLiquidation {
   fee: Decimal;
   feeCurrency: string;
   repayment: Repayment;
+}
+
+export interface LiquidationDetail extends Liquidation {
+  repayments: Repayment[];
+  liquidations: ForcedLiquidation[];
 }
 
 export interface Interest {
@@ -151,18 +151,6 @@ export interface Market {
   mWalletSupported: boolean;
 }
 
-export interface Currency {
-  currency: string;
-  type: string;
-  precision: number;
-  mWalletSupported: boolean;
-  mWalletMortgageable: boolean;
-  mWalletBorrowable: boolean;
-  minBorrowAmount: Decimal | null;
-  networks: CurrencyNetwork[];
-  staking: Staking | null;
-}
-
 export interface CurrencyNetwork {
   tokenContractAddress: string | null;
   precision: number;
@@ -179,6 +167,18 @@ export interface CurrencyNetwork {
 export interface Staking {
   stakeFlag: boolean;
   unstakeFlag: boolean;
+}
+
+export interface Currency {
+  currency: string;
+  type: string;
+  precision: number;
+  mWalletSupported: boolean;
+  mWalletMortgageable: boolean;
+  mWalletBorrowable: boolean;
+  minBorrowAmount: Decimal | null;
+  networks: CurrencyNetwork[];
+  staking: Staking | null;
 }
 
 export interface Timestamp {
@@ -257,20 +257,20 @@ export interface Reward {
   note: string;
 }
 
-export interface UserInfo {
-  email: string;
-  level: number;
-  mWalletEnabled?: boolean;
-  currentVipLevel: VipLevel;
-  nextVipLevel: VipLevel | null;
-}
-
 export interface VipLevel {
   level: number;
   minimumTradingVolume: Decimal;
   minimumStakingVolume: Decimal;
   makerFee: Decimal;
   takerFee: Decimal;
+}
+
+export interface UserInfo {
+  email: string;
+  level: number;
+  mWalletEnabled?: boolean;
+  currentVipLevel: VipLevel;
+  nextVipLevel: VipLevel | null;
 }
 
 export type BorrowingLimits = {

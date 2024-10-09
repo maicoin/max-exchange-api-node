@@ -1,30 +1,133 @@
 import { Decimal } from 'decimal.js';
 import { z } from 'zod';
-import RestHandler from './rest.js';
-import type {
-  Account, AdRatio, BorrowingLimits, BorrowingInterestRates, BorrowingTransfer,
-  Currency, Debt, Deposit, FundSource, IndexPrice, Interest, InternalTransfer,
-  Liquidation, LiquidationDetail, ManualRepayment, Market, Order, PublicTrade,
-  Reward, Ticker, Timestamp, Trade, UserInfo, Withdrawal, Depth, IndexPrices,
-} from './types.js';
-import {
-  CancelAllOrdersParamsSchema, CancelOrderParamsSchema, FetchOrdersParamsSchema,
-  GetAccountsParamsSchema, GetDepositParamsSchema, GetDepositsParamsSchema,
-  GetDepthParamsSchema, GetInterestsParamsSchema, GetInternalTransfersParamsSchema,
-  GetKLineParamsSchema, GetLiquidationDetailParamsSchema, GetLiquidationsParamsSchema,
-  GetLoansParamsSchema, GetOrderHistoryParamsSchema, GetOrderParamsSchema,
-  GetOrderTradesParamsSchema, GetPublicTradesParamsSchema, GetRepaymentsParamsSchema,
-  GetRewardsParamsSchema, GetTickerParamsSchema, GetTickersParamsSchema,
-  GetTradesParamsSchema, GetTransfersParamsSchema, GetWithdrawAddressesParamsSchema,
-  GetWithdrawalParamsSchema, GetWithdrawalsParamsSchema, HistoricalIndexPricesParamsSchema,
-  SubmitLoanParamsSchema, SubmitOrderParamsSchema, SubmitRepaymentParamsSchema,
-  SubmitTWDWithdrawalParamsSchema, SubmitWithdrawalParamsSchema,
-  TransferBetweenWalletsParamsSchema, WalletType, WalletTypeSchema
-} from './schema.js';
+
 import { BASE_URL } from '../config.js';
 import { MAXOptions } from '../types.js';
-import { convertToAccount, convertToAdRatio, convertToBorrowingLimits, convertToBorrowingTransfer, convertToCurrency, convertToDebt, convertToDeposit, convertToDepth, convertToFundSource, convertToIndexPrice, convertToIndexPrices, convertToInterest, convertToInterestRate, convertToInternalTransfer, convertToKLine, convertToLiquidation, convertToLiquidationDetail, convertToManualRepayment, convertToMarket, convertToOrder, convertToPublicTrade, convertToReward, convertToTicker, convertToTrade, convertToUserInfo, convertToWithdrawal } from './converter.js';
-export type { CancelAllOrdersParams, CancelOrderParams, FetchOrdersParams, GetAccountsParams, GetDepositParams, GetDepositsParams, GetDepthParams, GetInterestsParams, GetInternalTransfersParams, GetKLineParams, GetLiquidationDetailParams, GetLiquidationsParams, GetLoansParams, GetOrderHistoryParams, GetOrderParamsSchema, GetPublicTradesParams, GetRepaymentsParams, GetRewardsParams, GetTickerParams, GetOrderParams, GetOrderTradesParams, GetTickersParams, GetTradesParams, GetWithdrawalsParams, GetWithdrawalParams, GetTransfersParams, GetWithdrawAddressesParams } from './schema.js'; 
+
+import {
+  convertToAccount,
+  convertToAdRatio,
+  convertToBorrowingLimits,
+  convertToBorrowingTransfer,
+  convertToCurrency,
+  convertToDebt,
+  convertToDeposit,
+  convertToDepth,
+  convertToFundSource,
+  convertToIndexPrice,
+  convertToIndexPrices,
+  convertToInterest,
+  convertToInterestRate,
+  convertToInternalTransfer,
+  convertToKLine,
+  convertToLiquidation,
+  convertToLiquidationDetail,
+  convertToManualRepayment,
+  convertToMarket,
+  convertToOrder,
+  convertToPublicTrade,
+  convertToReward,
+  convertToTicker,
+  convertToTrade,
+  convertToUserInfo,
+  convertToWithdrawal,
+} from './converter.js';
+import RestHandler from './rest.js';
+import {
+  CancelAllOrdersParamsSchema,
+  CancelOrderParamsSchema,
+  FetchOrdersParamsSchema,
+  GetAccountsParamsSchema,
+  GetDepositParamsSchema,
+  GetDepositsParamsSchema,
+  GetDepthParamsSchema,
+  GetInterestsParamsSchema,
+  GetInternalTransfersParamsSchema,
+  GetKLineParamsSchema,
+  GetLiquidationDetailParamsSchema,
+  GetLiquidationsParamsSchema,
+  GetLoansParamsSchema,
+  GetOrderHistoryParamsSchema,
+  GetOrderParamsSchema,
+  GetOrderTradesParamsSchema,
+  GetPublicTradesParamsSchema,
+  GetRepaymentsParamsSchema,
+  GetRewardsParamsSchema,
+  GetTickerParamsSchema,
+  GetTickersParamsSchema,
+  GetTradesParamsSchema,
+  GetTransfersParamsSchema,
+  GetWithdrawAddressesParamsSchema,
+  GetWithdrawalParamsSchema,
+  GetWithdrawalsParamsSchema,
+  HistoricalIndexPricesParamsSchema,
+  SubmitLoanParamsSchema,
+  SubmitOrderParamsSchema,
+  SubmitRepaymentParamsSchema,
+  SubmitTWDWithdrawalParamsSchema,
+  SubmitWithdrawalParamsSchema,
+  TransferBetweenWalletsParamsSchema,
+  WalletType,
+  WalletTypeSchema,
+} from './schema.js';
+import type {
+  Account,
+  AdRatio,
+  BorrowingLimits,
+  BorrowingInterestRates,
+  BorrowingTransfer,
+  Currency,
+  Debt,
+  Deposit,
+  FundSource,
+  IndexPrice,
+  Interest,
+  InternalTransfer,
+  Liquidation,
+  LiquidationDetail,
+  ManualRepayment,
+  Market,
+  Order,
+  PublicTrade,
+  Reward,
+  Ticker,
+  Timestamp,
+  Trade,
+  UserInfo,
+  Withdrawal,
+  Depth,
+  IndexPrices,
+} from './types.js';
+
+export type {
+  CancelAllOrdersParams,
+  CancelOrderParams,
+  FetchOrdersParams,
+  GetAccountsParams,
+  GetDepositParams,
+  GetDepositsParams,
+  GetDepthParams,
+  GetInterestsParams,
+  GetInternalTransfersParams,
+  GetKLineParams,
+  GetLiquidationDetailParams,
+  GetLiquidationsParams,
+  GetLoansParams,
+  GetOrderHistoryParams,
+  GetOrderParamsSchema,
+  GetPublicTradesParams,
+  GetRepaymentsParams,
+  GetRewardsParams,
+  GetTickerParams,
+  GetOrderParams,
+  GetOrderTradesParams,
+  GetTickersParams,
+  GetTradesParams,
+  GetWithdrawalsParams,
+  GetWithdrawalParams,
+  GetTransfersParams,
+  GetWithdrawAddressesParams,
+} from './schema.js';
 
 /**
  * MaxSDK class for interacting with the MAX API.
@@ -57,7 +160,7 @@ class MaxSDK {
    */
   async getIndexPrices(): Promise<IndexPrices> {
     const response = await this.#restHandler.get<Record<string, string>>('/wallet/m/index_prices');
-    //return response.map(this.convertToIndexPrice);
+    // return response.map(this.convertToIndexPrice);
     return convertToIndexPrices(response);
   }
 
@@ -86,7 +189,10 @@ class MaxSDK {
    * @returns {Promise<BorrowingInterestRates>} A promise that resolves to the latest interest rates.
    */
   async getInterestRates(): Promise<BorrowingInterestRates> {
-    const response = await this.#restHandler.get<Record<string, { hourlyInterestRate: string, nextHourlyInterestRate: string }>>('/wallet/m/interest_rates');
+    const response =
+      await this.#restHandler.get<Record<string, { hourlyInterestRate: string; nextHourlyInterestRate: string }>>(
+        '/wallet/m/interest_rates'
+      );
     return convertToInterestRate(response);
   }
 
@@ -127,6 +233,7 @@ class MaxSDK {
     const response = await this.#restHandler.get<[number, string, string, string, string, string][]>('/k', validatedParams);
     return convertToKLine(response);
   }
+
   /**
    * Get depth of a specified market.
    * @param {z.infer<typeof GetDepthParamsSchema>} params - The parameters for fetching market depth.
@@ -520,9 +627,8 @@ class MaxSDK {
     if (Math.abs(diff) >= 30 * 1000) {
       this.#restHandler.setDiff(diff);
       return `Local Time synced, diff was ${diff} ms.`;
-    } else {
-      return 'Local Time is synced.';
     }
+    return 'Local Time is synced.';
   }
 }
 

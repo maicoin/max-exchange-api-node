@@ -1,6 +1,8 @@
-import { describe, test, expect, beforeEach, vi, afterEach } from 'vitest';
-import RestHandler from './rest.js';
 import crypto from 'crypto';
+
+import { describe, test, expect, beforeEach, vi, afterEach } from 'vitest';
+
+import RestHandler from './rest.js';
 
 // Mock fetch
 global.fetch = vi.fn();
@@ -160,7 +162,7 @@ describe('RestHandler', () => {
   test('setDiff should adjust the nonce correctly', async () => {
     const now = new Date('2023-01-01T00:00:00Z').getTime();
     vi.setSystemTime(now);
-    
+
     handler.setDiff(1000); // Set a time difference of 1 second
 
     const mockResponse = { data: 'testData' };
@@ -210,10 +212,7 @@ describe('RestHandler', () => {
     const payload = options.headers['X-MAX-PAYLOAD'];
     const signature = options.headers['X-MAX-SIGNATURE'];
 
-    const expectedSignature = crypto
-      .createHmac('sha256', mockSecretKey)
-      .update(payload)
-      .digest('hex');
+    const expectedSignature = crypto.createHmac('sha256', mockSecretKey).update(payload).digest('hex');
 
     expect(signature).toBe(expectedSignature);
   });

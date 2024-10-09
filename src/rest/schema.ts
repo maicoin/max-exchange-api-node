@@ -218,7 +218,19 @@ export const GetInternalTransfersParamsSchema = z.object({
 export type GetInternalTransfersParams = z.infer<typeof GetInternalTransfersParamsSchema>;
 
 export const GetRewardsParamsSchema = z.object({
-  rewardType: z.enum(['vip_rebate','staking_reward','redemption_reward','commission','airdrop_reward','trading_reward','mining_reward','holding_reward','yield']).optional(),
+  rewardType: z
+    .enum([
+      'vip_rebate',
+      'staking_reward',
+      'redemption_reward',
+      'commission',
+      'airdrop_reward',
+      'trading_reward',
+      'mining_reward',
+      'holding_reward',
+      'yield',
+    ])
+    .optional(),
   currency: z.string().optional(),
   timestamp: z.number().optional(),
   order: z.enum(['asc', 'desc']).optional(),

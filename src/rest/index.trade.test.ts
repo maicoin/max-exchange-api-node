@@ -1,15 +1,29 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import MaxSDK from './index.js';
-import { MAXOptions } from '../types.js';
-import RestHandler from './rest.js';
-import type { BorrowingTransfer } from './types.js';
-import type { Withdrawal, Deposit, Reward } from './types.js';
-
-import { ZodError } from 'zod';
 import { camelCase } from 'change-case/keys';
-import { GetInternalTransfersParams, GetRepaymentsParams, GetRewardsParams, GetTransfersParams, TransferBetweenWalletsParams } from './schema.js';
 import { Decimal } from 'decimal.js';
-import { convertToBorrowingTransfer, convertToDeposit, convertToInternalTransfer, convertToTrade, convertToWithdrawal } from './converter.js';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { ZodError } from 'zod';
+
+
+import { MAXOptions } from '../types.js';
+
+
+import {
+  convertToBorrowingTransfer,
+  convertToDeposit,
+  convertToInternalTransfer,
+  convertToTrade,
+  convertToWithdrawal,
+} from './converter.js';
+import RestHandler from './rest.js';
+import {
+  GetInternalTransfersParams,
+  GetRewardsParams,
+  GetTransfersParams,
+  TransferBetweenWalletsParams,
+} from './schema.js';
+import type { BorrowingTransfer, Withdrawal, Deposit, Reward } from './types.js';
+
+import MaxSDK from './index.js';
 
 vi.mock('./rest');
 
@@ -37,9 +51,7 @@ describe('MaxSDK Trade Methods - Part 1', () => {
         limit: 10,
       };
 
-      const mockTrades: any = await import('../../tests/fixtures/spotTrades.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockTrades: any = await import('../../tests/fixtures/spotTrades.json').then((result) => camelCase(result.default, Infinity));
 
       mockRestHandler.get.mockResolvedValue(mockTrades);
 
@@ -47,7 +59,7 @@ describe('MaxSDK Trade Methods - Part 1', () => {
 
       expect(result).toEqual(mockTrades.map(convertToTrade));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(trade => {
+      result.forEach((trade) => {
         expect(trade).toMatchObject({
           id: expect.any(Number),
           orderId: expect.any(Number),
@@ -91,9 +103,9 @@ describe('MaxSDK Trade Methods - Part 1', () => {
         orderId: 78910,
       };
 
-      const mockOrderTrades: any = await import('../../tests/fixtures/spotTrades.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockOrderTrades: any = await import('../../tests/fixtures/spotTrades.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockOrderTrades);
 
@@ -101,7 +113,7 @@ describe('MaxSDK Trade Methods - Part 1', () => {
 
       expect(result).toEqual(mockOrderTrades.map(convertToTrade));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(trade => {
+      result.forEach((trade) => {
         expect(trade).toMatchObject({
           id: expect.any(Number),
           orderId: expect.any(Number),
@@ -197,9 +209,7 @@ describe('MaxSDK Trade Methods - Part 1', () => {
         limit: 10,
       };
 
-      const mockTransfers: any = await import('../../tests/fixtures/transfers.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockTransfers: any = await import('../../tests/fixtures/transfers.json').then((result) => camelCase(result.default, Infinity));
 
       mockRestHandler.get.mockResolvedValue(mockTransfers);
 
@@ -207,7 +217,7 @@ describe('MaxSDK Trade Methods - Part 1', () => {
 
       expect(result).toEqual(mockTransfers.map(convertToBorrowingTransfer));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(transfer => {
+      result.forEach((transfer) => {
         expect(transfer).toMatchObject({
           sn: expect.any(String),
           side: expect.any(String),
@@ -440,9 +450,9 @@ describe('MaxSDK Trade Methods - Part 2', () => {
         limit: 10,
       };
 
-      const mockWithdrawals: any = await import('../../tests/fixtures/withdrawls.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockWithdrawals: any = await import('../../tests/fixtures/withdrawls.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockWithdrawals);
 
@@ -450,7 +460,7 @@ describe('MaxSDK Trade Methods - Part 2', () => {
 
       expect(result).toEqual(mockWithdrawals.map(convertToWithdrawal));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(withdrawal => {
+      result.forEach((withdrawal) => {
         expect(withdrawal).toMatchObject({
           uuid: expect.any(String),
           currency: expect.any(String),
@@ -547,9 +557,9 @@ describe('MaxSDK Trade Methods - Part 2', () => {
         limit: 10,
       };
 
-      const mockDeposits: Deposit[] = await import('../../tests/fixtures/deposits.json').then((result) => {
-        return (camelCase(result.default, Infinity) as any).map(convertToDeposit)
-      });
+      const mockDeposits: Deposit[] = await import('../../tests/fixtures/deposits.json').then((result) =>
+        (camelCase(result.default, Infinity) as any).map(convertToDeposit)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockDeposits);
 
@@ -557,7 +567,7 @@ describe('MaxSDK Trade Methods - Part 2', () => {
 
       expect(result).toEqual(mockDeposits);
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(deposit => {
+      result.forEach((deposit) => {
         expect(deposit).toMatchObject({
           uuid: expect.any(String),
           currency: expect.any(String),
@@ -599,9 +609,9 @@ describe('MaxSDK Trade Methods - Part 2', () => {
         limit: 10,
       };
 
-      const mockTransfers: any = await import('../../tests/fixtures/internalTransfers.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockTransfers: any = await import('../../tests/fixtures/internalTransfers.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockTransfers);
 
@@ -609,7 +619,7 @@ describe('MaxSDK Trade Methods - Part 2', () => {
 
       expect(result).toEqual(mockTransfers.map(convertToInternalTransfer));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(transfer => {
+      result.forEach((transfer) => {
         expect(transfer).toMatchObject({
           uuid: expect.any(String),
           currency: expect.any(String),
@@ -649,14 +659,16 @@ describe('MaxSDK Trade Methods - Part 2', () => {
         limit: 10,
       };
 
-      const mockRewards: Reward[] = [{
-        uuid: 'xxxxx',
-        currency: 'btc',
-        amount: new Decimal('0.001'),
-        createdAt: new Date(1644572610000),
-        type: 'staking_reward',
-        note: 'Staking Reward for BTC',
-      }];
+      const mockRewards: Reward[] = [
+        {
+          uuid: 'xxxxx',
+          currency: 'btc',
+          amount: new Decimal('0.001'),
+          createdAt: new Date(1644572610000),
+          type: 'staking_reward',
+          note: 'Staking Reward for BTC',
+        },
+      ];
 
       mockRestHandler.get.mockResolvedValue(mockRewards);
 
@@ -664,7 +676,7 @@ describe('MaxSDK Trade Methods - Part 2', () => {
 
       expect(result).toEqual(mockRewards);
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(reward => {
+      result.forEach((reward) => {
         expect(reward).toMatchObject({
           uuid: expect.any(String),
           currency: expect.any(String),
@@ -677,7 +689,11 @@ describe('MaxSDK Trade Methods - Part 2', () => {
     });
 
     it('should throw ZodError for invalid input', async () => {
-      const invalidParams = { rewardType: 'invalid', currency: 'btc', limit: 10 };
+      const invalidParams = {
+        rewardType: 'invalid',
+        currency: 'btc',
+        limit: 10,
+      };
 
       await expect(maxSDK.getRewards(invalidParams as any)).rejects.toThrow(ZodError);
     });

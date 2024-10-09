@@ -1,10 +1,10 @@
 import Rest from './rest/index.js';
-import WebSocket from './ws/index.js';
-import { WebSocketBook } from './ws/book.js';
 import { MAXOptions } from './types.js';
+import { WebSocketBook } from './ws/book.js';
+import WebSocket from './ws/index.js';
 
-const SUPPORTED_REST_VERSIONS = [2] as const;
-type RestVersion = typeof SUPPORTED_REST_VERSIONS[number];
+// const SUPPORTED_REST_VERSIONS = [2] as const;
+// type RestVersion = (typeof SUPPORTED_REST_VERSIONS)[number];
 
 class MAX {
   #accessKey: string;
@@ -23,7 +23,7 @@ class MAX {
     if (!this.#rest) {
       this.#rest = new Rest({
         accessKey: this.#accessKey,
-        secretKey: this.#secretKey
+        secretKey: this.#secretKey,
       });
     }
     return this.#rest;
@@ -33,7 +33,7 @@ class MAX {
     if (!this.#ws) {
       this.#ws = new WebSocket({
         accessKey: this.#accessKey,
-        secretKey: this.#secretKey
+        secretKey: this.#secretKey,
       });
     }
     return this.#ws;

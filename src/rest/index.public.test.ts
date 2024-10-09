@@ -1,13 +1,25 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import MaxSDK from './index.js';
-import { MAXOptions } from '../types.js';
-import RestHandler from './rest.js';
-import type { Timestamp } from './types.js';
-import type { Depth, Ticker } from './types.js';
-import { ZodError } from 'zod';
 import { camelCase } from 'change-case/keys';
 import { Decimal } from 'decimal.js';
-import { convertToBorrowingLimits, convertToCurrency, convertToIndexPrices, convertToInterestRate, convertToKLine, convertToMarket, convertToPublicTrade, convertToTicker } from './converter.js';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { ZodError } from 'zod';
+
+
+import { MAXOptions } from '../types.js';
+
+import {
+  convertToBorrowingLimits,
+  convertToCurrency,
+  convertToIndexPrices,
+  convertToInterestRate,
+  convertToKLine,
+  convertToMarket,
+  convertToPublicTrade,
+  convertToTicker,
+} from './converter.js';
+import RestHandler from './rest.js';
+import type { Timestamp, Depth, Ticker } from './types.js';
+
+import MaxSDK from './index.js';
 
 vi.mock('./rest');
 
@@ -30,15 +42,15 @@ describe('MaxSDK Public Methods Test', () => {
 
   describe('getIndexPrices', () => {
     it('should return index prices with correct structure', async () => {
-      const mockIndexPrices: any = await import('../../tests/fixtures/indexPrices.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockIndexPrices: any = await import('../../tests/fixtures/indexPrices.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockIndexPrices);
       const result = await maxSDK.getIndexPrices();
       // TODO
       expect(result).toEqual(convertToIndexPrices(mockIndexPrices));
-      Object.entries(result).forEach(([key, value]) => {
+      Object.entries(result).forEach(([ , value]) => {
         expect(value).toBeInstanceOf(Decimal);
       });
     });
@@ -57,15 +69,13 @@ describe('MaxSDK Public Methods Test', () => {
 
   describe('getLimits', () => {
     it('should return borrowing limits with correct structure', async () => {
-      const mockLimits: any = await import('../../tests/fixtures/limits.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockLimits: any = await import('../../tests/fixtures/limits.json').then((result) => camelCase(result.default, Infinity));
 
       mockRestHandler.get.mockResolvedValue(mockLimits);
 
       const result = await maxSDK.getLimits();
       expect(result).toEqual(convertToBorrowingLimits(mockLimits));
-      Object.entries(result).forEach(([key, value]) => {
+      Object.entries(result).forEach(([ , value]) => {
         expect(value).toBeInstanceOf(Decimal);
       });
     });
@@ -84,15 +94,15 @@ describe('MaxSDK Public Methods Test', () => {
 
   describe('getInterestRates', () => {
     it('should return interest rates with correct structure', async () => {
-      const mockInterestRates: any = await import('../../tests/fixtures/interestRates.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockInterestRates: any = await import('../../tests/fixtures/interestRates.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockInterestRates);
 
       const result = await maxSDK.getInterestRates();
       expect(result).toEqual(convertToInterestRate(mockInterestRates));
-      Object.entries(result).forEach(([key, value]) => {
+      Object.entries(result).forEach(([ , value]) => {
         expect(value).toMatchObject({
           hourlyInterestRate: expect.any(Decimal),
           nextHourlyInterestRate: expect.any(Decimal),
@@ -114,16 +124,14 @@ describe('MaxSDK Public Methods Test', () => {
 
   describe('getMarkets', () => {
     it('should return markets with correct structure', async () => {
-      const mockMarkets: any = await import('../../tests/fixtures/markets.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockMarkets: any = await import('../../tests/fixtures/markets.json').then((result) => camelCase(result.default, Infinity));
 
       mockRestHandler.get.mockResolvedValue(mockMarkets);
 
       const result = await maxSDK.getMarkets();
       expect(result).toEqual(mockMarkets.map(convertToMarket));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(market => {
+      result.forEach((market) => {
         expect(market).toMatchObject({
           id: expect.any(String),
           status: expect.any(String),
@@ -152,9 +160,9 @@ describe('MaxSDK Public Methods Test', () => {
 
   describe('getCurrencies', () => {
     it('should return currencies with correct structure', async () => {
-      const mockCurrencies: any = await import('../../tests/fixtures/currencies.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockCurrencies: any = await import('../../tests/fixtures/currencies.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockCurrencies);
 
@@ -162,7 +170,7 @@ describe('MaxSDK Public Methods Test', () => {
 
       expect(result).toEqual(mockCurrencies.map(convertToCurrency));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(currency => {
+      result.forEach((currency) => {
         expect(currency).toMatchObject({
           currency: expect.any(String),
           type: expect.any(String),
@@ -196,9 +204,9 @@ describe('MaxSDK Public Methods Test', () => {
 
   describe('getTimestamp', () => {
     it('should return timestamp with correct structure', async () => {
-      const mockTimestamp: Timestamp = await import('../../tests/fixtures/timestamp.json').then((result) => {
-        return camelCase(result.default, Infinity) as Timestamp;
-      });
+      const mockTimestamp: Timestamp = await import('../../tests/fixtures/timestamp.json').then(
+        (result) => camelCase(result.default, Infinity) as Timestamp
+      );
 
       mockRestHandler.get.mockResolvedValue(mockTimestamp);
 
@@ -223,24 +231,24 @@ describe('MaxSDK Public Methods Test', () => {
         period: 1,
       };
 
-      const mockKLineData: any = await import('../../tests/fixtures/kline.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockKLineData: any = await import('../../tests/fixtures/kline.json').then((result) => camelCase(result.default, Infinity));
 
       mockRestHandler.get.mockResolvedValue(mockKLineData);
 
       const result = await maxSDK.getKLine(params);
       expect(result).toEqual(convertToKLine(mockKLineData));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(kline => {
-        expect(kline).toEqual(expect.arrayContaining([
-          expect.any(Date),
-          expect.any(Decimal),
-          expect.any(Decimal),
-          expect.any(Decimal),
-          expect.any(Decimal),
-          expect.any(Decimal),
-        ]));
+      result.forEach((kline) => {
+        expect(kline).toEqual(
+          expect.arrayContaining([
+            expect.any(Date),
+            expect.any(Decimal),
+            expect.any(Decimal),
+            expect.any(Decimal),
+            expect.any(Decimal),
+            expect.any(Decimal),
+          ])
+        );
         expect(kline).toHaveLength(6);
       });
     });
@@ -274,9 +282,9 @@ describe('MaxSDK Public Methods Test', () => {
         limit: 5,
       };
 
-      const mockDepth: Depth = await import('../../tests/fixtures/depth.json').then((result) => {
-        return camelCase(result.default, Infinity) as Depth;
-      });
+      const mockDepth: Depth = await import('../../tests/fixtures/depth.json').then(
+        (result) => camelCase(result.default, Infinity) as Depth
+      );
 
       mockRestHandler.get.mockResolvedValue(mockDepth);
 
@@ -326,9 +334,9 @@ describe('MaxSDK Public Methods Test', () => {
         limit: 5,
       };
 
-      const mockPublicTrades: any = await import('../../tests/fixtures/publicTrades.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockPublicTrades: any = await import('../../tests/fixtures/publicTrades.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
 
       mockRestHandler.get.mockResolvedValue(mockPublicTrades);
 
@@ -336,7 +344,7 @@ describe('MaxSDK Public Methods Test', () => {
 
       expect(result).toEqual(mockPublicTrades.map(convertToPublicTrade));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(trade => {
+      result.forEach((trade) => {
         expect(trade).toMatchObject({
           id: expect.any(Number),
           price: expect.any(Decimal),
@@ -375,9 +383,7 @@ describe('MaxSDK Public Methods Test', () => {
         markets: ['btctwd', 'ethtwd'],
       };
 
-      const mockTickers: any = await import('../../tests/fixtures/tickers.json').then((result) => {
-        return camelCase(result.default, Infinity);
-      });
+      const mockTickers: any = await import('../../tests/fixtures/tickers.json').then((result) => camelCase(result.default, Infinity));
 
       mockRestHandler.get.mockResolvedValue(mockTickers);
 
@@ -385,7 +391,7 @@ describe('MaxSDK Public Methods Test', () => {
 
       expect(result).toEqual(mockTickers.map(convertToTicker));
       expect(Array.isArray(result)).toBe(true);
-      result.forEach(ticker => {
+      result.forEach((ticker) => {
         expect(ticker).toMatchObject({
           market: expect.any(String),
           at: expect.any(Date),
@@ -427,9 +433,9 @@ describe('MaxSDK Public Methods Test', () => {
         market: 'btctwd',
       };
 
-      const mockTicker: Ticker = await import('../../tests/fixtures/ticker.json').then((result) => {
-        return camelCase(result.default, Infinity) as Ticker;
-      });
+      const mockTicker: Ticker = await import('../../tests/fixtures/ticker.json').then(
+        (result) => camelCase(result.default, Infinity) as Ticker
+      );
 
       mockRestHandler.get.mockResolvedValue(mockTicker);
 

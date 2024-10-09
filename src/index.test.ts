@@ -1,14 +1,16 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { MAX } from './index.js';
+
 import Rest from './rest/index.js';
 import WebSocket from './ws/index.js';
 
+import { MAX } from './index.js';
+
 // Mock the Rest and WebSocket classes
 vi.mock('./rest/index.js', () => ({
-  default: vi.fn()
+  default: vi.fn(),
 }));
 vi.mock('./ws/index.js', () => ({
-  default: vi.fn()
+  default: vi.fn(),
 }));
 
 describe('MAX', () => {
@@ -24,7 +26,7 @@ describe('MAX', () => {
       const { rest } = max;
       expect(Rest).toHaveBeenCalledWith({
         accessKey: 'testAccessKey',
-        secretKey: 'testSecretKey'
+        secretKey: 'testSecretKey',
       });
       expect(rest).toBeInstanceOf(Rest);
     });
@@ -42,7 +44,7 @@ describe('MAX', () => {
       const { ws } = max;
       expect(WebSocket).toHaveBeenCalledWith({
         accessKey: 'testAccessKey',
-        secretKey: 'testSecretKey'
+        secretKey: 'testSecretKey',
       });
       expect(ws).toBeInstanceOf(WebSocket);
     });
