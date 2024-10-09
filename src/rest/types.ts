@@ -5,10 +5,6 @@ export interface IndexPrice {
   price: Decimal;
 }
 
-export interface IndexPrices {
-  [currency: string]: Decimal;
-}
-
 export interface FundSource {
   uuid: string;
   currency: string;
@@ -281,6 +277,11 @@ export type BorrowingLimits = {
   [currency: string]: Decimal;
 };
 
+export type IndexPrices = {
+  [currency: string]: Decimal;
+};
+
+// done
 export type InterestRates = {
   hourlyInterestRate: Decimal;
   nextHourlyInterestRate: Decimal;
@@ -299,6 +300,6 @@ export interface Depth {
   timestamp: Date;
   lastUpdateVersion: number;
   lastUpdateId: number;
-  asks: PriceVolume[];
-  bids: PriceVolume[];
+  asks: [string, string];
+  bids: [string, string];
 }

@@ -1,6 +1,7 @@
 import { RBTree } from 'bintrees';
 import WebSocketAPI from './index.js';
-import { OrderBookEvent, PriceVolume } from './types.js';
+import { OrderBookEvent } from './types.js';
+import { PriceVolume } from '../rest/types.js';
 
 function comparePriceEntry(a: PriceVolume, b: PriceVolume): number {
   return a.price.toNumber() - b.price.toNumber();

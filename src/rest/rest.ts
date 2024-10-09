@@ -110,9 +110,7 @@ class RestHandler {
   }
 
   #handleError(error: unknown): never {
-    console.log(error)
     if (error instanceof Error) {
-      console.log(error.message);
       if (error.message.includes('status: 401')) {
         throw new Error('Authentication failed');
       } else if (error.message.includes('status: 403')) {
