@@ -1,0 +1,42 @@
+[
+    {
+        "id": 12345621,
+        "order_id": 123456789,
+        "wallet_type": "spot",
+        "price": "1954221.6",
+        "volume": "0.001",
+        "funds": "1954.2",
+        "market": "btctwd",
+        "market_name": "BTC/TWD",
+        "side": "self-trade",
+        "fee": "0.04098786",
+        "fee_currency": "max",
+        "fee_discounted": true,
+        "self_trade_bid_fee": "0.13690886",
+        "self_trade_bid_fee_currency": "max",
+        "self_trade_bid_fee_discounted": true,
+        "self_trade_bid_order_id": 2326112321,
+        "liquidity": "maker",
+        "created_at": 1724131182652
+    },
+    {
+        "id": 12345620,
+        "order_id": 123456780,
+        "wallet_type": "spot",
+        "price": "1939044.4",
+        "volume": "0.001",
+        "funds": "1939.1",
+        "market": "btctwd",
+        "market_name": "BTC/TWD",
+        "side": "self-trade",
+        "fee": "0.13557048",
+        "fee_currency": "max",
+        "fee_discounted": true,
+        "self_trade_bid_fee": "0.04105453",
+        "self_trade_bid_fee_currency": "max",
+        "self_trade_bid_fee_discounted": true,
+        "self_trade_bid_order_id": 2326112007,
+        "liquidity": "taker",
+        "created_at": 1724131174827
+    }
+]
