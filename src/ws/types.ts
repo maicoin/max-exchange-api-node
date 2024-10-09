@@ -3,19 +3,14 @@ import { Decimal } from 'decimal.js';
 import { PriceVolume } from '../rest/types.js';
 import { MAXOptions } from '../types.js';
 
+import { SubscriptionOptionalParam } from './schema.js';
+
 export interface ErrorResponse {
   e: string;
   E: string[];
   i: string;
   T: number;
   co?: string;
-}
-
-export interface Subscription {
-  channel: string; // Possible values: "book", "trade", "kline", "ticker", "market_status", "pool_quota"
-  market: string;
-  depth?: number; // Possible values: 1, 5, 10, 20, 50
-  resolution?: string; // Possible values: "1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"
 }
 
 export interface WebSocketAPIOptions extends MAXOptions {
@@ -188,8 +183,8 @@ export interface WebSocketEvents {
   close: CloseEvent;
   error: Error | { message: string; code: number | null; time: Date };
   authenticated: { time: Date };
-  '.subscribed': { subscriptions: Subscription[]; time: Date };
-  '.unsubscribed': { subscriptions: Subscription[]; time: Date };
+  '.subscribed': { subscriptions: SubscriptionOptionalParam[]; time: Date };
+  '.unsubscribed': { subscriptions: SubscriptionOptionalParam[]; time: Date };
   'book.snapshot': OrderBookEvent;
   'book.update': OrderBookEvent;
   'trade.snapshot': TradeEvent;

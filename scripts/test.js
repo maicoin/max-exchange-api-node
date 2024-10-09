@@ -294,7 +294,9 @@ async function runExample(sectionNames) {
   if (errors.length === 0 && emptyResponses.length === 0) {
     console.log(`\n${FG_GREEN}${BRIGHT}All sections completed successfully with non-empty responses!${RESET}`);
   } else {
-    console.log(`\n${FG_YELLOW}${BRIGHT}Execution completed with ${errors.length} errors and ${emptyResponses.length} empty responses.${RESET}`);
+    console.log(
+      `\n${FG_YELLOW}${BRIGHT}Execution completed with ${errors.length} errors and ${emptyResponses.length} empty responses.${RESET}`
+    );
   }
 
   return results;

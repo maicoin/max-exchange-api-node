@@ -17,7 +17,6 @@ import type {
   MarketStatus,
   Order,
   OrderBookEvent,
-  Subscription,
   UserBalance,
   UserTrade,
   WebSocketAPIOptions,
@@ -38,7 +37,7 @@ class WebSocketAPI extends EventEmitter {
 
   #secretKey: string;
 
-  #subscriptions: Subscription[];
+  #subscriptions: SubscriptionOptionalParam[];
 
   #pingInterval: NodeJS.Timeout | null;
 
@@ -95,8 +94,8 @@ class WebSocketAPI extends EventEmitter {
       }
     }, 30000);
 
-    this.#ws.on('pong', (data: Buffer) => {
-      console.log('Server pong:', data.toString());
+    this.#ws.on('pong', () => {
+      // console.log('Server pong:', data.toString());
     });
   }
 
