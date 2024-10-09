@@ -3,6 +3,5 @@
 /node_modules
 .DS_STORE
 /dist
-/docs
 /coverage
 *.tgz

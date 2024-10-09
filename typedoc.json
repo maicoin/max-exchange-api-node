@@ -3,7 +3,14 @@
         "typedoc-plugin-markdown"
     ],
     "entryPoints": [
-        "src/index.ts", "src/rest/types.ts", "src/ws/types.ts"
+        "src/index.ts",  
+        "src/types.ts",  
+        "src/rest/types.ts",
+        "src/rest/index.ts",
+        "src/rest/schema.ts",
+        "src/ws/types.ts",
+        "src/ws/index.ts",
+        "src/ws/schema.ts"
     ],
     "out": "./docs",
     "disableSources": true,

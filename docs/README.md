@@ -1,3 +1,7 @@
+**max-exchange-api-node** • [**Docs**](modules.md)
+
+***
+
 # MAX Exchange API for Node.js
 
 A Node.js implementation of MAX exchange API
