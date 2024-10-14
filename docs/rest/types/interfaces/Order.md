@@ -76,7 +76,7 @@
 
 ### state
 
-> **state**: `string`
+> **state**: `"wait"` \| `"done"` \| `"cancel"` \| `"convert"`
 
 ***
 

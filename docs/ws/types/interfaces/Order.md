@@ -52,7 +52,7 @@
 
 ### ordType
 
-> **ordType**: `string`
+> **ordType**: `"market"` \| `"limit"` \| `"stop_limit"` \| `"stop_market"` \| `"post_only"` \| `"ioc_limit"`
 
 ***
 
@@ -70,13 +70,13 @@
 
 ### side
 
-> **side**: `string`
+> **side**: `"bid"` \| `"ask"`
 
 ***
 
 ### state
 
-> **state**: `string`
+> **state**: `"wait"` \| `"done"` \| `"cancel"`
 
 ***
 

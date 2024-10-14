@@ -38,4 +38,4 @@
 
 ### state
 
-> **state**: `string`
+> **state**: `"processing"` \| `"liquidated"`

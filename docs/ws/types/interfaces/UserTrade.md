@@ -70,7 +70,7 @@
 
 ### side
 
-> **side**: `string`
+> **side**: `"bid"` \| `"ask"`
 
 ***
 

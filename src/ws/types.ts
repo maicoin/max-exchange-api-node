@@ -33,7 +33,7 @@ export interface OrderBookEvent {
 export interface Trade {
   price: Decimal;
   volume: Decimal;
-  side: string; // Possible values: "up", "down"
+  side: 'up' | 'down'; // Possible values: "up", "down"
   createdAt: Date;
 }
 
@@ -47,7 +47,8 @@ export interface KlineEvent {
   market: string;
   startTime: Date;
   endTime: Date;
-  resolution: string; // Possible values: "1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"
+  // Possible values: "1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"
+  resolution: '1m' | '5m' | '15m' | '30m' | '1h' | '2h' | '4h' | '6h' | '12h' | '1d'; 
   open: Decimal;
   high: Decimal;
   low: Decimal;
@@ -71,7 +72,7 @@ export interface TickerEvent {
 
 export interface MarketStatus {
   id: string;
-  status: string; // Possible values: "active", "suspended", "cancel-only"
+  status: 'active' | 'suspended' | 'cancel-only'; // Possible values: "active", "suspended", "cancel-only"
   baseUnit: string;
   baseUnitPrecision: number;
   minBaseAmount: Decimal;
@@ -95,15 +96,15 @@ export interface PoolQuotaEvent {
 
 export interface Order {
   id: number;
-  side: string; // Possible values: "bid", "ask"
-  ordType: string; // Possible values: "limit", "market", "stop_limit", "stop_market", "post_only", "ioc_limit"
-  price: Decimal | null;
+  side: 'bid' | 'ask'; // Possible values: "bid", "ask"
+  // Possible values: "limit", "market", "stop_limit", "stop_market", "post_only", "ioc_limit"
+  ordType:  'limit' | 'market' | 'stop_limit' | 'stop_market' | 'post_only' | 'ioc_limit'; price: Decimal | null;
   stopPrice: Decimal | null;
   avgPrice: Decimal;
   volume: Decimal;
   remainingVolume: Decimal;
   executedVolume: Decimal;
-  state: string; // Possible values: "wait", "done", "cancel"
+  state: 'wait' | 'done' | 'cancel'; // Possible values: "wait", "done", "cancel"
   market: string;
   tradesCount: number;
   createdAt: Date;
@@ -120,7 +121,7 @@ export interface UserOrderEvent {
 export interface UserTrade {
   id: number;
   market: string;
-  side: string; // Possible values: "bid", "ask"
+  side: 'bid' | 'ask'; // Possible values: "bid", "ask"
   price: Decimal;
   volume: Decimal;
   fee: Decimal | null;

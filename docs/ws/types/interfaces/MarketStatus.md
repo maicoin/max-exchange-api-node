@@ -58,4 +58,4 @@
 
 ### status
 
-> **status**: `string`
+> **status**: `"suspended"` \| `"cancel-only"` \| `"active"`

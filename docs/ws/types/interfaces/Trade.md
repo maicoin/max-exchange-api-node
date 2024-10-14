@@ -22,7 +22,7 @@
 
 ### side
 
-> **side**: `string`
+> **side**: `"up"` \| `"down"`
 
 ***
 

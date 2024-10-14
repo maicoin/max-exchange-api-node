@@ -52,7 +52,7 @@
 
 ### state
 
-> **state**: `string`
+> **state**: `"done"` \| `"processing"` \| `"failed"` \| `"canceled"`
 
 ***
 

@@ -10,6 +10,7 @@
 - [rest](rest/README.md)
 - [rest/schema](rest/schema/README.md)
 - [rest/types](rest/types/README.md)
+- [rest/wallet](rest/wallet/README.md)
 - [types](types/README.md)
 - [ws](ws/README.md)
 - [ws/schema](ws/schema/README.md)
