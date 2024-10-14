@@ -29,7 +29,7 @@ function getUserConfirmation(prompt) {
 try {
   // Step 1: Get account balances
   console.log('Step 1: Get account balances');
-  const accounts = await max.rest.getAccounts('spot', {});
+  const accounts = await max.rest.spotWallet.getAccounts({});
   const btcBalance = accounts.find(a => a.currency === 'btc')?.balance.toString() || '0';
   const usdtBalance = accounts.find(a => a.currency === 'usdt')?.balance.toString() || '0';
   console.log(`BTC balance: ${btcBalance}`);
@@ -51,7 +51,7 @@ try {
   );
 
   if (buyConfirmed) {
-    const buyOrder = await max.rest.submitOrder('spot', {
+    const buyOrder = await max.rest.spotWallet.submitOrder({
       market,
       side: 'buy',
       volume: buyVolume,
@@ -65,7 +65,7 @@ try {
 
   // Step 4: Get open orders
   console.log('Step 4: Get open orders');
-  const openOrders = await max.rest.getOpenOrders('spot', { market });
+  const openOrders = await max.rest.spotWallet.getOpenOrders({ market });
   console.log(`Open orders: ${JSON.stringify(openOrders, null, 2)}\n`);
 
   // Step 5: Cancel the buy order (if it exists)
@@ -94,7 +94,7 @@ try {
   );
 
   if (sellConfirmed) {
-    const sellOrder = await max.rest.submitOrder('spot', {
+    const sellOrder = await max.rest.spotWallet.submitOrder({
       market,
       side: 'sell',
       volume: sellVolume,
@@ -107,7 +107,7 @@ try {
 
   // Step 7: Get trade history
   console.log('Step 7: Get trade history');
-  const tradeHistory = await max.rest.getTrades('spot', { market, limit: 5 });
+  const tradeHistory = await max.rest.spotWallet.getTrades({ market, limit: 5 });
   console.log(`Recent trades: ${JSON.stringify(tradeHistory, null, 2)}\n`);
 
 } catch (error) {

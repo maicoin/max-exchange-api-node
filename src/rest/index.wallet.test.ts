@@ -46,7 +46,7 @@ describe('MaxSDK Wallet Methods', () => {
       );
       mockRestHandler.get.mockResolvedValue(mockAccounts);
 
-      const result = await maxSDK.getAccounts('spot', params);
+      const result = await maxSDK.spotWallet.getAccounts(params);
 
       expect(result).toEqual(mockAccounts.map(convertToAccount));
       expect(Array.isArray(result)).toBe(true);
@@ -72,7 +72,7 @@ describe('MaxSDK Wallet Methods', () => {
     it('should throw ZodError for invalid input', async () => {
       const invalidParams = { currency: 123 };
 
-      await expect(maxSDK.getAccounts('spot', invalidParams as any)).rejects.toThrow(ZodError);
+      await expect(maxSDK.spotWallet.getAccounts(invalidParams as any)).rejects.toThrow(ZodError);
     });
 
     it('should handle network errors', async () => {
@@ -80,7 +80,7 @@ describe('MaxSDK Wallet Methods', () => {
 
       mockRestHandler.get.mockRejectedValue(new Error('Network Error'));
 
-      await expect(maxSDK.getAccounts('spot', params)).rejects.toThrow('Network Error');
+      await expect(maxSDK.spotWallet.getAccounts(params)).rejects.toThrow('Network Error');
     });
   });
 

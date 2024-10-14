@@ -55,7 +55,7 @@ describe('MaxSDK Trade Methods - Part 1', () => {
 
       mockRestHandler.get.mockResolvedValue(mockTrades);
 
-      const result = await maxSDK.getTrades('spot', params);
+      const result = await maxSDK.spotWallet.getTrades(params);
 
       expect(result).toEqual(mockTrades.map(convertToTrade));
       expect(Array.isArray(result)).toBe(true);
@@ -82,7 +82,7 @@ describe('MaxSDK Trade Methods - Part 1', () => {
     it('should throw ZodError for invalid input', async () => {
       const invalidParams = { market: 'btctwd', limit: 'invalid' };
 
-      await expect(maxSDK.getTrades('spot', invalidParams as any)).rejects.toThrow(ZodError);
+      await expect(maxSDK.spotWallet.getTrades(invalidParams as any)).rejects.toThrow(ZodError);
     });
 
     it('should handle network errors', async () => {
@@ -93,7 +93,7 @@ describe('MaxSDK Trade Methods - Part 1', () => {
 
       mockRestHandler.get.mockRejectedValue(new Error('Network Error'));
 
-      await expect(maxSDK.getTrades('spot', params)).rejects.toThrow('Network Error');
+      await expect(maxSDK.spotWallet.getTrades(params)).rejects.toThrow('Network Error');
     });
   });
 

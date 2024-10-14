@@ -5,7 +5,6 @@ import { BASE_URL } from '../config.js';
 import { MAXOptions } from '../types.js';
 
 import {
-  convertToAccount,
   convertToAdRatio,
   convertToBorrowingLimits,
   convertToBorrowingTransfer,
@@ -34,10 +33,7 @@ import {
 } from './converter.js';
 import RestHandler from './rest.js';
 import {
-  CancelAllOrdersParamsSchema,
   CancelOrderParamsSchema,
-  FetchOrdersParamsSchema,
-  GetAccountsParamsSchema,
   GetDepositParamsSchema,
   GetDepositsParamsSchema,
   GetDepthParamsSchema,
@@ -47,7 +43,6 @@ import {
   GetLiquidationDetailParamsSchema,
   GetLiquidationsParamsSchema,
   GetLoansParamsSchema,
-  GetOrderHistoryParamsSchema,
   GetOrderParamsSchema,
   GetOrderTradesParamsSchema,
   GetPublicTradesParamsSchema,
@@ -55,23 +50,18 @@ import {
   GetRewardsParamsSchema,
   GetTickerParamsSchema,
   GetTickersParamsSchema,
-  GetTradesParamsSchema,
   GetTransfersParamsSchema,
   GetWithdrawAddressesParamsSchema,
   GetWithdrawalParamsSchema,
   GetWithdrawalsParamsSchema,
   HistoricalIndexPricesParamsSchema,
   SubmitLoanParamsSchema,
-  SubmitOrderParamsSchema,
   SubmitRepaymentParamsSchema,
   SubmitTWDWithdrawalParamsSchema,
   SubmitWithdrawalParamsSchema,
   TransferBetweenWalletsParamsSchema,
-  WalletType,
-  WalletTypeSchema,
 } from './schema.js';
 import type {
-  Account,
   AdRatio,
   BorrowingLimits,
   BorrowingInterestRates,
@@ -98,6 +88,7 @@ import type {
   Depth,
   IndexPrices,
 } from './types.js';
+import Wallet from './wallet.js';
 
 export type {
   CancelAllOrdersParams,
@@ -114,7 +105,7 @@ export type {
   GetLiquidationsParams,
   GetLoansParams,
   GetOrderHistoryParams,
-  GetOrderParamsSchema,
+  // GetOrderParamsSchema,
   GetPublicTradesParams,
   GetRepaymentsParams,
   GetRewardsParams,
@@ -134,6 +125,8 @@ export type {
  */
 class MaxSDK {
   #restHandler: RestHandler;
+  mWallet: Wallet;
+  spotWallet: Wallet;
 
   /**
    * Creates an instance of MaxSDK.
@@ -142,6 +135,8 @@ class MaxSDK {
    */
   constructor(options: MAXOptions, url: string = BASE_URL) {
     this.#restHandler = new RestHandler(url, '/api/v3', options.accessKey, options.secretKey);
+    this.mWallet = new Wallet(this.#restHandler, 'm');
+    this.spotWallet = new Wallet(this.#restHandler, 'spot');
   }
 
   /**
@@ -280,18 +275,18 @@ class MaxSDK {
 
   /* WALLET REGION */
 
-  /**
-   * Get your account balance with all supported currencies by different wallet type.
-   * @param {WalletType} walletType - The wallet type (spot or m).
-   * @param {z.infer<typeof GetAccountsParamsSchema>} params - The parameters for fetching account balances.
-   * @returns {Promise<Account[]>} A promise that resolves to an array of Account objects.
-   */
-  async getAccounts(walletType: WalletType, params: z.infer<typeof GetAccountsParamsSchema>): Promise<Account[]> {
-    const validatedWalletType = WalletTypeSchema.parse(walletType);
-    const validatedParams = GetAccountsParamsSchema.parse(params);
-    const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/accounts`, validatedParams);
-    return response.map(convertToAccount);
-  }
+  // /**
+  //  * Get your account balance with all supported currencies by different wallet type.
+  //  * @param {WalletType} walletType - The wallet type (spot or m).
+  //  * @param {z.infer<typeof GetAccountsParamsSchema>} params - The parameters for fetching account balances.
+  //  * @returns {Promise<Account[]>} A promise that resolves to an array of Account objects.
+  //  */
+  // async getAccounts(walletType: WalletType, params: z.infer<typeof GetAccountsParamsSchema>): Promise<Account[]> {
+  //   const validatedWalletType = WalletTypeSchema.parse(walletType);
+  //   const validatedParams = GetAccountsParamsSchema.parse(params);
+  //   const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/accounts`, validatedParams);
+  //   return response.map(convertToAccount);
+  // }
 
   /**
    * Get the latest AD ratio of your m-wallet.
@@ -392,69 +387,69 @@ class MaxSDK {
 
   /* ORDER REGION */
 
-  /**
-   * Get open orders.
-   * @param {WalletType} walletType - The wallet type (spot or m).
-   * @param {z.infer<typeof FetchOrdersParamsSchema>} params - The parameters for fetching open orders.
-   * @returns {Promise<Order[]>} A promise that resolves to an array of Order objects.
-   */
-  async getOpenOrders(walletType: WalletType, params: z.infer<typeof FetchOrdersParamsSchema>): Promise<Order[]> {
-    const validatedWalletType = WalletTypeSchema.parse(walletType);
-    const validatedParams = FetchOrdersParamsSchema.parse(params);
-    const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/orders/open`, validatedParams);
-    return response.map(convertToOrder);
-  }
+  // /**
+  //  * Get open orders.
+  //  * @param {WalletType} walletType - The wallet type (spot or m).
+  //  * @param {z.infer<typeof FetchOrdersParamsSchema>} params - The parameters for fetching open orders.
+  //  * @returns {Promise<Order[]>} A promise that resolves to an array of Order objects.
+  //  */
+  // async getOpenOrders(walletType: WalletType, params: z.infer<typeof FetchOrdersParamsSchema>): Promise<Order[]> {
+  //   const validatedWalletType = WalletTypeSchema.parse(walletType);
+  //   const validatedParams = FetchOrdersParamsSchema.parse(params);
+  //   const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/orders/open`, validatedParams);
+  //   return response.map(convertToOrder);
+  // }
 
-  /**
-   * Get closed orders.
-   * @param {WalletType} walletType - The wallet type (spot or m).
-   * @param {z.infer<typeof FetchOrdersParamsSchema>} params - The parameters for fetching closed orders.
-   * @returns {Promise<Order[]>} A promise that resolves to an array of Order objects.
-   */
-  async getClosedOrders(walletType: WalletType, params: z.infer<typeof FetchOrdersParamsSchema>): Promise<Order[]> {
-    const validatedWalletType = WalletTypeSchema.parse(walletType);
-    const validatedParams = FetchOrdersParamsSchema.parse(params);
-    const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/orders/closed`, validatedParams);
-    return response.map(convertToOrder);
-  }
+  // /**
+  //  * Get closed orders.
+  //  * @param {WalletType} walletType - The wallet type (spot or m).
+  //  * @param {z.infer<typeof FetchOrdersParamsSchema>} params - The parameters for fetching closed orders.
+  //  * @returns {Promise<Order[]>} A promise that resolves to an array of Order objects.
+  //  */
+  // async getClosedOrders(walletType: WalletType, params: z.infer<typeof FetchOrdersParamsSchema>): Promise<Order[]> {
+  //   const validatedWalletType = WalletTypeSchema.parse(walletType);
+  //   const validatedParams = FetchOrdersParamsSchema.parse(params);
+  //   const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/orders/closed`, validatedParams);
+  //   return response.map(convertToOrder);
+  // }
 
-  /**
-   * Get order history in ascending order from a specific from_id.
-   * @param {WalletType} walletType - The wallet type (spot or m).
-   * @param {z.infer<typeof GetOrderHistoryParamsSchema>} params - The parameters for fetching order history.
-   * @returns {Promise<Order[]>} A promise that resolves to an array of Order objects.
-   */
-  async getOrderHistory(walletType: WalletType, params: z.infer<typeof GetOrderHistoryParamsSchema>): Promise<Order[]> {
-    const validatedWalletType = WalletTypeSchema.parse(walletType);
-    const validatedParams = GetOrderHistoryParamsSchema.parse(params);
-    const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/orders/history`, validatedParams);
-    return response.map(convertToOrder);
-  }
+  // /**
+  //  * Get order history in ascending order from a specific from_id.
+  //  * @param {WalletType} walletType - The wallet type (spot or m).
+  //  * @param {z.infer<typeof GetOrderHistoryParamsSchema>} params - The parameters for fetching order history.
+  //  * @returns {Promise<Order[]>} A promise that resolves to an array of Order objects.
+  //  */
+  // async getOrderHistory(walletType: WalletType, params: z.infer<typeof GetOrderHistoryParamsSchema>): Promise<Order[]> {
+  //   const validatedWalletType = WalletTypeSchema.parse(walletType);
+  //   const validatedParams = GetOrderHistoryParamsSchema.parse(params);
+  //   const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/orders/history`, validatedParams);
+  //   return response.map(convertToOrder);
+  // }
 
-  /**
-   * Create sell/buy order.
-   * @param {WalletType} walletType - The wallet type (spot or m).
-   * @param {z.infer<typeof SubmitOrderParamsSchema>} params - The parameters for submitting an order.
-   * @returns {Promise<Order>} A promise that resolves to an Order object.
-   */
-  async submitOrder(walletType: WalletType, params: z.infer<typeof SubmitOrderParamsSchema>): Promise<Order> {
-    const validatedWalletType = WalletTypeSchema.parse(walletType);
-    const validatedParams = SubmitOrderParamsSchema.parse(params);
-    const response = await this.#restHandler.post<any>(`/wallet/${validatedWalletType}/order`, validatedParams);
-    return convertToOrder(response);
-  }
+  // /**
+  //  * Create sell/buy order.
+  //  * @param {WalletType} walletType - The wallet type (spot or m).
+  //  * @param {z.infer<typeof SubmitOrderParamsSchema>} params - The parameters for submitting an order.
+  //  * @returns {Promise<Order>} A promise that resolves to an Order object.
+  //  */
+  // async submitOrder(walletType: WalletType, params: z.infer<typeof SubmitOrderParamsSchema>): Promise<Order> {
+  //   const validatedWalletType = WalletTypeSchema.parse(walletType);
+  //   const validatedParams = SubmitOrderParamsSchema.parse(params);
+  //   const response = await this.#restHandler.post<any>(`/wallet/${validatedWalletType}/order`, validatedParams);
+  //   return convertToOrder(response);
+  // }
 
-  /**
-   * Cancel all your orders with given market and side in different wallet type.
-   * @param {WalletType} walletType - The wallet type (spot or m).
-   * @param {z.infer<typeof CancelAllOrdersParamsSchema>} params - The parameters for cancelling all orders.
-   * @returns {Promise<{ success: boolean }[]>} A promise that resolves to an array of objects indicating success for each cancelled order.
-   */
-  async cancelAllOrders(walletType: WalletType, params: z.infer<typeof CancelAllOrdersParamsSchema>): Promise<{ success: boolean }[]> {
-    const validatedWalletType = WalletTypeSchema.parse(walletType);
-    const validatedParams = CancelAllOrdersParamsSchema.parse(params);
-    return this.#restHandler.delete<{ success: boolean }[]>(`/wallet/${validatedWalletType}/orders`, validatedParams);
-  }
+  // /**
+  //  * Cancel all your orders with given market and side in different wallet type.
+  //  * @param {WalletType} walletType - The wallet type (spot or m).
+  //  * @param {z.infer<typeof CancelAllOrdersParamsSchema>} params - The parameters for cancelling all orders.
+  //* @returns {Promise<{ success: boolean }[]>} A promise that resolves to an array of objects indicating success for each cancelled order.
+  //  */
+  // async cancelAllOrders(walletType: WalletType, params: z.infer<typeof CancelAllOrdersParamsSchema>): Promise<{ success: boolean }[]> {
+  //   const validatedWalletType = WalletTypeSchema.parse(walletType);
+  //   const validatedParams = CancelAllOrdersParamsSchema.parse(params);
+  //   return this.#restHandler.delete<{ success: boolean }[]>(`/wallet/${validatedWalletType}/orders`, validatedParams);
+  // }
 
   /**
    * Get order detail.
@@ -479,18 +474,18 @@ class MaxSDK {
 
   /* TRADE REGION */
 
-  /**
-   * Get executed trades.
-   * @param {WalletType} walletType - The wallet type (spot or m).
-   * @param {z.infer<typeof GetTradesParamsSchema>} params - The parameters for fetching trades.
-   * @returns {Promise<Trade[]>} A promise that resolves to an array of Trade objects.
-   */
-  async getTrades(walletType: WalletType, params: z.infer<typeof GetTradesParamsSchema>): Promise<Trade[]> {
-    const validatedWalletType = WalletTypeSchema.parse(walletType);
-    const validatedParams = GetTradesParamsSchema.parse(params);
-    const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/trades`, validatedParams);
-    return response.map(convertToTrade);
-  }
+  // /**
+  //  * Get executed trades.
+  //  * @param {WalletType} walletType - The wallet type (spot or m).
+  //  * @param {z.infer<typeof GetTradesParamsSchema>} params - The parameters for fetching trades.
+  //  * @returns {Promise<Trade[]>} A promise that resolves to an array of Trade objects.
+  //  */
+  // async getTrades(walletType: WalletType, params: z.infer<typeof GetTradesParamsSchema>): Promise<Trade[]> {
+  //   const validatedWalletType = WalletTypeSchema.parse(walletType);
+  //   const validatedParams = GetTradesParamsSchema.parse(params);
+  //   const response = await this.#restHandler.get<any[]>(`/wallet/${validatedWalletType}/trades`, validatedParams);
+  //   return response.map(convertToTrade);
+  // }
 
   /**
    * Get trade detail by your order info.

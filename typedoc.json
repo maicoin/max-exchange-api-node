@@ -7,6 +7,7 @@
         "src/types.ts",  
         "src/rest/types.ts",
         "src/rest/index.ts",
+        "src/rest/wallet.ts",
         "src/rest/schema.ts",
         "src/ws/types.ts",
         "src/ws/index.ts",

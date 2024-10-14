@@ -29,19 +29,19 @@ const sections = [
   {
     name: 'openOrders',
     run: async (maxV3) => {
-      return await maxV3.getOpenOrders('spot', { market: 'btctwd' });
+      return await maxV3.spotWallet.getOpenOrders({ market: 'btctwd' });
     }
   },
   {
     name: 'closedOrders',
     run: async (maxV3) => {
-      return await maxV3.getClosedOrders('spot', { market: 'btctwd' });
+      return await maxV3.spotWallet.getClosedOrders({ market: 'btctwd' });
     }
   },
   {
     name: 'submitOrder',
     run: async (maxV3) => {
-      return await maxV3.submitOrder('spot', {
+      return await maxV3.spotWallet.submitOrder({
         market: 'btctwd',
         side: 'buy',
         volume: '0.01',
@@ -59,7 +59,7 @@ const sections = [
   {
     name: 'cancelAllOrders',
     run: async (maxV3) => {
-      return await maxV3.cancelAllOrders('spot', { market: 'btctwd' });
+      return await maxV3.spotWallet.cancelAllOrders({ market: 'btctwd' });
     }
   },
   {
@@ -105,13 +105,13 @@ const sections = [
   {
     name: 'trades',
     run: async (maxV3) => {
-      return await maxV3.getTrades('spot', { market: 'btctwd', limit: 10 });
+      return await maxV3.spotWallet.getTrades({ market: 'btctwd', limit: 10 });
     }
   },
   {
     name: 'accounts',
     run: async (maxV3) => {
-      return await maxV3.getAccounts('spot', { market: 'btc' });
+      return await maxV3.spotWallet.getAccounts({ market: 'btc' });
     }
   },
   {

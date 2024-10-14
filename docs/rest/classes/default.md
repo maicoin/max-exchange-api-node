@@ -30,6 +30,18 @@ The base URL for the API.
 
 [`default`](default.md)
 
+## Properties
+
+### mWallet
+
+> **mWallet**: [`default`](../wallet/classes/default.md)
+
+***
+
+### spotWallet
+
+> **spotWallet**: [`default`](../wallet/classes/default.md)
+
 ## Methods
 
 ### calibrateTime()
@@ -45,36 +57,6 @@ If the difference is larger than 30 seconds, it adjusts the local time differenc
 `Promise`\<`string`\>
 
 A promise that resolves to a string message indicating whether the time was synced or not.
-
-***
-
-### cancelAllOrders()
-
-> **cancelAllOrders**(`walletType`, `params`): `Promise`\<`object`[]\>
-
-Cancel all your orders with given market and side in different wallet type.
-
-#### Parameters
-
-• **walletType**: `"spot"` \| `"m"`
-
-The wallet type (spot or m).
-
-• **params**
-
-The parameters for cancelling all orders.
-
-• **params.group\_id?**: `number` = `...`
-
-• **params.market?**: `string` = `...`
-
-• **params.side?**: `"buy"` \| `"sell"` = `...`
-
-#### Returns
-
-`Promise`\<`object`[]\>
-
-A promise that resolves to an array of objects indicating success for each cancelled order.
 
 ***
 
@@ -106,32 +88,6 @@ A promise that resolves to an object indicating success.
 
 ***
 
-### getAccounts()
-
-> **getAccounts**(`walletType`, `params`): `Promise`\<[`Account`](../types/interfaces/Account.md)[]\>
-
-Get your account balance with all supported currencies by different wallet type.
-
-#### Parameters
-
-• **walletType**: `"spot"` \| `"m"`
-
-The wallet type (spot or m).
-
-• **params**
-
-The parameters for fetching account balances.
-
-• **params.currency?**: `string` = `...`
-
-#### Returns
-
-`Promise`\<[`Account`](../types/interfaces/Account.md)[]\>
-
-A promise that resolves to an array of Account objects.
-
-***
-
 ### getAdRatio()
 
 > **getAdRatio**(): `Promise`\<[`AdRatio`](../types/interfaces/AdRatio.md)\>
@@ -143,38 +99,6 @@ Get the latest AD ratio of your m-wallet.
 `Promise`\<[`AdRatio`](../types/interfaces/AdRatio.md)\>
 
 A promise that resolves to an AdRatio object.
-
-***
-
-### getClosedOrders()
-
-> **getClosedOrders**(`walletType`, `params`): `Promise`\<[`Order`](../types/interfaces/Order.md)[]\>
-
-Get closed orders.
-
-#### Parameters
-
-• **walletType**: `"spot"` \| `"m"`
-
-The wallet type (spot or m).
-
-• **params**
-
-The parameters for fetching closed orders.
-
-• **params.limit?**: `number` = `...`
-
-• **params.market**: `string` = `...`
-
-• **params.orderBy?**: `"asc"` \| `"desc"` \| `"asc_updated_at"` \| `"desc_updated_at"` = `...`
-
-• **params.timestamp?**: `number` = `...`
-
-#### Returns
-
-`Promise`\<[`Order`](../types/interfaces/Order.md)[]\>
-
-A promise that resolves to an array of Order objects.
 
 ***
 
@@ -514,38 +438,6 @@ A promise that resolves to an array of Market objects.
 
 ***
 
-### getOpenOrders()
-
-> **getOpenOrders**(`walletType`, `params`): `Promise`\<[`Order`](../types/interfaces/Order.md)[]\>
-
-Get open orders.
-
-#### Parameters
-
-• **walletType**: `"spot"` \| `"m"`
-
-The wallet type (spot or m).
-
-• **params**
-
-The parameters for fetching open orders.
-
-• **params.limit?**: `number` = `...`
-
-• **params.market**: `string` = `...`
-
-• **params.orderBy?**: `"asc"` \| `"desc"` \| `"asc_updated_at"` \| `"desc_updated_at"` = `...`
-
-• **params.timestamp?**: `number` = `...`
-
-#### Returns
-
-`Promise`\<[`Order`](../types/interfaces/Order.md)[]\>
-
-A promise that resolves to an array of Order objects.
-
-***
-
 ### getOrder()
 
 > **getOrder**(`params`): `Promise`\<[`Order`](../types/interfaces/Order.md)\>
@@ -567,36 +459,6 @@ The parameters for fetching order details.
 `Promise`\<[`Order`](../types/interfaces/Order.md)\>
 
 A promise that resolves to an Order object.
-
-***
-
-### getOrderHistory()
-
-> **getOrderHistory**(`walletType`, `params`): `Promise`\<[`Order`](../types/interfaces/Order.md)[]\>
-
-Get order history in ascending order from a specific from_id.
-
-#### Parameters
-
-• **walletType**: `"spot"` \| `"m"`
-
-The wallet type (spot or m).
-
-• **params**
-
-The parameters for fetching order history.
-
-• **params.fromId?**: `number` = `...`
-
-• **params.limit?**: `number` = `...`
-
-• **params.market**: `string` = `...`
-
-#### Returns
-
-`Promise`\<[`Order`](../types/interfaces/Order.md)[]\>
-
-A promise that resolves to an array of Order objects.
 
 ***
 
@@ -766,40 +628,6 @@ A promise that resolves to a Timestamp object.
 
 ***
 
-### getTrades()
-
-> **getTrades**(`walletType`, `params`): `Promise`\<[`Trade`](../types/interfaces/Trade.md)[]\>
-
-Get executed trades.
-
-#### Parameters
-
-• **walletType**: `"spot"` \| `"m"`
-
-The wallet type (spot or m).
-
-• **params**
-
-The parameters for fetching trades.
-
-• **params.fromId?**: `number` = `...`
-
-• **params.limit?**: `number` = `...`
-
-• **params.market?**: `string` = `...`
-
-• **params.order?**: `"asc"` \| `"desc"` = `...`
-
-• **params.timestamp?**: `number` = `...`
-
-#### Returns
-
-`Promise`\<[`Trade`](../types/interfaces/Trade.md)[]\>
-
-A promise that resolves to an array of Trade objects.
-
-***
-
 ### getTransfers()
 
 > **getTransfers**(`params`): `Promise`\<[`BorrowingTransfer`](../types/interfaces/BorrowingTransfer.md)[]\>
@@ -910,7 +738,7 @@ The parameters for fetching withdrawal history.
 
 • **params.order?**: `"asc"` \| `"desc"` = `...`
 
-• **params.state?**: `"processing"` \| `"failed"` \| `"canceled"` \| `"done"` = `...`
+• **params.state?**: `"done"` \| `"processing"` \| `"failed"` \| `"canceled"` = `...`
 
 • **params.timestamp?**: `number` = `...`
 
@@ -943,46 +771,6 @@ The parameters for submitting a loan.
 `Promise`\<[`Debt`](../types/interfaces/Debt.md)\>
 
 A promise that resolves to a Debt object.
-
-***
-
-### submitOrder()
-
-> **submitOrder**(`walletType`, `params`): `Promise`\<[`Order`](../types/interfaces/Order.md)\>
-
-Create sell/buy order.
-
-#### Parameters
-
-• **walletType**: `"spot"` \| `"m"`
-
-The wallet type (spot or m).
-
-• **params**
-
-The parameters for submitting an order.
-
-• **params.clientOid?**: `string` = `...`
-
-• **params.group\_id?**: `number` = `...`
-
-• **params.market**: `string` = `...`
-
-• **params.ord\_type?**: `"market"` \| `"limit"` \| `"stopMarket"` \| `"stopLimit"` \| `"postOnly"` \| `"iocLimit"` = `...`
-
-• **params.price?**: `string` = `...`
-
-• **params.side**: `"buy"` \| `"sell"` = `...`
-
-• **params.stop\_price?**: `string` = `...`
-
-• **params.volume**: `string` = `...`
-
-#### Returns
-
-`Promise`\<[`Order`](../types/interfaces/Order.md)\>
-
-A promise that resolves to an Order object.
 
 ***
 

@@ -80,7 +80,7 @@ try {
 
 // Get account balances
 try {
-  const accounts = await rest.getAccounts('spot', { market: 'btc' });
+  const accounts = await rest.spotWallet.getAccounts({ market: 'btc' });
   console.log(accounts);
 } catch (error) {
   console.error(error.message);
@@ -88,7 +88,7 @@ try {
 
 // Place a limit order
 try {
-  const order = await rest.submitOrder('spot', {
+  const order = await rest.spotWallet.submitOrder({
     market: 'btctwd',
     side: 'buy',
     volume: '0.001',
@@ -102,7 +102,7 @@ try {
 
 // Get open orders
 try {
-  const orders = await rest.getOpenOrders('spot', { market: 'btctwd' });
+  const orders = await rest.spotWallet.getOpenOrders({ market: 'btctwd' });
   console.log(orders);
 } catch (error) {
   console.error(error.message);

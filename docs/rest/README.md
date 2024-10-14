@@ -104,12 +104,6 @@ Re-exports [GetOrderParams](schema/type-aliases/GetOrderParams.md)
 
 ***
 
-### GetOrderParamsSchema
-
-Re-exports [GetOrderParamsSchema](schema/variables/GetOrderParamsSchema.md)
-
-***
-
 ### GetOrderTradesParams
 
 Re-exports [GetOrderTradesParams](schema/type-aliases/GetOrderTradesParams.md)
