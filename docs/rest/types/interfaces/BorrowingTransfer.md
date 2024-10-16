@@ -28,7 +28,7 @@
 
 ### side
 
-> **side**: `string`
+> **side**: `"in"` \| `"out"`
 
 ***
 

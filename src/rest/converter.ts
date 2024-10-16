@@ -65,8 +65,8 @@ export const convertToDepth = (data: any): Depth => ({
   timestamp: new Date(data.timestamp * 1000),
   lastUpdateVersion: data.lastUpdateVersion,
   lastUpdateId: data.lastUpdateId,
-  asks: data.asks.map(convertToPriceVolume),
-  bids: data.bids.map(convertToPriceVolume),
+  asks: data.asks.map(convertToPriceVolume) as PriceVolume,
+  bids: data.bids.map(convertToPriceVolume) as PriceVolume,
 });
 
 export const convertToPublicTrade = (data: any): PublicTrade => ({
@@ -134,6 +134,7 @@ export const convertToRepayment = (data: any): Repayment => ({
   amount: new Decimal(data.amount),
   principal: new Decimal(data.principal),
   interest: new Decimal(data.interest),
+   createdAt: new Date(data.createdAt),
 });
 
 export const convertToForcedLiquidation = (data: any): ForcedLiquidation => ({

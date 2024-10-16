@@ -40,7 +40,7 @@
 
 ### type
 
-> **type**: `string`
+> **type**: `"buy"` \| `"sell"`
 
 ***
 

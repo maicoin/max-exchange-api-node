@@ -28,10 +28,10 @@ export interface Trade {
   fee: Decimal | null;
   feeCurrency: string | null;
   feeDiscounted: boolean | null;
-  selfTradeBidFee: Decimal | null;
-  selfTradeBidFeeCurrency: string | null;
-  selfTradeBidFeeDiscounted: boolean | null;
-  selfTradeBidOrderId: number | null;
+  selfTradeBidFee: Decimal | null | undefined; 
+  selfTradeBidFeeCurrency: string | null | undefined;
+  selfTradeBidFeeDiscounted: boolean | null | undefined;
+  selfTradeBidOrderId: number | null | undefined; 
   liquidity: 'maker' | 'taker';
   createdAt: Date;
 }
@@ -75,14 +75,14 @@ export interface Debt {
   sn: string;
   currency: string;
   amount: Decimal;
-  state: string;
+  state: string; // ??
   createdAt: Date;
   interestRate: Decimal;
 }
 
 export interface BorrowingTransfer {
   sn: string;
-  side: string;
+  side: 'in' | 'out';
   currency: string;
   amount: Decimal;
   createdAt: Date;
@@ -113,12 +113,13 @@ export interface Repayment {
   principal: Decimal;
   interest: Decimal;
   sn: string;
-  state: string;
+  state: string; // ??
+  createdAt: Date;
 }
 
 export interface ForcedLiquidation {
   market: string;
-  type: string;
+  type: 'sell' | 'buy';
   price: Decimal;
   volume: Decimal;
   fee: Decimal;
@@ -152,7 +153,7 @@ export interface Market {
 }
 
 export interface CurrencyNetwork {
-  tokenContractAddress: string | null;
+  tokenContractAddress: string | null; // 
   precision: number;
   id: string;
   networkProtocol: string;
@@ -171,7 +172,7 @@ export interface Staking {
 
 export interface Currency {
   currency: string;
-  type: string;
+  type: 'crypto' | 'fiat';
   precision: number;
   mWalletSupported: boolean;
   mWalletMortgageable: boolean;
@@ -199,9 +200,9 @@ export interface Ticker {
   market: string;
   at: Date;
   buy: Decimal;
-  buyVol: Decimal;
+  buyVol: Decimal | undefined;
   sell: Decimal;
-  sellVol: Decimal;
+  sellVol: Decimal | undefined;
   open: Decimal;
   low: Decimal;
   high: Decimal;
@@ -300,6 +301,6 @@ export interface Depth {
   timestamp: Date;
   lastUpdateVersion: number;
   lastUpdateId: number;
-  asks: [string, string];
-  bids: [string, string];
+  asks: PriceVolume;
+  bids: PriceVolume;
 }

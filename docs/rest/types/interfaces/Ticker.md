@@ -22,7 +22,7 @@
 
 ### buyVol
 
-> **buyVol**: `Decimal`
+> **buyVol**: `undefined` \| `Decimal`
 
 ***
 
@@ -64,7 +64,7 @@
 
 ### sellVol
 
-> **sellVol**: `Decimal`
+> **sellVol**: `undefined` \| `Decimal`
 
 ***
 

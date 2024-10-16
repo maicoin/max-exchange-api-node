@@ -58,4 +58,4 @@
 
 ### type
 
-> **type**: `string`
+> **type**: `"crypto"` \| `"fiat"`

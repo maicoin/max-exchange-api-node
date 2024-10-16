@@ -10,13 +10,13 @@
 
 ### asks
 
-> **asks**: [`string`, `string`]
+> **asks**: [`PriceVolume`](PriceVolume.md)
 
 ***
 
 ### bids
 
-> **bids**: [`string`, `string`]
+> **bids**: [`PriceVolume`](PriceVolume.md)
 
 ***
 

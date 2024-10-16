@@ -14,6 +14,12 @@
 
 ***
 
+### createdAt
+
+> **createdAt**: `Date`
+
+***
+
 ### currency
 
 > **currency**: `string`

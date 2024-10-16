@@ -76,25 +76,25 @@
 
 ### selfTradeBidFee
 
-> **selfTradeBidFee**: `null` \| `Decimal`
+> **selfTradeBidFee**: `undefined` \| `null` \| `Decimal`
 
 ***
 
 ### selfTradeBidFeeCurrency
 
-> **selfTradeBidFeeCurrency**: `null` \| `string`
+> **selfTradeBidFeeCurrency**: `undefined` \| `null` \| `string`
 
 ***
 
 ### selfTradeBidFeeDiscounted
 
-> **selfTradeBidFeeDiscounted**: `null` \| `boolean`
+> **selfTradeBidFeeDiscounted**: `undefined` \| `null` \| `boolean`
 
 ***
 
 ### selfTradeBidOrderId
 
-> **selfTradeBidOrderId**: `null` \| `number`
+> **selfTradeBidOrderId**: `undefined` \| `null` \| `number`
 
 ***
 
