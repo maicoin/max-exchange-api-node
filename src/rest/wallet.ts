@@ -55,11 +55,11 @@ export default class Wallet {
   #walletType: WalletType;
   #restHandler: RestHandler;
 
+  /** @ignore */
   constructor(private restHandler: RestHandler, private walletType: WalletType) {
     this.#walletType = walletType;
     this.#restHandler = restHandler;
   }
-
 
   /**
   * Get your account balance with all supported currencies by different wallet type.

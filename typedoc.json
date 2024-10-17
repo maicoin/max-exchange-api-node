@@ -17,6 +17,7 @@
     "disableSources": true,
     "exclude": [
         "**/*.spec.ts",
+        "**/*.test.ts",
         "**/node_modules/**",
         "**/events.d.ts",
         "**/eventemitter.d.ts"

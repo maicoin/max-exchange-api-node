@@ -6,22 +6,6 @@
 
 # Class: default
 
-## Constructors
-
-### new default()
-
-> **new default**(`restHandler`, `walletType`): [`default`](default.md)
-
-#### Parameters
-
-• **restHandler**: `RestHandler`
-
-• **walletType**: `"spot"` \| `"m"`
-
-#### Returns
-
-[`default`](default.md)
-
 ## Methods
 
 ### cancelAllOrders()
