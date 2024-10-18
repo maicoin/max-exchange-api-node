@@ -200,9 +200,9 @@ export interface Ticker {
   market: string;
   at: Date;
   buy: Decimal;
-  buyVol: Decimal | undefined;
+  buyVol: Decimal; 
   sell: Decimal;
-  sellVol: Decimal | undefined;
+  sellVol: Decimal;
   open: Decimal;
   low: Decimal;
   high: Decimal;

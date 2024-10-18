@@ -104,7 +104,7 @@ export interface Order {
   volume: Decimal;
   remainingVolume: Decimal;
   executedVolume: Decimal;
-  state: 'wait' | 'done' | 'cancel'; // Possible values: "wait", "done", "cancel"
+  state: 'wait' | 'done' | 'cancel' | 'convert'; // Possible values: "wait", "done", "cancel"
   market: string;
   tradesCount: number;
   createdAt: Date;
