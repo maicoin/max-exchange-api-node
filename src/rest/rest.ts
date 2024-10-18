@@ -1,7 +1,9 @@
 import crypto from 'crypto';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { snakeCase, camelCase } from 'change-case/keys';
+
+import { version } from '../../package.json';
+
 
 interface RequestData {
   [key: string]: any;
@@ -97,7 +99,7 @@ class RestHandler {
       'X-MAX-PAYLOAD': payload,
       'X-MAX-SIGNATURE': signature,
       'X-MAX-ACCESSKEY': this.#accessKey,
-      'User-Agent': 'MAX Node/2.0.0',
+      'User-Agent': `MAX Node/${version}`, 
       'Content-Type': 'application/json',
     };
 
