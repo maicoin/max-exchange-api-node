@@ -1,0 +1,26 @@
+{
+    "btc": {
+        "hourly_interest_rate": "0.00000114155",
+        "next_hourly_interest_rate": "0.00000114155"
+    },
+    "eth": {
+        "hourly_interest_rate": "0.00000114155",
+        "next_hourly_interest_rate": "0.00000114155"
+    },
+    "usdt": {
+        "hourly_interest_rate": "0.000006021119",
+        "next_hourly_interest_rate": "0.000006021119"
+    },
+    "link": {
+        "hourly_interest_rate": "0.0001",
+        "next_hourly_interest_rate": "0.0001"
+    },
+    "doge": {
+        "hourly_interest_rate": "0.0000123",
+        "next_hourly_interest_rate": "0.0000123"
+    },
+    "ltc": {
+        "hourly_interest_rate": "0.00001",
+        "next_hourly_interest_rate": "0.00001"
+    }
+}

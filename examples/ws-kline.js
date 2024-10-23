@@ -1,15 +1,20 @@
-const WebSocketAPI = require('../lib/transports/websocket')
+import { MAX } from '../dist/index.js';
 
-const ws = new WebSocketAPI({ accessKey: '', secretKey: '' })
+if (!process.env.MAX_API_KEY || !process.env.MAX_API_SECRET) {
+  console.error('env vars MAX_API_KEY and MAX_API_SECRET are required')
+  process.exit(-1)
+}
 
-ws.subscribe('kline', 'btctwd', { interval: '1m' })
-ws.subscribe('kline', 'btctwd', { interval: '5m' })
-ws.subscribe('kline', 'btctwd', { interval: '1h' })
+const { ws } = new MAX({ accessKey: process.env.MAX_API_KEY, secretKey: process.env.MAX_API_SECRET })
+
+ws.subscribe('kline', 'btctwd', { resolution: '1m' })
+ws.subscribe('kline', 'btctwd', { resolution: '5m' })
+ws.subscribe('kline', 'btctwd', { resolution: '1h' })
 
 ws.on('kline.snapshot', (kline) => { console.log(kline) })
 ws.on('kline.update', (kline) => { console.log(kline) })
 
-ws.on('raw', (body) => console.log(body))
+// ws.on('raw', (body) => console.log(body))
 ws.on('error', (errors) => {
   console.error(errors)
 })
