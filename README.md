@@ -16,6 +16,11 @@ This library provides a flexible and easy-to-use interface for interacting with 
 - Comprehensive error handling
 - Time synchronization utilities
 
+## Migration from v2
+
+If you're upgrading from v2.0.0 to v3.0.x, please check our [Migration Guide](./MIGRATION_V2_TO_V3.md) for detailed information about breaking changes and new features.
+
+
 ## Documentation
 
 * [REST API Introduction](https://max.maicoin.com/documents/api_v2)
