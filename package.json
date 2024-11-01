@@ -19,7 +19,8 @@
     "dev": "tsup ./src/index.ts --watch",
     "lint": "eslint '{src,test}/**/*.ts' --fix",
     "docs": "typedoc",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "release": "npm run lint && npm test && standard-version"
   },
   "repository": {
     "type": "git",
@@ -56,6 +57,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3",
+    "standard-version": "^9.5.0",
     "tsup": "^8.2.4",
     "typedoc": "^0.26.7",
     "typedoc-plugin-markdown": "^4.2.9",

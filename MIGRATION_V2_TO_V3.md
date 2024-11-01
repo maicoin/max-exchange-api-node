@@ -109,7 +109,7 @@ const { rest, ws } = max  // REST and WebSocket client are now properties
 ### Account & Profile Endpoints
 | Old Version (v2) | New Version (v3) | |
 |-------------|-------------|------|
-| `me()` | `getUserInfo()` |  v3 only support api releted fields |   
+| `me()` | `getUserInfo()` |  v3 only support api related fields |   
 | `profile()` | - | |
 | `accounts()` | `(spot/m)Wallet.getAccounts()` |  |
 | `account(currency)` | `-` |  |
