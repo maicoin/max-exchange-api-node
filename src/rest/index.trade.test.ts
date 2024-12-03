@@ -710,4 +710,68 @@ describe('MaxSDK Trade Methods - Part 2', () => {
       await expect(maxSDK.getRewards(params)).rejects.toThrow('Network Error');
     });
   });
+
+  describe('getDepositAddress', () => {
+    it('should return deposit address with correct structure', async () => {
+      const params = {
+        currency_version: 'btc' as const
+      };
+  
+      const mockDepositAddress: any = await import('../../tests/fixtures/depositAddress.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
+
+      const mockCurrencies: any = await import('../../tests/fixtures/currencies.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
+
+      mockRestHandler.get.mockImplementation((url: string) => {
+        if (url.includes('/currencies')) {
+          return Promise.resolve(mockCurrencies);
+        } else {
+          return Promise.resolve(mockDepositAddress);
+        }
+      });
+
+      const result = await maxSDK.getDepositAddress(params);
+  
+      expect(result).toEqual(mockDepositAddress);
+      expect(result).toMatchObject({
+        currency: expect.any(String),
+        networkProtocol: expect.any(String),
+        currencyVersion: expect.any(String),
+        address: expect.any(String)
+      });
+    });
+  
+    it('should handle null address when not yet generated', async () => {
+      const params = {
+        currency_version: 'btc' as const
+      };
+  
+      const mockDepositAddress = {
+        currency: 'btc',
+        networkProtocol: 'bitcoin',
+        currencyVersion: 'btc',
+        address: null
+      };
+  
+      const mockCurrencies: any = await import('../../tests/fixtures/currencies.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
+
+      mockRestHandler.get.mockImplementation((url: string) => {
+        if (url.includes('/currencies')) {
+          return Promise.resolve(mockCurrencies);
+        } else {
+          return Promise.resolve(mockDepositAddress);
+        }
+      });
+  
+      const result = await maxSDK.getDepositAddress(params);
+  
+      expect(result).toEqual(mockDepositAddress);
+      expect(result.address).toBeNull();
+    });
+  });
 });
