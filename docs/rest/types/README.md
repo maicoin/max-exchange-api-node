@@ -17,6 +17,7 @@
 - [CurrencyNetwork](interfaces/CurrencyNetwork.md)
 - [Debt](interfaces/Debt.md)
 - [Deposit](interfaces/Deposit.md)
+- [DepositAddress](interfaces/DepositAddress.md)
 - [Depth](interfaces/Depth.md)
 - [ForcedLiquidation](interfaces/ForcedLiquidation.md)
 - [FundSource](interfaces/FundSource.md)

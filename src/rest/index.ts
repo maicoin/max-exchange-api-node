@@ -10,6 +10,7 @@ import {
   convertToCurrency,
   convertToDebt,
   convertToDeposit,
+  convertToDepositAddress,
   convertToDepth,
   convertToFundSource,
   convertToIndexPrice,
@@ -86,6 +87,8 @@ import {
   type SubmitWithdrawalParams,
   TransferBetweenWalletsParamsSchema,
   type TransferBetweenWalletsParams,
+  GetDepositAddressParams,
+  GetDepositAddressParamsSchema,
 } from './schema.js';
 import type {
   AdRatio,
@@ -113,8 +116,28 @@ import type {
   Withdrawal,
   Depth,
   IndexPrices,
+  DepositAddress,
 } from './types.js';
 import Wallet from './wallet.js';
+
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+// Function to extract all valid network IDs from currencies response
+function extractNetworkIDs(currencies: Currency[]): Set<string> {
+  const networkIDs = new Set<string>();
+
+  currencies.forEach(currency => {
+    if (Array.isArray(currency.networks)) {
+      currency.networks.forEach((network) => {
+        if (network.id) {
+          networkIDs.add(network.id);
+        }
+      });
+    }
+  });
+
+  return networkIDs;
+}
 
 /**
  * MaxSDK class for interacting with the MAX API.
@@ -123,6 +146,12 @@ class MaxSDK {
   #restHandler: RestHandler;
   mWallet: Wallet;
   spotWallet: Wallet;
+
+  // Cache for storing network IDs
+  #networkIDsCache: Set<string> | null = null;
+  #lastCacheUpdate: number = 0;
+  #lastCurrencyCacheUpdate: number = 0;
+  #currencies: Currency[] | null = null;
 
   /**
    * Creates an instance of MaxSDK.
@@ -201,8 +230,13 @@ class MaxSDK {
    * @returns {Promise<Currency[]>} A promise that resolves to an array of Currency objects.
    */
   async getCurrencies(): Promise<Currency[]> {
-    const response = await this.#restHandler.get<any[]>('/currencies');
-    return response.map(convertToCurrency);
+    const now = Date.now();
+    if (!this.#currencies || now - this.#lastCurrencyCacheUpdate > CACHE_TTL) {
+      const response = await this.#restHandler.get<any[]>('/currencies');
+      this.#currencies = response.map(convertToCurrency);
+      this.#lastCurrencyCacheUpdate = now;
+    }
+    return this.#currencies;
   }
 
   /**
@@ -364,6 +398,10 @@ class MaxSDK {
    */
   async getWithdrawAddresses(params: GetWithdrawAddressesParams): Promise<FundSource[]> {
     const validatedParams = GetWithdrawAddressesParamsSchema.parse(params);
+    const currencies = await this.getCurrencies();
+    if(currencies.findIndex(x=>x.currency === params.currency ) < 0) {
+      throw new Error(`Invalid currency: ${params.currency}. Must be one of the available currency IDs from /currencies API.`);
+    }
     const response = await this.#restHandler.get<any[]>('/withdraw_addresses', validatedParams);
     return response.map(convertToFundSource);
   }
@@ -493,6 +531,19 @@ class MaxSDK {
   }
 
   /**
+ * Get user deposit address by currency version.
+ * The address could be empty before generated, please request again in that case.
+ * @param {GetDepositAddressParams} params - The parameters for fetching deposit address.
+ * @returns {Promise<DepositAddress>} A promise that resolves to a DepositAddress object.
+ */
+  async getDepositAddress(params: GetDepositAddressParams): Promise<DepositAddress> {
+    const validatedParams = GetDepositAddressParamsSchema.parse(params);
+    this.#validateCurrencyVersion(params.currency_version);
+    const response = await this.#restHandler.get<any>('/deposit_address', validatedParams);
+    return convertToDepositAddress(response);
+  }
+
+  /**
    * Get internal transfers history.
    * @param {GetInternalTransfersParams} params - The parameters for fetching internal transfer history.
    * @returns {Promise<InternalTransfer[]>} A promise that resolves to an array of InternalTransfer objects.
@@ -531,6 +582,23 @@ class MaxSDK {
     }
     return 'Local Time is synced.';
   }
+
+  async #validateCurrencyVersion(currency_version: string): Promise<void> {
+    const now = Date.now();
+    if (!this.#networkIDsCache || now - this.#lastCacheUpdate > CACHE_TTL) {
+      // Fetch fresh currencies data
+      const currencies = await this.getCurrencies();
+      this.#networkIDsCache = extractNetworkIDs(currencies);
+      this.#lastCacheUpdate = now;
+    }
+    // Validate currency_version against cached network IDs
+    if (!this.#networkIDsCache.has(currency_version)) {
+      throw new Error(`Invalid currency_version: ${currency_version}. Must be one of the available network IDs from /currencies API.`);
+    }
+
+    return;
+  }
+
 }
 
 export default MaxSDK;

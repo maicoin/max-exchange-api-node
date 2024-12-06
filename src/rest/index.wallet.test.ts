@@ -516,7 +516,17 @@ describe('MaxSDK Wallet Methods', () => {
         camelCase(result.default, Infinity)
       );
 
-      mockRestHandler.get.mockResolvedValue(mockWithdrawAddresses);
+      const mockCurrencies: any = await import('../../tests/fixtures/currencies.json').then((result) =>
+        camelCase(result.default, Infinity)
+      );
+
+      mockRestHandler.get.mockImplementation((url: string) => {
+        if (url.includes('/currencies')) {
+          return Promise.resolve(mockCurrencies);
+        } else {
+          return Promise.resolve(mockWithdrawAddresses);
+        }
+      });
 
       const result = await maxSDK.getWithdrawAddresses(params);
 

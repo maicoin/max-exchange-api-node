@@ -304,3 +304,10 @@ export interface Depth {
   asks: PriceVolume;
   bids: PriceVolume;
 }
+
+export interface DepositAddress {
+  currency: string;
+  networkProtocol: string;
+  currencyVersion: string;
+  address: string | null;
+}
