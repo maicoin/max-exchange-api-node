@@ -206,6 +206,7 @@ describe('MaxSDK', () => {
           side: 'buy',
           volume: '0.1',
           price: '50000',
+          ord_type: 'iocLimit',
         };
 
         mockRestHandler.post.mockResolvedValue(mockSpotOrder);
@@ -248,8 +249,35 @@ describe('MaxSDK', () => {
 
         await expect(maxSDK.spotWallet.submitOrder(params)).rejects.toThrow('Network Error');
       });
-    });
 
+      it('should convert params to snake_case when submitting order', async () => {
+        const params: SubmitOrderParams = {
+          market: 'btctwd',
+          side: 'buy',
+          volume: '0.1',
+          price: '50000',
+          ord_type: 'iocLimit',
+          stop_price: '48000',
+        };
+
+        mockRestHandler.post.mockResolvedValue(mockSpotOrder);
+
+        await maxSDK.spotWallet.submitOrder(params);
+
+        // Verify the post call received snake_case parameters
+        expect(mockRestHandler.post).toHaveBeenCalledWith(
+          '/wallet/spot/order',
+          expect.objectContaining({
+            market: 'btctwd',
+            side: 'buy',
+            volume: '0.1',
+            price: '50000',
+            ord_type: 'ioc_limit',
+            stop_price: '48000',    // should be converted to snake_case
+          })
+        );
+      });
+    });
     describe('cancelAllOrders', () => {
       it('should cancel all orders and return success status', async () => {
         const params: CancelAllOrdersParams = {

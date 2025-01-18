@@ -1,3 +1,5 @@
+import { snakeCase } from 'change-case';
+
 import {
   convertToAccount,
   convertToOrder,
@@ -86,8 +88,11 @@ export default class Wallet {
    * @returns {Promise<Order>} A promise that resolves to an Order object.
    */
   async submitOrder(params: SubmitOrderParams): Promise<Order> {
-    const validatedParams = SubmitOrderParamsSchema.parse(params);
-    const response = await this.#restHandler.post<any>(`/wallet/${this.#walletType}/order`, validatedParams);
+    const validatedParams = SubmitOrderParamsSchema.parse(params) as any;
+    if(validatedParams.ord_type) {
+      validatedParams.ord_type  = snakeCase(validatedParams.ord_type);
+    }
+    const response = await this.#restHandler.post<any>(`/wallet/${this.#walletType}/order`, validatedParams)
     return convertToOrder(response);
   }
 
