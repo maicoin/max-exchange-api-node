@@ -140,6 +140,29 @@ A promise that resolves to a Deposit object.
 
 ***
 
+### getDepositAddress()
+
+> **getDepositAddress**(`params`): `Promise`\<[`DepositAddress`](../types/interfaces/DepositAddress.md)\>
+
+Get user deposit address by currency version.
+The address could be empty before generated, please request again in that case.
+
+#### Parameters
+
+• **params**
+
+The parameters for fetching deposit address.
+
+• **params.currency\_version**: `string` = `...`
+
+#### Returns
+
+`Promise`\<[`DepositAddress`](../types/interfaces/DepositAddress.md)\>
+
+A promise that resolves to a DepositAddress object.
+
+***
+
 ### getDeposits()
 
 > **getDeposits**(`params`): `Promise`\<[`Deposit`](../types/interfaces/Deposit.md)[]\>

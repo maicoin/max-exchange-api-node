@@ -256,3 +256,10 @@ export const CancelAllOrdersParamsSchema = z.object({
   group_id: z.number().optional(),
 });
 export type CancelAllOrdersParams = z.infer<typeof CancelAllOrdersParamsSchema>;
+
+
+export const GetDepositAddressParamsSchema = z.object({
+  currency_version: z.string(),
+});
+
+export type GetDepositAddressParams = z.infer<typeof GetDepositAddressParamsSchema>;

@@ -31,6 +31,7 @@ import type {
   CurrencyNetwork,
   IndexPrices,
   PriceVolume,
+  DepositAddress,
 } from './types.js';
 
 export const convertToIndexPrice = (data: any): IndexPrice => ({
@@ -134,7 +135,7 @@ export const convertToRepayment = (data: any): Repayment => ({
   amount: new Decimal(data.amount),
   principal: new Decimal(data.principal),
   interest: new Decimal(data.interest),
-   createdAt: new Date(data.createdAt),
+  createdAt: new Date(data.createdAt),
 });
 
 export const convertToForcedLiquidation = (data: any): ForcedLiquidation => ({
@@ -265,3 +266,12 @@ export const convertToIndexPrices = (data: Record<string, string>): IndexPrices 
     acc[key] = new Decimal(value);
     return acc;
   }, {} as IndexPrices);
+
+export function convertToDepositAddress(data: any): DepositAddress {
+  return {
+    currency: data.currency,
+    networkProtocol: data.networkProtocol,
+    currencyVersion: data.currencyVersion,
+    address: data.address
+  };
+}  
