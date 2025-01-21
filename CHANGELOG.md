@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/maicoin/max-exchange-api-node/compare/v3.0.0...v3.0.1) (2025-01-18)
+
+
+### Bug Fixes
+
+* ord_type value case error ([080c8a7](https://github.com/maicoin/max-exchange-api-node/commit/080c8a73f975cb1306ef6365aeb6671973516908))
+
 ## [3.0.0](https://github.com/maicoin/max-exchange-api-node/compare/v2.0.0...v3.0.0) (2024-11-01)
 
 
